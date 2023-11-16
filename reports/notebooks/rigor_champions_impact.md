@@ -29,7 +29,7 @@ quick_module_feedback <- readRDS(here::here("data", "raw", "quick_module_feedbac
 ```
 
 ``` r
-program_dates <- as.Date(c("2023-01-30", "2023-05-22", "2023-08-07"))
+program_dates <- as.Date(c("2023-01-30", "2023-03-27", "2023-05-22", "2023-08-07", "2023-09-27"))
 
 quick_module_feedback |> 
   dplyr::count(date) |> 
@@ -39,15 +39,17 @@ quick_module_feedback |>
   labs(x=NULL, y = "Number of responses", title = "Cumulative total feedback responses submitted") +
   annotate("rect", fill = chop_blue, alpha = 0.3, 
         xmin = program_dates[1], 
-        xmax = program_dates[2],
+        xmax = program_dates[3],
         ymin = -Inf, ymax = Inf)  + 
   annotate("rect", fill = chop_blue, alpha = 0.3, 
-        xmin = program_dates[3], 
+        xmin = program_dates[4], 
         xmax = max(as.Date(quick_module_feedback$date)),
         ymin = -Inf, ymax = Inf)  + 
   geom_line(color = chop_darkblue) + 
   scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") + 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + 
+  annotate("text", x = program_dates[2], y = 500, label = "Wave 1") + 
+  annotate("text", x = program_dates[5], y = 500, label = "Wave 2")
 ```
 
 ![](rigor_champions_impact_files/figure-gfm/feedback_over_time-1.png)<!-- -->
