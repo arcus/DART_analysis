@@ -29,7 +29,7 @@ quick_module_feedback <- readRDS(here::here("data", "raw", "quick_module_feedbac
 ```
 
 ``` r
-program_dates <- as.Date(c("2023-01-30", "2023-03-27", "2023-05-22", "2023-08-07", "2023-09-27", "2023-11-27"))
+program_dates <- as.Date(c("2023-01-30", "2023-03-27", "2023-05-22", "2023-08-07", "2023-09-30", "2023-11-27"))
 names(program_dates) <- c("w1_start", "w1_mid", "w1_end", "w2_start", "w2_mid", "w2_end")
 
 quick_module_feedback |> 
