@@ -31,7 +31,8 @@ quick_module_feedback <- readRDS(here::here("data", "raw", "quick_module_feedbac
 ```
 
 ```{r feedback_over_time}
-program_dates <- as.Date(c("2023-01-30", "2023-03-27", "2023-05-22", "2023-08-07", "2023-09-27"))
+program_dates <- as.Date(c("2023-01-30", "2023-03-27", "2023-05-22", "2023-08-07", "2023-09-27", "2023-11-27"))
+names(program_dates) <- c("w1_start", "w1_mid", "w1_end", "w2_start", "w2_mid", "w2_end")
 
 quick_module_feedback |> 
   dplyr::count(date) |> 
@@ -40,18 +41,17 @@ quick_module_feedback |>
   ggplot(aes(x=date, y=total)) + 
   labs(x=NULL, y = "Number of responses", title = "Cumulative total feedback responses submitted") +
   annotate("rect", fill = chop_blue, alpha = 0.3, 
-        xmin = program_dates[1], 
-        xmax = program_dates[3],
+        xmin = program_dates["w1_start"], 
+        xmax = program_dates["w1_end"],
         ymin = -Inf, ymax = Inf)  + 
   annotate("rect", fill = chop_blue, alpha = 0.3, 
-        xmin = program_dates[4], 
-        xmax = max(as.Date(quick_module_feedback$date)),
+        xmin = program_dates["w2_start"], 
+        xmax = program_dates["w2_end"],
         ymin = -Inf, ymax = Inf)  + 
   geom_line(color = chop_darkblue) + 
   scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") + 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + 
-  annotate("text", x = program_dates[2], y = 500, label = "Wave 1") + 
-  annotate("text", x = program_dates[5], y = 500, label = "Wave 2")
+  annotate("text", x = program_dates[c("w1_mid", "w2_mid")], y = 500, label = c("Wave 1", "Wave 2")) 
 
 ggsave(filename = "feedback_over_time.png", 
        path = here::here("reports", "figures"),
