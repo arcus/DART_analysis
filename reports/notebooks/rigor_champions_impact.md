@@ -5,15 +5,7 @@ Rose Hartman
 
 ``` r
 # load custom functions for plotting
-library(ggplot2)
-theme_set(theme_classic())
-
-chop_blue <- "#41b6e6"
-chop_darkblue <- "#005587"
-chop_pink <- "#ed1f7f"
-chop_green <- "#91a01e"
-chop_brown <- "#786452"
-chop_brown_text <- "#55473c"
+source(here::here("src", "scripts", "functions_plotting.R"))
 
 # if the figures directory doesn't exist, create it
 dir.create(here::here("reports"), showWarnings = FALSE)
@@ -22,17 +14,14 @@ dir.create(here::here("reports", "figures"), showWarnings = FALSE)
 
 ``` r
 quick_module_feedback <- readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |> 
-  dplyr::mutate(date = lubridate::floor_date(feedback_timestamp, unit = "days"),
-                year = lubridate::year(feedback_timestamp),
-                month = lubridate::month(feedback_timestamp, label = TRUE, abbr = TRUE),
-                day = lubridate::day(feedback_timestamp))
+  dplyr::mutate(date = lubridate::floor_date(feedback_timestamp, unit = "days"))
 ```
 
 ``` r
 program_dates <- as.Date(c("2023-01-30", "2023-03-27", "2023-05-22", "2023-08-07", "2023-09-30", "2023-11-27"))
 names(program_dates) <- c("w1_start", "w1_mid", "w1_end", "w2_start", "w2_mid", "w2_end")
 
-quick_module_feedback |> 
+p1 <- quick_module_feedback |> 
   dplyr::count(date) |> 
   dplyr::mutate(total = cumsum(n),
                 date = as.Date(date)) |> 
@@ -50,12 +39,11 @@ quick_module_feedback |>
   scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") + 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + 
   annotate("text", x = program_dates[c("w1_mid", "w2_mid")], y = 500, label = c("Wave 1", "Wave 2")) 
-```
 
-![](rigor_champions_impact_files/figure-gfm/feedback_over_time-1.png)<!-- -->
-
-``` r
 ggsave(filename = "feedback_over_time.png", 
+       plot = p1,
        path = here::here("reports", "figures"),
-       width = 5, height = 5, units = "in")
+       width = 4, height = 4, units = "in")
 ```
+
+![](../figures/feedback_over_time.png)
