@@ -45,7 +45,7 @@ p1 <- quick_module_feedback |>
 ggsave(filename = "feedback_over_time.png", 
        plot = p1,
        path = here::here("reports", "figures"),
-       width = 4, height = 4, units = "in")
+       width = 5, height = 4, units = "in")
 ```
 
 ![](../figures/feedback_over_time.png)
