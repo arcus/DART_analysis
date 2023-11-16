@@ -3,47 +3,22 @@ Rigor Champions Impact
 Rose Hartman
 2023-11-16
 
-``` r
-# load custom functions for plotting
-source(here::here("src", "scripts", "functions_plotting.R"))
+> Note that code chunks are not printed in this report in order to keep
+> the output tidy. To see all of the code to generate these results,
+> open the .Rmd file.
 
-# if the figures directory doesn't exist, create it
-dir.create(here::here("reports"), showWarnings = FALSE)
-dir.create(here::here("reports", "figures"), showWarnings = FALSE)
-```
+## Feedback over time
 
-``` r
-quick_module_feedback <- readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |> 
-  dplyr::mutate(date = lubridate::floor_date(feedback_timestamp, unit = "days"))
-```
-
-``` r
-program_dates <- as.Date(c("2023-01-30", "2023-03-27", "2023-05-22", "2023-08-07", "2023-09-30", "2023-11-27"))
-names(program_dates) <- c("w1_start", "w1_mid", "w1_end", "w2_start", "w2_mid", "w2_end")
-
-p1 <- quick_module_feedback |> 
-  dplyr::count(date) |> 
-  dplyr::mutate(total = cumsum(n),
-                date = as.Date(date)) |> 
-  ggplot(aes(x=date, y=total)) + 
-  labs(x=NULL, y = "Number of responses", title = "Cumulative total feedback responses submitted") +
-  annotate("rect", fill = chop_blue, alpha = 0.3, 
-        xmin = program_dates["w1_start"], 
-        xmax = program_dates["w1_end"],
-        ymin = -Inf, ymax = Inf)  + 
-  annotate("rect", fill = chop_blue, alpha = 0.3, 
-        xmin = program_dates["w2_start"], 
-        xmax = program_dates["w2_end"],
-        ymin = -Inf, ymax = Inf)  + 
-  geom_line(color = chop_darkblue) + 
-  scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") + 
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) + 
-  annotate("text", x = program_dates[c("w1_mid", "w2_mid")], y = 500, label = c("Wave 1", "Wave 2")) 
-
-ggsave(filename = "feedback_over_time.png", 
-       plot = p1,
-       path = here::here("reports", "figures"),
-       width = 5, height = 4, units = "in")
-```
+Each time a learner reads one of our modules, they are invited at the
+end to submit anonymous feedback. The number of feedback response forms
+submitted can provide us with an (under) estimate of the number of
+learners we’re reaching with our modules.
 
 ![](../figures/feedback_over_time.png)
+
+Our modules are public, so anyone can access them. In the feedback
+survey, respondents are asked to indicate if they’re a study participant
+or not. What does the pattern of responses look like for people who
+found us through means other than participation in the DART study?
+
+![](../figures/feedback_over_time_nonparticipants.png)
