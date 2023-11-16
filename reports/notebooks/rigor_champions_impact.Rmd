@@ -1,0 +1,55 @@
+---
+title: "Rigor Champions Impact"
+author: "Rose Hartman"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup}
+# load custom functions for plotting
+library(ggplot2)
+theme_set(theme_classic())
+
+chop_blue <- "#41b6e6"
+chop_darkblue <- "#005587"
+chop_pink <- "#ed1f7f"
+chop_green <- "#91a01e"
+chop_brown <- "#786452"
+chop_brown_text <- "#55473c"
+
+# if the figures directory doesn't exist, create it
+dir.create(here::here("reports"), showWarnings = FALSE)
+dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+```
+
+```{r load_data}
+quick_module_feedback <- readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |> 
+  dplyr::mutate(date = lubridate::floor_date(feedback_timestamp, unit = "days"),
+                year = lubridate::year(feedback_timestamp),
+                month = lubridate::month(feedback_timestamp, label = TRUE, abbr = TRUE),
+                day = lubridate::day(feedback_timestamp))
+```
+
+```{r}
+program_dates <- as.Date(c("2023-01-30", "2023-05-22", "2023-08-07"))
+
+quick_module_feedback |> 
+  dplyr::count(date) |> 
+  dplyr::mutate(total = cumsum(n),
+                date = as.Date(date)) |> 
+  ggplot(aes(x=date, y=total)) + 
+  labs(x=NULL, y = "Number of responses", title = "Cumulative total feedback responses submitted") +
+  annotate("rect", fill = chop_blue, alpha = 0.3, 
+        xmin = program_dates[1], 
+        xmax = program_dates[2],
+        ymin = -Inf, ymax = Inf)  + 
+  annotate("rect", fill = chop_blue, alpha = 0.3, 
+        xmin = program_dates[3], 
+        xmax = max(as.Date(quick_module_feedback$date)),
+        ymin = -Inf, ymax = Inf)  + 
+  geom_line(color = chop_darkblue) + 
+  scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+```
+
