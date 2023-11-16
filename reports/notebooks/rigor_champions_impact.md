@@ -1,11 +1,9 @@
----
-title: "Rigor Champions Impact"
-author: "Rose Hartman"
-date: "`r Sys.Date()`"
-output: github_document
----
+Rigor Champions Impact
+================
+Rose Hartman
+2023-11-16
 
-```{r setup}
+``` r
 # load custom functions for plotting
 library(ggplot2)
 theme_set(theme_classic())
@@ -22,7 +20,7 @@ dir.create(here::here("reports"), showWarnings = FALSE)
 dir.create(here::here("reports", "figures"), showWarnings = FALSE)
 ```
 
-```{r load_data}
+``` r
 quick_module_feedback <- readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |> 
   dplyr::mutate(date = lubridate::floor_date(feedback_timestamp, unit = "days"),
                 year = lubridate::year(feedback_timestamp),
@@ -30,7 +28,7 @@ quick_module_feedback <- readRDS(here::here("data", "raw", "quick_module_feedbac
                 day = lubridate::day(feedback_timestamp))
 ```
 
-```{r feedback_over_time}
+``` r
 program_dates <- as.Date(c("2023-01-30", "2023-05-22", "2023-08-07"))
 
 quick_module_feedback |> 
@@ -50,9 +48,12 @@ quick_module_feedback |>
   geom_line(color = chop_darkblue) + 
   scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") + 
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+```
 
+![](rigor_champions_impact_files/figure-gfm/feedback_over_time-1.png)<!-- -->
+
+``` r
 ggsave(filename = "feedback_over_time.png", 
        path = here::here("reports", "figures"),
        width = 5, height = 5, units = "in")
 ```
-
