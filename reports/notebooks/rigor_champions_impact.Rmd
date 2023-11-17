@@ -133,4 +133,26 @@ The largest group of learners we reach is research staff (33% of our participant
 
 ### Institutions
 
+```{r participant_geocodes}
+participant_geocodes <- readRDS(here::here("data", "interim", "participant_geocodes.rds"))
+  
+world <- ggplot2::map_data("world")
+
+p3 <- participant_geocodes |> 
+  dplyr::count(institution, lat, long) |> 
+  # remove institutions with no location
+  na.omit() |> 
+  ggplot() + 
+  geom_map(data = world, map = world, aes(x=long, y=lat, map_id = region), fill = "lightgrey") + 
+  geom_point(aes(x=long, y=lat, size = n), alpha=.5, color = chop_pink) + 
+  scale_size_continuous(trans = "log10") + 
+  labs(title = "DART participant counts by institution", size = "Number of participants", x=NULL, y=NULL)
+
+ggsave(filename = "participant_geocodes.png", 
+       plot = p3,
+       path = here::here("reports", "figures"),
+       width = 8, height = 4, units = "in")
+```
+
+![](../figures/participant_geocodes.png)
 

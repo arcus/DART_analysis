@@ -58,3 +58,7 @@ career trainees like postdocs, MD residents, and MD fellows (30%).
 ![](../figures/participants_career_highestdegree.png)
 
 ### Institutions
+
+    ## Warning: Ignoring unknown aesthetics: x, y
+
+![](../figures/participant_geocodes.png)
