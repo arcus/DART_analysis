@@ -1,7 +1,7 @@
 Rigor Champions Impact
 ================
 Rose Hartman
-2023-11-16
+2023-11-17
 
 > Note that code chunks are not printed in this report in order to keep
 > the output tidy. To see all of the code to generate these results,
@@ -43,3 +43,18 @@ able to in the coming weeks.
 Note that our hypotheses for this study were all preregistered. You can
 view [our preregistration on the Open Science
 Foundation](https://osf.io/zmnr6/?view_only=2d26a411c57d49aca1754b8920e57a71).
+
+## Our reach
+
+Who are the DART learners, and where are they located?
+
+### Career stage and formal training
+
+About half of our participants hold PhDs (53%). The largest group of
+learners we reach is research staff (33% of our participants), many of
+whom do not hold terminal degrees in their field, followed by early
+career trainees like postdocs, MD residents, and MD fellows (30%).
+
+![](../figures/participants_career_highestdegree.png)
+
+### Institutions
