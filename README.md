@@ -1,6 +1,9 @@
 # DART_analysis
 
-Analysis for the DART research project, all waves
+Analysis for the DART research project, all waves.
+
+In addition to this repository, there is a [Wave 1 analysis repo](https://github.com/arcus/DART_wave1_analysis) and a [Wave 2 analysis repo](https://github.com/arcus/DART_wave2_analysis). 
+While in progress, we've relied on the analysis and reports in each of the separate repos but as we transition to reports that draw on data from both wave 1 and 2 as well as analyzing each separately, this repo will become the best reference.
 
 ## How to use this repository
 
