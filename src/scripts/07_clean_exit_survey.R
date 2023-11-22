@@ -9,6 +9,6 @@ saveRDS(exit_survey, file = here::here("data", "interim", "exit_survey.rds"))
 
 # how many participants have completed?
 counts <- exit_survey |> 
-  dplyr::left_join(readr::read_csv("participants.csv", show_col_types = FALSE), by = "record_id") |> 
+  dplyr::left_join(readr::read_csv("participant_waves.csv", show_col_types = FALSE), by = "record_id") |> 
   dplyr::count(wave)
 message(sum(counts$n), " total completed exit surveys, (", counts$n[1], " from Wave 1, and ", counts$n[2], " from Wave 2)")
