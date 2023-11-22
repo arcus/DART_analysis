@@ -20,13 +20,8 @@ dir.create(here::here("reports", "figures"), showWarnings = FALSE)
 `r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
 
 ```{r load_data}
-quick_module_feedback <- readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |> 
-  dplyr::mutate(date = lubridate::floor_date(feedback_timestamp, unit = "days")) |> 
-  tidyr::replace_na(list(research_participant_yn = 0, 
-                         pilot_participant = "no")) |> 
-  dplyr::mutate(type = dplyr::case_when(research_participant_yn == 1 ~ "Study Participants",
-                                                  pilot_participant == "yes" ~ "Study Participants", 
-                                                  research_participant_yn == 0 & pilot_participant == "no" ~ "Other Users"))
+# created by 08_clean_quick_module_feedback.R
+quick_module_feedback <- readRDS(here::here("data", "interim", "quick_module_feedback.rds")) 
 ```
 
 ## Feedback over time
@@ -137,11 +132,14 @@ The largest group of learners we reach is research staff (33% of our participant
 ### Institutions
 
 ```{r participant_geocodes}
+# created by 04_clean_demographics.R
 participant_geocodes <- readRDS(here::here("data", "interim", "participant_geocodes.rds"))
   
 world <- ggplot2::map_data("world")
 
 p3 <- participant_geocodes |> 
+  # count number of participants at each location (unique combo of lat and lon)
+  # this creates a column n, which will determine the size of the dot on the map
   dplyr::count(lat, long) |> 
   # remove institutions with no location
   na.omit() |> 
