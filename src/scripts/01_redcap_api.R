@@ -1,7 +1,7 @@
 # API tokens stored in .Renviron https://cran.r-project.org/web/packages/httr/vignettes/secrets.html#environment-variables
 
 # pull data from Pipeline
-formData <- list("token"=Sys.getenv("Pipeline_56668"),
+pipeline_formData <- list("token"=Sys.getenv("Pipeline_56668"),
                  content='record',
                  action='export',
                  format='csv',
@@ -14,19 +14,19 @@ formData <- list("token"=Sys.getenv("Pipeline_56668"),
                  exportDataAccessGroups='false',
                  returnFormat='json'
 )
-response <- httr::POST("https://redcap.chop.edu/api/", body = formData, encode = "form")
-result <- httr::content(response, show_col_types = FALSE)
+pipeline_response <- httr::POST("https://redcap.chop.edu/api/", body = pipeline_formData, encode = "form")
+pipeline_result <- httr::content(pipeline_response, show_col_types = FALSE)
 
-if(is.null(nrow(result))) {
+if(is.null(nrow(pipeline_result))) {
   message("\nTHE DATA FROM PIPELINE DID NOT DOWNLOAD\n")
-  print(result$error)
+  print(pipeline_result$error)
 } else {
   # save raw data
-  saveRDS(result, file = here::here("data", "raw", "DART_Pipeline.rds"))
+  saveRDS(pipeline_result, file = here::here("data", "raw", "DART_Pipeline.rds"))
 }
 
 # pull data from NALMS
-formData <- list("token"=Sys.getenv("NALMS_Wave2_61127"),
+nalms_formData <- list("token"=Sys.getenv("NALMS_Wave2_61127"),
                  content='record',
                  action='export',
                  format='csv',
@@ -39,19 +39,19 @@ formData <- list("token"=Sys.getenv("NALMS_Wave2_61127"),
                  exportDataAccessGroups='false',
                  returnFormat='json'
 )
-response <- httr::POST("https://redcap.chop.edu/api/", body = formData, encode = "form")
-result <- httr::content(response, show_col_types = FALSE)
+nalms_response <- httr::POST("https://redcap.chop.edu/api/", body = nalms_formData, encode = "form")
+nalms_result <- httr::content(nalms_response, show_col_types = FALSE)
 
-if(is.null(nrow(result))) {
+if(is.null(nrow(nalms_result))) {
   message("\nTHE DATA FROM NALMS DID NOT DOWNLOAD\n")
-  print(result$error)
+  print(nalms_result$error)
 } else {
   # save raw data
-  saveRDS(result, file = here::here("data", "raw", "NALMS.rds"))
+  saveRDS(nalms_result, file = here::here("data", "raw", "NALMS.rds"))
 }
 
 # Pull data from Quick Module Feedback
-formData <- list("token"=Sys.getenv("Quick_Module_Feedback_45280"),
+feedback_formData <- list("token"=Sys.getenv("Quick_Module_Feedback_45280"),
                  content='record',
                  action='export',
                  format='csv',
@@ -64,13 +64,13 @@ formData <- list("token"=Sys.getenv("Quick_Module_Feedback_45280"),
                  exportDataAccessGroups='false',
                  returnFormat='json'
 )
-response <- httr::POST("https://redcap.chop.edu/api/", body = formData, encode = "form")
-result <- httr::content(response, show_col_types = FALSE)
+feedback_response <- httr::POST("https://redcap.chop.edu/api/", body = feedback_formData, encode = "form")
+feedback_result <- httr::content(feedback_response, show_col_types = FALSE)
 
-if(is.null(nrow(result))) {
+if(is.null(nrow(feedback_result))) {
   message("\nTHE DATA FROM Quick Module Feedback DID NOT DOWNLOAD\n")
-  print(result$error)
+  print(feedback_result$error)
 } else {
   # save raw data
-  saveRDS(result, file = here::here("data", "raw", "quick_module_feedback.rds"))
+  saveRDS(feedback_result, file = here::here("data", "raw", "quick_module_feedback.rds"))
 }
