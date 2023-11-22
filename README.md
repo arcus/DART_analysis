@@ -5,8 +5,9 @@ Analysis for the DART research project, all waves.
 In addition to this repository, there is a [Wave 1 analysis repo](https://github.com/arcus/DART_wave1_analysis) and a [Wave 2 analysis repo](https://github.com/arcus/DART_wave2_analysis). 
 While in progress, we've relied on the analysis and reports in each of the separate repos but as we transition to reports that draw on data from both wave 1 and 2 as well as analyzing each separately, this repo will become the best reference.
 
-The `participant.csv` file provides a list of all record IDs for DART participants along with assigned wave (1 or 2). 
+The `participant_waves.csv` file provides a list of all record IDs for DART participants along with assigned wave (1 or 2). 
 You can join this file to data files in order to filter for participants from only one wave.
+Similarly, `participant_pathways.csv` provides pathway assignments (as strings) for all record IDs. 
 
 ## How to use this repository
 
