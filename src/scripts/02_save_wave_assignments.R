@@ -4,12 +4,10 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
   # don't include any identifying information, so we can post this on GH
   dplyr::select(record_id, wave) |> 
   dplyr::filter(wave %in% c(1,2)) |> 
+  unique() |> 
   readr::write_csv(file = here::here("participant_waves.csv"), na = "")
 
-# save a list of participants by wave and pathway
-readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
-  # don't include any identifying information, so we can post this on GH
-  dplyr::select(record_id, wave, pathway_wave2) 
+# save a list of participants by pathway
 
 # pull data from Pipeline with labels to get pathways
 pipeline_formData <- list("token"=Sys.getenv("Pipeline_56668"),
@@ -29,4 +27,6 @@ pipeline_formData <- list("token"=Sys.getenv("Pipeline_56668"),
 httr::content(httr::POST("https://redcap.chop.edu/api/", body = pipeline_formData, encode = "form"), show_col_types = FALSE) |> 
   dplyr::mutate(pathway = dplyr::coalesce(pathway, pathway_wave2)) |> 
   dplyr::select(record_id, pathway) |> 
+  dplyr::filter(!is.na(pathway)) |> 
+  unique() |> 
   readr::write_csv("participant_pathways.csv")
