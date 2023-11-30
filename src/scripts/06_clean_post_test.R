@@ -32,6 +32,6 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
 
 # how many participants have completed?
 counts <- readRDS(here::here("data", "interim", "nih_post.rds")) |> 
-  dplyr::left_join(readr::read_csv("participant_waves.csv", show_col_types = FALSE), by = "record_id") |> 
+  dplyr::left_join(readr::read_csv(here::here("participant_waves.csv"), show_col_types = FALSE), by = "record_id") |> 
   dplyr::count(wave)
 message(sum(counts$n), " total completed NIH post surveys, (", counts$n[1], " from Wave 1, and ", counts$n[2], " from Wave 2)")
