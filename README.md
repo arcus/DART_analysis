@@ -34,3 +34,6 @@ Most reports save images to `reports/figures` by using a `ggsave()` command inst
 This makes it easier to reference the same image repeatedly across more than one report, and it allows more straightforward control over things like image size, aspect ratio, and image file names. 
 It also means we can more easily use the standalone images from `reports/figures` in reports on other platforms (powerpoint presentations, etc.).
 
+## To do
+
+- Simplify NALMS report. It's currently copied almost exactly from the DART_wave2_analysis repo, and we should have a much pithier version here.
