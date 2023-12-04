@@ -14,7 +14,12 @@ counts <- exit_survey |>
 message(sum(counts$n), " total completed exit surveys, (", counts$n[1], " from Wave 1, and ", counts$n[2], " from Wave 2)")
 
 # who has started post test but not completed the exit survey?
-started_post <- readRDS(here::here("data", "interim", "nih_post.rds"))$record_id
-completed_exit <- exit_survey$record_id
+incomplete_post <- readRDS(here::here("data", "interim", "nih_post.rds")) |> 
+  dplyr::select(record_id) |> 
+  # get wave assignments
+  dplyr::left_join(readr::read_csv(here::here("participant_waves.csv"), show_col_types = FALSE), by = "record_id") |> 
+  # get information on exit survey completion
+  dplyr::mutate(exit_complete = ifelse(record_id %in% exit_survey$record_id, 1, 0)) |> 
+  dplyr::filter(exit_complete == 0 & wave == 2)
 
-message("The following record IDs started posttest but have not finished:\n", paste(started_post[!started_post %in% completed_exit], collapse = ", "))
+message("The following Wave 2 record IDs started posttest but have not finished:\n", paste(incomplete_post$record_id, collapse = ", "))
