@@ -23,3 +23,23 @@ incomplete_post <- readRDS(here::here("data", "interim", "nih_post.rds")) |>
   dplyr::filter(exit_complete == 0 & wave == 2)
 
 message("The following Wave 2 record IDs started posttest but have not finished:\n", paste(incomplete_post$record_id, collapse = ", "))
+
+count_data <- readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
+  mutate(date = lubridate::date(wave1_exit_survey_timestamp)) |> 
+  count(date) |> 
+  filter(date > lubridate::ymd("2023-11-19")) |> 
+  bind_rows(data.frame(date = lubridate::ymd("2023-11-19"), n=0)) |> 
+  arrange(date) |> 
+  mutate(total = cumsum(n)) 
+
+ggplot(count_data, aes(y=total, x=date)) + 
+  geom_line() + 
+  annotate("text", 
+           x = max(count_data$date), 
+           y = max(count_data$total) + 10, 
+           label = max(count_data$total)) + 
+  scale_x_date(date_breaks = "3 days", 
+               date_minor_breaks = "1 days",
+               date_labels = "%b %d") +
+  labs(x = NULL, y = NULL, title = "Wave 2 exit survey completers") + 
+  theme_bw() 
