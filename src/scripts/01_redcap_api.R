@@ -10,7 +10,7 @@ pipeline_formData <- list("token"=Sys.getenv("Pipeline_56668"),
                  rawOrLabel='raw',
                  rawOrLabelHeaders='raw',
                  exportCheckboxLabel='false',
-                 exportSurveyFields='false',
+                 exportSurveyFields='true',
                  exportDataAccessGroups='false',
                  returnFormat='json'
 )
