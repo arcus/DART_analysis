@@ -80,5 +80,6 @@ readRDS(here::here("data", "interim", "nalms_full.rds")) |>
   # compute number of modules completed since last progress logged
   dplyr::group_by(record_id) |> 
   dplyr::mutate(modules_diff = n_modules_done - dplyr::lag(n_modules_done)) |> 
+  dplyr::ungroup() |> 
   # save cleaned data
   saveRDS(file = here::here("data", "interim", "nalms_summary.rds"))
