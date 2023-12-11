@@ -104,47 +104,82 @@ run_ttests(oss_data_by_event)
 ```
 
 ```{r plot_data}
-oss_data_long |> 
+p1 <- oss_data_long |> 
   ggplot(aes(x=value, fill = event)) + 
   geom_histogram(bins = 10, show.legend = FALSE) + 
   facet_grid(event~ name, scales = "free_x") + 
   labs(title = "OSS Data Sharing")
+ggsave(filename = "oss_data_sharing_hist.png", 
+       plot = p1,
+       path = here::here("reports", "figures"),
+       width = 5.5, height = 3, units = "in")
   
-oss_data_long |> 
+p2 <- oss_data_long |> 
   ggplot(aes(x = event, y = value)) +
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(aes(color = event), show.legend = FALSE,
               alpha = .7) +
   facet_wrap(~ name, scales = "free_y") + 
   labs(title = "OSS Data Sharing")
+ggsave(filename = "oss_data_sharing_box.png", 
+       plot = p2,
+       path = here::here("reports", "figures"),
+       width = 5.5, height = 3, units = "in")
 
-oss_data_long |> 
+p3 <- oss_data_long |> 
   ggplot(aes(x = event, y = value, group = record_id)) +
   geom_line(alpha = .3, position = position_jitter(width = 0, height = NULL)) + 
   facet_wrap(~ name, scales = "free_y") + 
   labs(title = "OSS Data Sharing")
+ggsave(filename = "oss_data_sharing_line.png", 
+       plot = p3,
+       path = here::here("reports", "figures"),
+       width = 5.5, height = 3, units = "in")
 ```
+
+![](../figures/oss_data_sharing_hist.png)
+
+![](../figures/oss_data_sharing_box.png)
+
+![](../figures/oss_data_sharing_line.png)
 
 ```{r plot_code}
-oss_code_long |> 
+p4 <- oss_code_long |> 
   ggplot(aes(x=value, fill = event)) + 
   geom_histogram(bins = 10, show.legend = FALSE) + 
   facet_grid(event~ name, scales = "free_x") + 
   labs(title = "OSS Code Sharing")
+ggsave(filename = "oss_code_sharing_hist.png", 
+       plot = p4,
+       path = here::here("reports", "figures"),
+       width = 5.5, height = 3, units = "in")
   
-oss_code_long |> 
+p5 <- oss_code_long |> 
   ggplot(aes(x = event, y = value)) +
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(aes(color = event), show.legend = FALSE,
               alpha = .7) +
   facet_wrap(~ name, scales = "free_y") + 
   labs(title = "OSS Code Sharing")
+ggsave(filename = "oss_code_sharing_box.png", 
+       plot = p5,
+       path = here::here("reports", "figures"),
+       width = 5.5, height = 3, units = "in")
 
-oss_code_long |> 
+p6 <- oss_code_long |> 
   ggplot(aes(x = event, y = value, group = record_id)) +
   geom_line(alpha = .3, position = position_jitter(width = 0, height = NULL)) + 
   facet_wrap(~ name, scales = "free_y") + 
   labs(title = "OSS Code Sharing")
+ggsave(filename = "oss_code_sharing_line.png", 
+       plot = p6,
+       path = here::here("reports", "figures"),
+       width = 5.5, height = 3, units = "in")
 ```
 
 
+![](../figures/oss_code_sharing_hist.png)
+
+![](../figures/oss_code_sharing_box.png)
+
+![](../figures/oss_code_sharing_line.png)
