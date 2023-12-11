@@ -66,7 +66,8 @@ oss_code_by_event <- oss_code_long |>
 oss_code_by_event |> 
   dplyr::group_by(name) |> 
   dplyr::summarize(pre = mean(pre, na.rm = TRUE),
-                   post = mean(post, na.rm = TRUE))
+                   post = mean(post, na.rm = TRUE)) |> 
+  knitr::kable(caption="OSS Code Sharing")
 ```
 
 ```{r}
@@ -77,7 +78,8 @@ oss_data_by_event <- oss_data_long |>
 oss_data_by_event |> 
   dplyr::group_by(name) |> 
   dplyr::summarize(pre = mean(pre, na.rm = TRUE),
-                   post = mean(post, na.rm = TRUE))
+                   post = mean(post, na.rm = TRUE))|> 
+  knitr::kable(caption="OSS Data Sharing")
 ```
 
 ```{r run_ttests}
@@ -97,9 +99,15 @@ run_ttests <- function(df, groups = "name"){
 }
 ```
 
-```{r ttests}
-run_ttests(oss_code_by_event)
+Is there significant change pre to post in the OSS Code Sharing items?
 
+```{r ttests_code}
+run_ttests(oss_code_by_event)
+```
+
+Is there significant change pre to post in the OSS Data Sharing items?
+
+```{r ttest_data}
 run_ttests(oss_data_by_event)
 ```
 

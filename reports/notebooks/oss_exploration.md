@@ -27,19 +27,23 @@ plot to plot.
 
 ## Exploration of changes pre to post
 
-    ## # A tibble: 3 × 3
-    ##   name            pre  post
-    ##   <chr>         <dbl> <dbl>
-    ## 1 attitude       4.36  4.45
-    ## 2 behavior_norm 27.1  28.2 
-    ## 3 frequency      7.34 11.7
+| name          |       pre |      post |
+|:--------------|----------:|----------:|
+| attitude      |  4.356415 |  4.451852 |
+| behavior_norm | 27.063596 | 28.166667 |
+| frequency     |  7.339056 | 11.729412 |
 
-    ## # A tibble: 3 × 3
-    ##   name            pre  post
-    ##   <chr>         <dbl> <dbl>
-    ## 1 attitude       4.35  4.43
-    ## 2 behavior_norm 32.9  32.4 
-    ## 3 frequency     12.7  15.4
+OSS Code Sharing
+
+| name          |      pre |      post |
+|:--------------|---------:|----------:|
+| attitude      |  4.34898 |  4.431298 |
+| behavior_norm | 32.93763 | 32.405200 |
+| frequency     | 12.68577 | 15.400794 |
+
+OSS Data Sharing
+
+Is there significant change pre to post in the OSS Code Sharing items?
 
     ## $attitude
     ## 
@@ -81,6 +85,8 @@ plot to plot.
     ## sample estimates:
     ## mean of the differences 
     ##                1.910638
+
+Is there significant change pre to post in the OSS Data Sharing items?
 
     ## $attitude
     ## 
