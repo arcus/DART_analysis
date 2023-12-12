@@ -1,4 +1,4 @@
-# DART_analysis
+# Analysis for the DART (Data and Analytics for Research Training) research project
 
 Analysis for the DART research project, all waves.
 
@@ -8,6 +8,14 @@ While in progress, we've relied on the analysis and reports in each of the separ
 The `participant_waves.csv` file provides a list of all record IDs for DART participants along with assigned wave (1 or 2). 
 You can join this file to data files in order to filter for participants from only one wave.
 Similarly, `participant_pathways.csv` provides pathway assignments (as strings) for all record IDs. 
+
+## Findings
+
+Reports summarizing analysis and findings are in `reports/notebooks`. 
+Here are a few good ones to start with if you want an overview:
+
+- [Report with figres etc. from our presentation at the R3ISE symposium, Nov 2023](reports/notebooks/R3ISE_symposium.md)
+- [Report with figres etc. our Rigor Champions Prize submission, Dec 2023](reports/notebooks/rigor_champions_impact.md)
 
 ## How to use this repository
 
