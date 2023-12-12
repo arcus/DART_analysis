@@ -47,8 +47,8 @@ pathways <- readr::read_csv(here::here("participant_pathways.csv"), show_col_typ
 ```{r calculate_mean_scores}
 nih <- nih |> 
   dplyr::rowwise() |> 
-  dplyr::mutate(ability = mean(dplyr::c_across(findable:atomize), na.rm = TRUE),
-                openscience = mean(dplyr::c_across(data_storage_1:code_efficient), na.rm = TRUE))
+  dplyr::mutate(ability = mean(as.numeric(dplyr::c_across(findable:atomize)), na.rm = TRUE),
+                openscience = mean(as.numeric(dplyr::c_across(data_storage_1:code_efficient)), na.rm = TRUE))
 ```
 
 ```{r calculate_engagement}
@@ -189,16 +189,7 @@ ab_change_mean <- mean(data$ability_change, na.rm = TRUE) # average change
 ab_change_sd <- sd(data$ability_change, na.rm = TRUE) # standard deviation 
 ```
 
-
-```{r}
-ability_labels <- c("I wouldn't know where to start", "I could struggle through, but not confident I could do it", "I could probably do it with some trial and error", "I am confident in my ability to do it")
-values_labels <- c("strongly disagree", "disagree", "somewhat disagree", "neither agree nor disagree", "somewhat agree", "agree", "strongly agree")
-
-nih <- nih |> 
-  # make likert items factors
-  dplyr::mutate(dplyr::across(findable:atomize, ~factor(.x, levels = 1:4, labels = ability_labels)),
-                dplyr::across(data_storage_1:code_efficient, ~factor(.x, levels = 1:7, labels = values_labels)))
-```
+## Changes in ratings of ability pre to post
 
 ```{r ability_ratings}
 ability_ratings <- nih |> 
@@ -243,17 +234,17 @@ names(ability_ratings) <- c("Make my data findable by other researchers",
 "Break down data processing into smaller individual (and more manageable) steps")
 ```
 
-```{r}
+```{r ability_likert}
 p6 <- ability_ratings[,c(4, 8)] |> 
   # compare pre and post test results (event)
   likert::likert(grouping = nih$event) |> 
-  plot(type = "bar") + 
+  plot(type = "bar", group.order = c("post", "pre")) + 
   ggplot2::theme(legend.position="bottom", legend.direction="vertical")
 
 p7 <- ability_ratings[,c(33, 30)] |> 
   # compare pre and post test results (event)
   likert::likert(grouping = nih$event) |> 
-  plot(type = "bar") + 
+  plot(type = "bar", group.order = c("post", "pre")) + 
   ggplot2::theme(legend.position="bottom", legend.direction="vertical")
 
 ggsave("ability_likert1.png", 
@@ -269,3 +260,59 @@ ggsave("ability_likert2.png",
 
 ![](../figures/ability_likert1.png)
 ![](../figures/ability_likert2.png)
+## Changes in ratings of agreement with tennets of open science pre to post
+
+```{r openscience_ratings}
+openscience_ratings <- nih |> 
+  dplyr::select(data_storage_1:code_efficient) |> 
+  # likert doesn't like tibbles
+  as.data.frame()
+
+names(openscience_ratings) <- c("Data quality and integrity should be maintained even after a research project is completed",
+"Existing data should be made accessible for reuse",
+"Research data should be usable to as many people as possible (including researchers, institutions, and the public)",
+"There are valuable tools and technologies from other fields that can be adapted for use in  biomedical research",
+"Diversity in the biomedical research workforce is vital for the advancement of the field",
+"All research data should be findable, accessible, interoperable, and reusable except for rare exceptions",
+"Researchers should use data standards that work across fields, including standardized data vocabularies and ontologies",
+"An important metric of a data set's value is how many times it is shared and reused",
+"Siloed data is a serious problem in the field",
+"The choice of where to store research data at the end of a project matters",
+"Linking existing data systems so they can be used together is vital to the advancement of the field",
+"Data should be available to not only biomedical researchers but also policymakers, funding agencies, professional organizations, and the public",
+"Open and efficient data sharing is vital to the advancement of the field",
+"Efficiently linking clinical and observational data is vital to the advancement of the field",
+"Advanced research tools should be widely available at limited or no cost to users",
+"Sharing my data and analysis code openly can make my science more reproducible",
+"Sharing my data and analysis code openly can make my science more rigorous",
+"I believe having access to the original, raw data is important to be able to repeat an analysis",
+"Using a programming language (like R or Python) can make my analyses easier to reproduce",
+"Using a programming language (like R or Python) can make me more efficient at working with data")
+```
+
+```{r openscience_likert}
+p8 <- openscience_ratings[,c(8, 19)] |> 
+  # compare pre and post test results (event)
+  likert::likert(grouping = nih$event) |> 
+  plot(type = "bar", group.order = c("post", "pre")) + 
+  ggplot2::theme(legend.position="bottom", legend.direction="vertical")
+
+p9 <- openscience_ratings[,c(16, 17)] |> 
+  # compare pre and post test results (event)
+  likert::likert(grouping = nih$event) |> 
+  plot(type = "bar", group.order = c("post", "pre")) + 
+  ggplot2::theme(legend.position="bottom", legend.direction="vertical")
+
+ggsave("openscience_likert1.png", 
+       p8, 
+       path = here::here("reports", "figures"),
+       width = 5, height = 6, units = "in") 
+
+ggsave("openscience_likert2.png", 
+       p9, 
+       path = here::here("reports", "figures"),
+       width = 5, height = 6, units = "in") 
+```
+
+![](../figures/openscience_likert1.png)
+![](../figures/openscience_likert2.png)

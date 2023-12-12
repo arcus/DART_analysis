@@ -1,4 +1,7 @@
 
+ability_labels <- c("I wouldn't know where to start", "I could struggle through, but not confident I could do it", "I could probably do it with some trial and error", "I am confident in my ability to do it")
+values_labels <- c("strongly disagree", "disagree", "somewhat disagree", "neither agree nor disagree", "somewhat agree", "agree", "strongly agree")
+
 # NIH items, pre test
 readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
   # only records for which we have a completed pretest survey
@@ -6,6 +9,9 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
                 nih_data_science_items_complete == 2) |> 
   # select just fields from NIH items 
   dplyr::select(record_id, data_storage_1:atomize) |> 
+  # make likert items factors
+  dplyr::mutate(dplyr::across(findable:atomize, ~factor(.x, levels = 1:4, labels = ability_labels)),
+                dplyr::across(data_storage_1:code_efficient, ~factor(.x, levels = 1:7, labels = values_labels))) |> 
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "nih_pre.rds"))
 

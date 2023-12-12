@@ -19,4 +19,11 @@ Rose Hartman
 
 ![](../figures/openscience_lineplot_mean.png)
 
+## Changes in ratings of ability pre to post
+
 ![](../figures/ability_likert1.png) ![](../figures/ability_likert2.png)
+\## Changes in ratings of agreement with tennets of open science pre to
+post
+
+![](../figures/openscience_likert1.png)
+![](../figures/openscience_likert2.png)
