@@ -25,12 +25,12 @@ incomplete_post <- readRDS(here::here("data", "interim", "nih_post.rds")) |>
 message("The following Wave 2 record IDs started posttest but have not finished:\n", paste(incomplete_post$record_id, collapse = ", "))
 
 count_data <- readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
-  mutate(date = lubridate::date(wave1_exit_survey_timestamp)) |> 
-  count(date) |> 
-  filter(date > lubridate::ymd("2023-11-19")) |> 
-  bind_rows(data.frame(date = lubridate::ymd("2023-11-19"), n=0)) |> 
-  arrange(date) |> 
-  mutate(total = cumsum(n)) 
+  dplyr::mutate(date = lubridate::date(wave1_exit_survey_timestamp)) |> 
+  dplyr::count(date) |> 
+  dplyr::filter(date > lubridate::ymd("2023-11-19")) |> 
+  dplyr::bind_rows(data.frame(date = lubridate::ymd("2023-11-19"), n=0)) |> 
+  dplyr::arrange(date) |> 
+  dplyr::mutate(total = cumsum(n)) 
 
 ggplot(count_data, aes(y=total, x=date)) + 
   geom_line() + 
