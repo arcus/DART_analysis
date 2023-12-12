@@ -26,7 +26,7 @@ found us through means other than participation in the DART study?
 ### Feedback submitted by month
 
 During our first year, we received an average of 23 feedback submissions
-per month. That has grown to an average of 167.7 per month over the last
+per month. That has grown to an average of 169.3 per month over the last
 quarter.
 
 ## Impact of DART program on researchers’ data science skills
@@ -68,3 +68,5 @@ career trainees like postdocs, MD residents, and MD fellows (30%).
     ## Warning: Ignoring unknown aesthetics: x, y
 
 ![](../figures/participant_geocodes.png)
+
+# figure to illustrate “hundreds of learners have acquired reproducibility skills”
