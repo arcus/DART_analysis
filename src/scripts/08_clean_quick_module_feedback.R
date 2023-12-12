@@ -7,6 +7,8 @@ readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |>
   dplyr::mutate(type = dplyr::case_when(research_participant_yn == 1 ~ "Study Participants",
                                         pilot_participant == "yes" ~ "Study Participants", 
                                         research_participant_yn == 0 & pilot_participant == "no" ~ "Other Users")) |> 
+  # clean up factors
+  dplyr::mutate(learning_objectives = factor(learning_objectives, levels = c(0, 1), labels = c("no", "yes"))) |> 
   # module_name used to include quotes, now it doesn't. remove all the quotes to make it consistent.
   dplyr::mutate(module_name = gsub(x = module_name, pattern = '"', replacement = ''),
                 module_name = tolower(module_name),
