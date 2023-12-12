@@ -12,7 +12,11 @@ Similarly, `participant_pathways.csv` provides pathway assignments (as strings) 
 ## Findings
 
 Reports summarizing analysis and findings are in `reports/notebooks`. 
-Here are a few good ones to start with if you want an overview:
+For each report, there is a `.Rmd` version of the file and a `.md` version. 
+The `.md` version is the "rendered" report, designed to be easy to read and to display well on github; they generally omit the code necessary to produce figures, etc. in order to keep the output tidy.
+The `.Rmd` version is the "raw" file; if you want to see all of the code used to generate results and visualizations, that's the one you should look at.
+
+Here are a few good ones to start with if you want an overview of our findings so far:
 
 - [Report with figres etc. from our presentation at the R3ISE symposium, Nov 2023](reports/notebooks/R3ISE_symposium.md)
 - [Report with figres etc. our Rigor Champions Prize submission, Dec 2023](reports/notebooks/rigor_champions_impact.md)
@@ -24,10 +28,11 @@ Broadly, the code in `src/scripts` is general-purpose code to set up the analysi
 
 ## Initial setup
 
-Participant data are not stored in this repository. 
+Participant data are **not** stored in this repository. 
 The first time you clone this repository, you'll need to use your REDCap API tokens to download the raw data and then run the cleaning scripts before you can replicate any analyses. 
+If you don't have API access to the DART REDCap project, you won't be able to fully replicate the results on your own machine. 
 
-To do that, open `src/scripts` and run each of the scripts there in order (the cleaning scripts are all saved starting a number). 
+To do download the raw data and clean it, open `src/scripts` and run each of the scripts there in order (the cleaning scripts are all saved starting with a number). 
 Note the instructions about API tokens at the top of `01_redcap_api.R`.
 
 ## Running reports
