@@ -1,7 +1,7 @@
 Rigor Champions Impact
 ================
 Rose Hartman
-2023-11-17
+2023-12-12
 
 > Note that code chunks are not printed in this report in order to keep
 > the output tidy. To see all of the code to generate these results,
@@ -22,6 +22,12 @@ or not. What does the pattern of responses look like for people who
 found us through means other than participation in the DART study?
 
 ![](../figures/feedback_over_time_nonparticipants.png)
+
+### Feedback submitted by month
+
+During our first year, we received an average of 23 feedback submissions
+per month. That has grown to an average of 167.7 per month over the last
+quarter.
 
 ## Impact of DART program on researchers’ data science skills
 
@@ -55,7 +61,7 @@ learners we reach is research staff (33% of our participants), many of
 whom do not hold terminal degrees in their field, followed by early
 career trainees like postdocs, MD residents, and MD fellows (30%).
 
-![](../figures/participants_career_highestdegree.png)
+### Race and gender?
 
 ### Institutions
 
