@@ -83,16 +83,16 @@ important aspect of creating agents for more transparent science.
     ##                     fit_relevance                    continue_dart
     ##  Strongly Disagree         :  1   Strongly Disagree         :  0  
     ##  Disagree                  :  6   Disagree                  :  8  
-    ##  Neither Agree Nor Disagree: 62   Neither Agree Nor Disagree: 20  
-    ##  Agree                     :124   Agree                     : 75  
-    ##  Strongly Agree            : 79   Strongly Agree            :124  
+    ##  Neither Agree Nor Disagree: 64   Neither Agree Nor Disagree: 22  
+    ##  Agree                     :126   Agree                     : 75  
+    ##  Strongly Agree            : 79   Strongly Agree            :126  
     ##  NA's                      :  9   NA's                      : 54
 
-Across both Wave 1 and Wave 2, 203 research participants (72% of those
+Across both Wave 1 and Wave 2, 205 research participants (72% of those
 who completed the final survey) agreed or strongly agreed with the
 statement “I learned things from my assigned modules that I can apply in
 my research.” For Wave 2, we added the item “I intend to keep studying
-with the DART materials,” to which 199 participants (85% of Wave 2
+with the DART materials,” to which 201 participants (85% of Wave 2
 respondents) agreed or strongly agreed.
 
 ![](../figures/exit_fit_relevance_likert.png)
