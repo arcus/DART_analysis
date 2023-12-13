@@ -22,6 +22,11 @@ dir.create(here::here("reports", "figures"), showWarnings = FALSE)
 ```{r load_data}
 # created by 08_clean_quick_module_feedback.R
 quick_module_feedback <- readRDS(here::here("data", "interim", "quick_module_feedback.rds")) 
+
+# created by 07_clean_exit_survey.R
+exit_survey <- readRDS(here::here("data", "interim", "exit_survey.rds")) |> 
+  dplyr::left_join(readr::read_csv(here::here("participant_waves.csv"), show_col_types = FALSE), 
+                   by = "record_id")
 ```
 
 ## Feedback over time
@@ -188,3 +193,102 @@ ggsave(filename = "participant_geocodes.png",
 
 ![](../figures/participant_geocodes.png)
 
+# Reproducibility skills and attitudes
+
+Hundreds of learners have acquired rigor and reproducibility skills thanks to our efforts, and soon post-intervention data may demonstrate changes to learner skills and, crucially, to their attitudes – an important aspect of creating agents for more transparent science.   
+
+
+```{r}
+# plots created by R3ISE_symposium.Rmd
+```
+
+![](../figures/ability_likert1.png)
+![](../figures/ability_likert2.png)
+![](../figures/openscience_likert1.png)
+![](../figures/openscience_likert2.png)
+
+```{r exit_survey}
+exit_survey |> 
+  dplyr::select(fit_relevance, continue_dart) |> 
+  summary()
+
+fit_relevance_n_agree <- sum(as.numeric(exit_survey$fit_relevance) > 3, na.rm = TRUE)
+perc_fit_relevance <- 100 * round(fit_relevance_n_agree/nrow(exit_survey), 2)
+
+n_agree_continue_dart <- sum(as.numeric(exit_survey$continue_dart) > 3, na.rm = TRUE)
+perc_continue_dart <- 100 * round(n_agree_continue_dart/dplyr::count(exit_survey, wave)$n[2], 2)
+```
+
+Across both Wave 1 and Wave 2, `r fit_relevance_n_agree` research participants (`r perc_fit_relevance`% of those who completed the final survey) agreed or strongly agreed with the statement "I learned things from my assigned modules that I can apply in my research."
+For Wave 2, we added the item "I intend to keep studying with the DART materials," to which `r n_agree_continue_dart` participants (`r perc_continue_dart`% of Wave 2 respondents) agreed or strongly agreed.
+
+```{r single_likert}
+single_likert <- function(df, item, item_text, show_guide = TRUE){
+  plot <- df |> 
+  dplyr::select({{item}}) |> 
+  as.data.frame() |> 
+  likert::likert() |> 
+  plot() + 
+  labs(title = item_text) + 
+  theme(axis.text.y = element_blank())
+    
+  if(!show_guide) {
+    plot <- plot + 
+      guides(fill = "none") + 
+      # remove "Percentage" label
+      labs(y=NULL) + 
+      # remove the percent axis numbers
+      theme(axis.text.x = element_blank())
+  }
+  return(plot)
+}
+```
+
+
+```{r exit_likert}
+p1 <- single_likert(exit_survey, 
+                    fit_relevance, 
+                    item_text = "I learned things from my assigned modules that I can apply in my research",
+                    show_guide = FALSE)
+ggsave("exit_fit_relevance_likert.png", 
+       p1, 
+       path = here::here("reports", "figures"),
+       width = 7, height = 1.15, units = "in") 
+
+p2 <- single_likert(exit_survey, 
+                    continue_dart, 
+                    item_text = "I intend to keep studying with the DART materials",
+                    show_guide = TRUE)
+
+ggsave("exit_continue_dart_likert.png", 
+       p2, 
+       path = here::here("reports", "figures"),
+       width = 7, height = 2, units = "in") 
+```
+
+![](../figures/exit_fit_relevance_likert.png)
+![](../figures/exit_continue_dart_likert.png)
+
+
+```{r echo=TRUE}
+# modules that focus on reproducibility skills
+reproducibility_modules <- c("reproducibility, generalizability, and reuse", 
+                             "r basics introduction", 
+                             "intro to version control",
+                             "getting started with docker for research",
+                             "demystifying containers",
+                             "demystifying python",
+                             "statistical tests in open source software",
+                             "research data management basics",
+                             "using the redcap api")
+```
+
+In our feedback form, we ask learners to indicate if they feel the module met the learning objectives ("Were all the stated learning objectives sufficiently addressed in the content?"). 
+To get an (under) estimate of how many learners have acquired research reproducibility skills through DART, let's count the number of responses indicating "yes" learning objectives were met on modules that deal primarily with reproducibility skills. 
+
+```{r}
+quick_module_feedback |> 
+  dplyr::mutate(reproducibility_skills = ifelse(module_name %in% reproducibility_modules, "yes", "no"),
+                reproducibility_skills = as.factor(reproducibility_skills)) |> 
+  dplyr::count(reproducibility_skills, learning_objectives) 
+```

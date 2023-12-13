@@ -69,4 +69,62 @@ career trainees like postdocs, MD residents, and MD fellows (30%).
 
 ![](../figures/participant_geocodes.png)
 
-# figure to illustrate “hundreds of learners have acquired reproducibility skills”
+# Reproducibility skills and attitudes
+
+Hundreds of learners have acquired rigor and reproducibility skills
+thanks to our efforts, and soon post-intervention data may demonstrate
+changes to learner skills and, crucially, to their attitudes – an
+important aspect of creating agents for more transparent science.
+
+![](../figures/ability_likert1.png) ![](../figures/ability_likert2.png)
+![](../figures/openscience_likert1.png)
+![](../figures/openscience_likert2.png)
+
+    ##                     fit_relevance                    continue_dart
+    ##  Strongly Disagree         :  1   Strongly Disagree         :  0  
+    ##  Disagree                  :  6   Disagree                  :  8  
+    ##  Neither Agree Nor Disagree: 62   Neither Agree Nor Disagree: 20  
+    ##  Agree                     :124   Agree                     : 75  
+    ##  Strongly Agree            : 79   Strongly Agree            :124  
+    ##  NA's                      :  9   NA's                      : 54
+
+Across both Wave 1 and Wave 2, 203 research participants (72% of those
+who completed the final survey) agreed or strongly agreed with the
+statement “I learned things from my assigned modules that I can apply in
+my research.” For Wave 2, we added the item “I intend to keep studying
+with the DART materials,” to which 199 participants (85% of Wave 2
+respondents) agreed or strongly agreed.
+
+![](../figures/exit_fit_relevance_likert.png)
+![](../figures/exit_continue_dart_likert.png)
+
+``` r
+# modules that focus on reproducibility skills
+reproducibility_modules <- c("reproducibility, generalizability, and reuse", 
+                             "r basics introduction", 
+                             "intro to version control",
+                             "getting started with docker for research",
+                             "demystifying containers",
+                             "demystifying python",
+                             "statistical tests in open source software",
+                             "research data management basics",
+                             "using the redcap api")
+```
+
+In our feedback form, we ask learners to indicate if they feel the
+module met the learning objectives (“Were all the stated learning
+objectives sufficiently addressed in the content?”). To get an (under)
+estimate of how many learners have acquired research reproducibility
+skills through DART, let’s count the number of responses indicating
+“yes” learning objectives were met on modules that deal primarily with
+reproducibility skills.
+
+    ## # A tibble: 6 × 3
+    ##   reproducibility_skills learning_objectives     n
+    ##   <fct>                  <fct>               <int>
+    ## 1 no                     no                     38
+    ## 2 no                     yes                  1397
+    ## 3 no                     <NA>                   15
+    ## 4 yes                    no                     20
+    ## 5 yes                    yes                   575
+    ## 6 yes                    <NA>                    8
