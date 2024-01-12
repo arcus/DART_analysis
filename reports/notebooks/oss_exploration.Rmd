@@ -30,13 +30,13 @@ dir.create(here::here("reports", "figures"), showWarnings = FALSE)
 
 ```{r load_data}
 # created by 05_clean_pre_test.R and 06_clean_post_test.R
-oss_code_pre <- readRDS(here::here("data", "interim", "oss_code_pre.rds")) |> 
+oss_code_pre <- readRDS(here::here("data", "deidentified", "oss_code_pre.rds")) |> 
   dplyr::mutate(event = "pre")
-oss_code_post <- readRDS(here::here("data", "interim", "oss_code_post.rds")) |> 
+oss_code_post <- readRDS(here::here("data", "deidentified", "oss_code_post.rds")) |> 
   dplyr::mutate(event = "post")
-oss_data_pre <- readRDS(here::here("data", "interim", "oss_data_pre.rds")) |> 
+oss_data_pre <- readRDS(here::here("data", "deidentified", "oss_data_pre.rds")) |> 
   dplyr::mutate(event = "pre")
-oss_data_post <- readRDS(here::here("data", "interim", "oss_data_post.rds"))  |> 
+oss_data_post <- readRDS(here::here("data", "deidentified", "oss_data_post.rds"))  |> 
   dplyr::mutate(event = "post")
 
 oss_code <- dplyr::bind_rows(oss_code_pre, oss_code_post)

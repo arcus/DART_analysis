@@ -1,7 +1,7 @@
 Open Scholarship Survey Exploration
 ================
 Rose Hartman
-2023-12-11
+2024-01-12
 
 ## Some notes about this report
 
@@ -29,17 +29,17 @@ plot to plot.
 
 | name          |       pre |      post |
 |:--------------|----------:|----------:|
-| attitude      |  4.356415 |  4.451852 |
-| behavior_norm | 27.063596 | 28.166667 |
-| frequency     |  7.339056 | 11.729412 |
+| attitude      |  4.356415 |  4.461538 |
+| behavior_norm | 27.063596 | 28.279562 |
+| frequency     |  7.339056 | 11.418440 |
 
 OSS Code Sharing
 
 | name          |      pre |      post |
 |:--------------|---------:|----------:|
-| attitude      |  4.34898 |  4.431298 |
-| behavior_norm | 32.93763 | 32.405200 |
-| frequency     | 12.68577 | 15.400794 |
+| attitude      |  4.34898 |  4.427083 |
+| behavior_norm | 32.93763 | 32.427437 |
+| frequency     | 12.68577 | 14.974910 |
 
 OSS Data Sharing
 
@@ -50,13 +50,13 @@ Is there significant change pre to post in the OSS Code Sharing items?
     ##  Paired t-test
     ## 
     ## data:  this_df$post and this_df$pre
-    ## t = 1.3646, df = 269, p-value = 0.1735
+    ## t = 1.7149, df = 298, p-value = 0.08739
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  -0.03772076  0.20809113
+    ##  -0.01480246  0.21547135
     ## sample estimates:
     ## mean of the differences 
-    ##              0.08518519 
+    ##               0.1003344 
     ## 
     ## 
     ## $frequency
@@ -64,13 +64,13 @@ Is there significant change pre to post in the OSS Code Sharing items?
     ##  Paired t-test
     ## 
     ## data:  this_df$post and this_df$pre
-    ## t = 2.7326, df = 246, p-value = 0.00674
+    ## t = 2.9793, df = 273, p-value = 0.003149
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  1.154094 7.113113
+    ##  1.391503 6.812876
     ## sample estimates:
     ## mean of the differences 
-    ##                4.133603 
+    ##                 4.10219 
     ## 
     ## 
     ## $behavior_norm
@@ -78,13 +78,13 @@ Is there significant change pre to post in the OSS Code Sharing items?
     ##  Paired t-test
     ## 
     ## data:  this_df$post and this_df$pre
-    ## t = 1.2864, df = 234, p-value = 0.1996
+    ## t = 1.4402, df = 258, p-value = 0.151
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  -1.015496  4.836772
+    ##  -0.731995  4.717323
     ## sample estimates:
     ## mean of the differences 
-    ##                1.910638
+    ##                1.992664
 
 Is there significant change pre to post in the OSS Data Sharing items?
 
@@ -93,13 +93,13 @@ Is there significant change pre to post in the OSS Data Sharing items?
     ##  Paired t-test
     ## 
     ## data:  this_df$post and this_df$pre
-    ## t = 1.3606, df = 260, p-value = 0.1748
+    ## t = 1.8759, df = 286, p-value = 0.06169
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  -0.03598656  0.19690610
+    ##  -0.00514855  0.21420778
     ## sample estimates:
     ## mean of the differences 
-    ##              0.08045977 
+    ##               0.1045296 
     ## 
     ## 
     ## $frequency
@@ -107,13 +107,13 @@ Is there significant change pre to post in the OSS Data Sharing items?
     ##  Paired t-test
     ## 
     ## data:  this_df$post and this_df$pre
-    ## t = 1.6736, df = 247, p-value = 0.09548
+    ## t = 1.9991, df = 273, p-value = 0.04659
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  -0.4714359  5.8020811
+    ##  0.0442911 5.7805264
     ## sample estimates:
     ## mean of the differences 
-    ##                2.665323 
+    ##                2.912409 
     ## 
     ## 
     ## $behavior_norm
@@ -121,21 +121,21 @@ Is there significant change pre to post in the OSS Data Sharing items?
     ##  Paired t-test
     ## 
     ## data:  this_df$post and this_df$pre
-    ## t = 0.26378, df = 240, p-value = 0.7922
+    ## t = 0.34595, df = 266, p-value = 0.7297
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  -2.952244  3.865107
+    ##  -2.602200  3.711564
     ## sample estimates:
     ## mean of the differences 
-    ##               0.4564315
+    ##               0.5546816
 
-    ## Warning: Removed 102 rows containing non-finite values (stat_bin).
+    ## Warning: Removed 103 rows containing non-finite values (stat_bin).
 
-    ## Warning: Removed 102 rows containing non-finite values (stat_boxplot).
+    ## Warning: Removed 103 rows containing non-finite values (stat_boxplot).
 
-    ## Warning: Removed 102 rows containing missing values (geom_point).
+    ## Warning: Removed 103 rows containing missing values (geom_point).
 
-    ## Warning: Removed 55 row(s) containing missing values (geom_path).
+    ## Warning: Removed 53 row(s) containing missing values (geom_path).
 
 ![](../figures/oss_data_sharing_hist.png)
 
@@ -143,13 +143,13 @@ Is there significant change pre to post in the OSS Data Sharing items?
 
 ![](../figures/oss_data_sharing_line.png)
 
-    ## Warning: Removed 114 rows containing non-finite values (stat_bin).
+    ## Warning: Removed 120 rows containing non-finite values (stat_bin).
 
-    ## Warning: Removed 114 rows containing non-finite values (stat_boxplot).
+    ## Warning: Removed 120 rows containing non-finite values (stat_boxplot).
 
-    ## Warning: Removed 114 rows containing missing values (geom_point).
+    ## Warning: Removed 120 rows containing missing values (geom_point).
 
-    ## Warning: Removed 53 row(s) containing missing values (geom_path).
+    ## Warning: Removed 55 row(s) containing missing values (geom_path).
 
 ![](../figures/oss_code_sharing_hist.png)
 
