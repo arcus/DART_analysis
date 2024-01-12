@@ -1,3 +1,5 @@
+source(here::here("src", "scripts", "functions_data_cleaning.R"))
+
 readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |> 
   dplyr::mutate(date = lubridate::floor_date(feedback_timestamp, unit = "days")) |> 
   # we added pilot_participant after cohort, so responses with non-missing values for cohort should be backfilled as pilots
@@ -34,3 +36,6 @@ readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |>
   )) |> 
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "quick_module_feedback.rds"))
+
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("quick_module_feedback")

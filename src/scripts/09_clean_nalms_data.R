@@ -1,3 +1,4 @@
+source(here::here("src", "scripts", "functions_data_cleaning.R"))
 
 # save Basic Info
 readRDS(here::here("data", "raw", "NALMS.rds")) |> 
@@ -6,6 +7,9 @@ readRDS(here::here("data", "raw", "NALMS.rds")) |>
   dplyr::select(record_id, first_name:basic_info_complete) |> 
   # save cleaned data
   saveRDS(file = here::here("data", "interim", "nalms_basic_info.rds"))
+
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("nalms_basic_info")
 
 # Get information about each pathway
 
@@ -37,6 +41,8 @@ module_info <- readRDS(here::here("data", "raw", "NALMS.rds")) |>
 dplyr::left_join(pathway_info, module_info, by = "pathway") |> 
   saveRDS(file = here::here("data", "interim", "nalms_pathway_info.rds"))
 
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("nalms_pathway_info")
 
 # clean the NALMS activity data itself
 
@@ -50,6 +56,9 @@ readRDS(here::here("data", "raw", "NALMS.rds")) |>
   dplyr::rename(pathway = redcap_repeat_instrument) |> 
   # save cleaned data
   saveRDS(file = here::here("data", "interim", "nalms_full.rds"))
+
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("nalms_full")
 
 # also save a summary file
 readRDS(here::here("data", "interim", "nalms_full.rds")) |> 
@@ -83,3 +92,6 @@ readRDS(here::here("data", "interim", "nalms_full.rds")) |>
   dplyr::ungroup() |> 
   # save cleaned data
   saveRDS(file = here::here("data", "interim", "nalms_summary.rds"))
+
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("nalms_summary")

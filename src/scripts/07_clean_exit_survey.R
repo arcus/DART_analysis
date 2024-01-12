@@ -1,3 +1,5 @@
+source(here::here("src", "scripts", "functions_data_cleaning.R"))
+
 labels_agree <- c("Strongly Disagree", "Disagree", "Neither Agree Nor Disagree", "Agree", "Strongly Agree")
 labels_amount <- c("I needed less", "It was a good amount", "I needed more")
 labels_freq <- c("Never", "Very little", "Sometimes", "Frequently", "Very frequently")
@@ -16,6 +18,10 @@ exit_survey <- readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
                 dplyr::across(easy_or_difficult, ~factor(.x, levels = 1:3, labels = labels_difficulty)))
 # saved cleaned data
 saveRDS(exit_survey, file = here::here("data", "interim", "exit_survey.rds"))
+
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("exit_survey")
+
 
 # how many participants have completed?
 counts <- exit_survey |> 

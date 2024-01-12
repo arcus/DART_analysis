@@ -1,3 +1,5 @@
+source(here::here("src", "scripts", "functions_data_cleaning.R"))
+
 highest_degree_labels <- c("Little or no formal schooling", "Elementary school or equivalent", "Middle school or equivalent", "High school or equivalent", "Some college", "Undergraduate degree", "Some graduate school", "Graduate degree", "Doctoral degree")
 career_stage_labels <- c("Student (PhD, MD)", "Postdoc, MD resident, MD fellow", "Junior faculty", "Established faculty", "Research staff", "Other")
 # student, Student working toward a PhD, MD, or other terminal degree in a biomedical domain | fellow, Postdoc, MD resident, MD fellow, or other early career trainee | faculty_jun, Junior faculty | faculty_est, Established faculty | staff, Research staff with or without terminal degree | other, Other (please describe)
@@ -46,6 +48,8 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
 readRDS(here::here("data", "interim", "demographics.rds")) |> 
   dplyr::select(gender, gender_coded) |> unique() |> View()
 
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("demographics")
 
 institutions <- readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
   dplyr::filter(redcap_event_name == "screening_arm_1") |> 

@@ -1,3 +1,4 @@
+source(here::here("src", "scripts", "functions_data_cleaning.R"))
 
 ability_labels <- c("I wouldn't know where to start", "I could struggle through, but not confident I could do it", "I could probably do it with some trial and error", "I am confident in my ability to do it")
 values_labels <- c("strongly disagree", "disagree", "somewhat disagree", "neither agree nor disagree", "somewhat agree", "agree", "strongly agree")
@@ -15,6 +16,9 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "nih_pre.rds"))
 
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("nih_pre")
+
 # OSS code sharing items, pre test
 readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
   # only records for which we have a completed pretest survey
@@ -24,6 +28,9 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
   dplyr::select(record_id, code_sharing_attitude_1:code_behavior_norm_1) |> 
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "oss_code_pre.rds"))
+
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("oss_code_pre")
 
 
 # OSS data sharing items, pre test
@@ -35,3 +42,6 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
   dplyr::select(record_id, data_sharing_attitude_1:data_behavior_norm_1) |> 
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "oss_data_pre.rds"))
+
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("oss_data_pre")

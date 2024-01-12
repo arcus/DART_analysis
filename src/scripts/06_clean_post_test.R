@@ -1,3 +1,5 @@
+source(here::here("src", "scripts", "functions_data_cleaning.R"))
+
 ability_labels <- c("I wouldn't know where to start", "I could struggle through, but not confident I could do it", "I could probably do it with some trial and error", "I am confident in my ability to do it")
 values_labels <- c("strongly disagree", "disagree", "somewhat disagree", "neither agree nor disagree", "somewhat agree", "agree", "strongly agree")
 
@@ -15,6 +17,9 @@ nih_post <- readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "nih_post.rds"))
 
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("nih_post")
+
 # OSS code sharing items, post test
 readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
   # only records for which we have a completed posttest survey
@@ -25,6 +30,8 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "oss_code_post.rds"))
 
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("oss_code_post")
 
 # OSS data sharing items, post test
 readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
@@ -35,6 +42,9 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
   dplyr::select(record_id, data_sharing_attitude_1:data_behavior_norm_1) |> 
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "oss_data_post.rds"))
+
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("oss_data_post")
 
 # how many participants have completed?
 counts <- readRDS(here::here("data", "interim", "nih_post.rds")) |> 

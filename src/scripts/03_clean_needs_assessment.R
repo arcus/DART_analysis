@@ -1,16 +1,4 @@
-
-
-not_sure <- function(col){
-  # replaces responses of 6 ("not sure") with NA
-  col <- ifelse(col == 6, NA, col)
-  return(col)
-}
-
-impute_missing_as_1 <- function(col){
-  # for items with missing values, replace missing values with 1 (the lowest score)
-  col <- ifelse(is.na(col), 1, col)
-  return(col)
-}
+source(here::here("src", "scripts", "functions_data_cleaning.R"))
 
 readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
   # only records for which we have a completed needs assessment survey
@@ -21,5 +9,10 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
   dplyr::mutate(dplyr::across(tidyselect::matches("_relevance|_expertise|_learn"), not_sure)) |> 
   # replace all missing values with 1 (the lowest possible score)
   dplyr::mutate(dplyr::across(tidyselect::matches("_relevance|_expertise|_learn"), impute_missing_as_1)) |> 
+  # ensure there's no potentially identifying information (names, emails, open text fields)
+  dplyr::select(!tidyselect::where(is.character)) |> 
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "needs_assessment.rds")) 
+
+# save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
+save_data_deid("needs_assessment")
