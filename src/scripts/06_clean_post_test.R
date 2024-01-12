@@ -45,9 +45,3 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
 
 # save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
 save_data_deid("oss_data_post")
-
-# how many participants have completed?
-counts <- readRDS(here::here("data", "interim", "nih_post.rds")) |> 
-  dplyr::left_join(readr::read_csv(here::here("participant_waves.csv"), show_col_types = FALSE), by = "record_id") |> 
-  dplyr::count(wave)
-message(sum(counts$n), " total completed NIH post surveys, (", counts$n[1], " from Wave 1, and ", counts$n[2], " from Wave 2)")
