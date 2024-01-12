@@ -8,9 +8,13 @@ readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |>
                          pilot_participant = "no")) |> 
   dplyr::mutate(type = dplyr::case_when(research_participant_yn == 1 ~ "Study Participants",
                                         pilot_participant == "yes" ~ "Study Participants", 
-                                        research_participant_yn == 0 & pilot_participant == "no" ~ "Other Users")) |> 
+                                        research_participant_yn == 0 & pilot_participant == "no" ~ "Other Users"),
+                type = as.factor(type)) |> 
   # clean up factors
-  dplyr::mutate(learning_objectives = factor(learning_objectives, levels = c(0, 1), labels = c("no", "yes"))) |> 
+  dplyr::mutate(learning_objectives = factor(learning_objectives, levels = c(0, 1), labels = c("no", "yes")),
+                module_id = as.factor(module_id),
+                version = as.factor(version),
+                module_type = as.factor(module_type)) |> 
   # module_name used to include quotes, now it doesn't. remove all the quotes to make it consistent.
   dplyr::mutate(module_name = gsub(x = module_name, pattern = '"', replacement = ''),
                 module_name = tolower(module_name),
@@ -32,8 +36,8 @@ readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |>
     module_name == "setting up git for mac and linux" ~ "setting up git on mac and linux",
     module_name == "sql, intermediate level" ~ "sql intermediate",
     module_name == "sql joins demystified" ~ "sql joins",
-    TRUE ~ module_name
-  )) |> 
+    TRUE ~ module_name),
+    module_name = as.factor(module_name)) |> 
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "quick_module_feedback.rds"))
 

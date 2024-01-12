@@ -5,6 +5,8 @@ readRDS(here::here("data", "raw", "NALMS.rds")) |>
   # basic info is the only non-repeating form
   dplyr::filter(is.na(redcap_repeat_instance)) |> 
   dplyr::select(record_id, first_name:basic_info_complete) |> 
+  # make pathway a factor so it can be included in the deid version of the data
+  dplyr::mutate(pathway = as.factor(pathway)) |> 
   # save cleaned data
   saveRDS(file = here::here("data", "interim", "nalms_basic_info.rds"))
 
