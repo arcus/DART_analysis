@@ -113,7 +113,11 @@ if(!file.exists("locations_with_address.csv")){
   message("Error in participant_geocodes.\nThere is no file 'locations_with_address.csv'. You need to manually add city information for each institution and save it in a file called 'locations_with_address.csv' in the main project directory.")
 } else {
   # read in the city information that was manually added
-  locations <- readr::read_csv("locations_with_address.csv") |> 
+  locations <- readr::read_csv("locations_with_address.csv", 
+                               col_types = vroom::cols(
+                                 institution = vroom::col_character(),
+                                 address = vroom::col_character()
+                               )) |> 
     tidygeocoder::geocode(address = address)
   
   institutions |> 
