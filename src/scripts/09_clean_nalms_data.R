@@ -41,6 +41,7 @@ module_info <- readRDS(here::here("data", "raw", "NALMS.rds")) |>
 
 # save participants per pathway and modules per pathway as pathway_info
 dplyr::left_join(pathway_info, module_info, by = "pathway") |> 
+  dplyr::mutate(pathway = as.factor(pathway)) |> 
   saveRDS(file = here::here("data", "interim", "nalms_pathway_info.rds"))
 
 # save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
