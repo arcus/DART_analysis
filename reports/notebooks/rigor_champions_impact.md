@@ -1,7 +1,7 @@
 Rigor Champions Impact
 ================
 Rose Hartman
-2023-12-12
+2024-01-12
 
 > Note that code chunks are not printed in this report in order to keep
 > the output tidy. To see all of the code to generate these results,
@@ -26,7 +26,7 @@ found us through means other than participation in the DART study?
 ### Feedback submitted by month
 
 During our first year, we received an average of 23 feedback submissions
-per month. That has grown to an average of 169.3 per month over the last
+per month. That has grown to an average of 81.3 per month over the last
 quarter.
 
 ## Impact of DART program on researchers’ data science skills
@@ -82,17 +82,17 @@ important aspect of creating agents for more transparent science.
 
     ##                     fit_relevance                    continue_dart
     ##  Strongly Disagree         :  1   Strongly Disagree         :  0  
-    ##  Disagree                  :  6   Disagree                  :  8  
-    ##  Neither Agree Nor Disagree: 64   Neither Agree Nor Disagree: 22  
-    ##  Agree                     :126   Agree                     : 75  
-    ##  Strongly Agree            : 79   Strongly Agree            :126  
-    ##  NA's                      :  9   NA's                      : 54
+    ##  Disagree                  :  6   Disagree                  :  9  
+    ##  Neither Agree Nor Disagree: 66   Neither Agree Nor Disagree: 22  
+    ##  Agree                     :131   Agree                     : 78  
+    ##  Strongly Agree            : 82   Strongly Agree            :132  
+    ##  NA's                      : 10   NA's                      : 55
 
-Across both Wave 1 and Wave 2, 205 research participants (72% of those
+Across both Wave 1 and Wave 2, 213 research participants (72% of those
 who completed the final survey) agreed or strongly agreed with the
 statement “I learned things from my assigned modules that I can apply in
 my research.” For Wave 2, we added the item “I intend to keep studying
-with the DART materials,” to which 201 participants (85% of Wave 2
+with the DART materials,” to which 210 participants (85% of Wave 2
 respondents) agreed or strongly agreed.
 
 ![](../figures/exit_fit_relevance_likert.png)
@@ -123,7 +123,7 @@ reproducibility skills.
     ##   reproducibility_skills learning_objectives     n
     ##   <fct>                  <fct>               <int>
     ## 1 no                     no                     38
-    ## 2 no                     yes                  1397
+    ## 2 no                     yes                  1405
     ## 3 no                     <NA>                   15
     ## 4 yes                    no                     20
     ## 5 yes                    yes                   575
