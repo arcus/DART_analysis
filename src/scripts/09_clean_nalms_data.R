@@ -54,6 +54,7 @@ readRDS(here::here("data", "raw", "NALMS.rds")) |>
   # extract pathway from the redcap_repeat_instrument field
   dplyr::mutate(redcap_repeat_instrument = gsub(x=redcap_repeat_instrument, pattern = "(.*)_pathway", replacement = "\\1")) |> 
   dplyr::rename(pathway = redcap_repeat_instrument) |> 
+  dplyr::mutate(pathway = as.factor(pathway)) |> 
   # save cleaned data
   saveRDS(file = here::here("data", "interim", "nalms_full.rds"))
 
