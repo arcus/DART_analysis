@@ -5,10 +5,10 @@ save_data_deid <- function(data_name){
   readRDS(here::here("data", "interim", paste0(data_name, ".rds"))) |> 
     # ensure there's no potentially identifying information (names, emails, open text fields)
     dplyr::select(!tidyselect::where(is.character)) |> 
-    saveRDS(file = here::here("data", "interim", paste0(data_name, "_deid.rds"))) 
+    saveRDS(file = here::here("data", "deidentified", paste0(data_name, "_deid.rds"))) 
   
   full <- readRDS(here::here("data", "interim", paste0(data_name, ".rds")))
-  deid <- readRDS(here::here("data", "interim", paste0(data_name, "_deid.rds")))
+  deid <- readRDS(here::here("data", "deidentified", paste0(data_name, "_deid.rds")))
   message("\n", ncol(full) - ncol(deid), 
           paste(" columns dropped in de-identified version of", data_name  ,"data\n"), 
           paste(colnames(full)[!colnames(full) %in% colnames(deid)], collapse = "\n"))

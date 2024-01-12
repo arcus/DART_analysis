@@ -5,3 +5,5 @@ if (!dir.exists(here::here("data"))) dir.create(here::here("data"))
 if (!dir.exists(here::here("data", "raw"))) dir.create(here::here("data", "raw"))
 
 if (!dir.exists(here::here("data", "interim"))) dir.create(here::here("data", "interim"))
+
+if (!dir.exists(here::here("data", "deidentified"))) dir.create(here::here("data", "deidentified"))
