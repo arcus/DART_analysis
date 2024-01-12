@@ -16,7 +16,8 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
                                         labels = highest_degree_labels)) |> 
   # recode to match NIH ethnicity
   dplyr::mutate(ethnicity = ifelse(ethnicity___hispanic == 1, "Hispanic or Latino", 
-                                   ifelse(ethnicity___notsay == 1, NA, "Not Hispanic or Latino"))) |> 
+                                   ifelse(ethnicity___notsay == 1, NA, "Not Hispanic or Latino")),
+                ethnicity = as.factor(ethnicity)) |> 
   # multiple races
   dplyr::rowwise() |> 
   dplyr::mutate(race_count = sum(ethnicity___amindian, ethnicity___asian, ethnicity___black, ethnicity___hawaiian, ethnicity___white)) |> 
@@ -26,7 +27,8 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
                                      ifelse(ethnicity___asian == 1, "Asian", 
                                             ifelse(ethnicity___black == 1, "Black or African American",
                                                    ifelse(ethnicity___hawaiian == 1, "Native Hawaiian or Other Pacific Islander",
-                                                          ifelse(ethnicity___white == 1, "White", NA))))))) |> 
+                                                          ifelse(ethnicity___white == 1, "White", NA)))))),
+                race = as.factor(race)) |> 
   # gender
   dplyr::mutate(gender = tolower(gender),
                 gender_coded = ifelse(grepl(x=gender, pattern = "non[-]*binary"), "Non-Binary, Agender, Genderqueer, or Gender Non-Conforming", 
@@ -35,10 +37,12 @@ readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
                                                     ifelse(gender == "m", "Male",
                                                            ifelse(grepl(x=gender, pattern = "wom|fem|she|her"), "Female",
                                                                   ifelse(grepl(x=gender, pattern = "man|male|he|him"), "Male",
-                                                                         "Non-Binary, Agender, Genderqueer, or Gender Non-Conforming"))))))) |> 
+                                                                         "Non-Binary, Agender, Genderqueer, or Gender Non-Conforming")))))),
+                gender_coded = as.factor(gender_coded)) |> 
   # under-represented? https://grants.nih.gov/grants/guide/notice-files/NOT-OD-20-031.html
   # "Blacks or African Americans, Hispanics or Latinos, American Indians or Alaska Natives, Native Hawaiians and other Pacific Islanders"
-  dplyr::mutate(underrepresented = ifelse(ethnicity___black == 1 | ethnicity___hispanic == 1 | ethnicity___amindian == 1 | ethnicity___hawaiian == 1, "Underrepresented", "Not Underrepresented")) |> 
+  dplyr::mutate(underrepresented = ifelse(ethnicity___black == 1 | ethnicity___hispanic == 1 | ethnicity___amindian == 1 | ethnicity___hawaiian == 1, "Underrepresented", "Not Underrepresented"),
+                underrepresented = as.factor(underrepresented)) |> 
   dplyr::select(record_id, gender, gender_coded, race, ethnicity, underrepresented, everything()) |> 
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "demographics.rds"))
