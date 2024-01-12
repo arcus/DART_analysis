@@ -24,11 +24,11 @@ participants <- readr::read_csv(here::here("participant_waves.csv"), show_col_ty
   # limit analysis to wave 1, as wave 2 data collection isn't completed yet
   dplyr::filter(wave == 1)
 
-nih_post <- readRDS(here::here("data", "interim", "nih_post.rds")) |> 
+nih_post <- readRDS(here::here("data", "deidentified", "nih_post.rds")) |> 
   dplyr::filter(record_id %in% participants$record_id) |> 
   dplyr::mutate(event = "post")
 
-nih_pre <- readRDS(here::here("data", "interim", "nih_pre.rds")) |> 
+nih_pre <- readRDS(here::here("data", "deidentified", "nih_pre.rds")) |> 
   # only include pretest for which we also have posttest 
   dplyr::filter(record_id %in% nih_post$record_id) |> 
   dplyr::mutate(event = "pre")
@@ -37,7 +37,7 @@ nih <- rbind(nih_pre, nih_post) |>
   dplyr::mutate(event = factor(event, levels = c("pre", "post")))
 
 # load exit survey
-exit <- readRDS(here::here("data", "interim", "exit_survey.rds")) |> 
+exit <- readRDS(here::here("data", "deidentified", "exit_survey.rds")) |> 
   dplyr::filter(record_id %in% participants$record_id)
 
 # get pathway assignments
