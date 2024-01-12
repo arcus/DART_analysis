@@ -119,6 +119,8 @@ if(!file.exists("locations_with_address.csv")){
   institutions |> 
     dplyr::select(record_id, institution = institution_clean) |> 
     dplyr::left_join(locations, by = "institution") |> 
+    # make institution a factor rather than character, so it can be included in the deid version of the data as well
+    dplyr::mutate(institution = as.factor(institution)) |> 
     # saved cleaned data
     saveRDS(file = here::here("data", "interim", "participant_geocodes.rds"))
   
