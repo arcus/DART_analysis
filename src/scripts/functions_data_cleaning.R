@@ -9,7 +9,7 @@ save_data_deid <- function(data_name){
   
   full <- readRDS(here::here("data", "interim", paste0(data_name, ".rds")))
   deid <- readRDS(here::here("data", "interim", paste0(data_name, "_deid.rds")))
-  message(ncol(full) - ncol(deid), 
+  message("\n", ncol(full) - ncol(deid), 
           paste(" columns dropped in de-identified version of", data_name  ,"data\n"), 
           paste(colnames(full)[!colnames(full) %in% colnames(deid)], collapse = "\n"))
 }
