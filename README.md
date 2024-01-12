@@ -26,14 +26,22 @@ Here are a few good ones to start with if you want an overview of our findings s
 The code in this repository is stored in two places: `src/scripts` and `reports/notebooks`. 
 Broadly, the code in `src/scripts` is general-purpose code to set up the analysis, such as downloading and cleaning the data, whereas the code in `reports/notebooks` is code to run tests and generate visualizations as needed for specific reports. 
 
-## Initial setup
+There is a deidentified version of each data set available in `data/deidentified`. 
+You will be able to replicate most (but not necessarily all) analyses just using the deidentified data.
+To access the full data, you'll need API access to our REDCap projects.
 
-Participant data are **not** stored in this repository. 
-The first time you clone this repository, you'll need to use your REDCap API tokens to download the raw data and then run the cleaning scripts before you can replicate any analyses. 
+## Getting the full data, with identifying fields
+
+Participant data with identifying fields are **not** stored in this repository. 
+The first time you clone this repository, you'll need to use your REDCap API tokens to download the raw data and then run the cleaning scripts before you can replicate any analyses using identifying participant data. 
+Note the instructions about API tokens at the top of `01_redcap_api.R`.
 If you don't have API access to the DART REDCap project, you won't be able to fully replicate the results on your own machine. 
 
-To do download the raw data and clean it, open `src/scripts` and run each of the scripts there in order (the cleaning scripts are all saved starting with a number). 
-Note the instructions about API tokens at the top of `01_redcap_api.R`.
+To do download the raw data and clean it, open `src/scripts` and run each of the scripts there in order (the cleaning scripts are all saved starting with a number).  Note that if you like you can do this in a single command in the R console: 
+
+`for(s in list.files(here::here("src", "scripts"), pattern = "^0", full.names = TRUE)) source(s)`
+
+To check that the scripts ran okay, go to `data/interim` and you should see several .rds files there (or run `fs::dir_tree("data")`). 
 
 ## Running reports
 
@@ -50,3 +58,4 @@ It also means we can more easily use the standalone images from `reports/figures
 ## To do
 
 - Simplify NALMS report. It's currently copied almost exactly from the DART_wave2_analysis repo, and we should have a much pithier version here.
+- Replace nested ifelses in participant_geocodes with case_whens
