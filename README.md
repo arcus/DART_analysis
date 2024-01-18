@@ -45,9 +45,9 @@ To check that the scripts ran okay, go to `data/interim` and you should see seve
 
 ## Running reports
 
-Once you've run all the cleaning scripts, you'll have local copies saved of all the data you need. 
-Data are stored in `data/raw` and `data/interim`. 
-Most reports begin by loading one or more data sets from `data/interim`.
+Data are stored in `data/raw`, `data/deidentified`, and `data/interim`. 
+If you clone the repository, you'll have only `data/deidentified`; if you also run all the cleaning scripts in `src/scripts`, you'll also have `data/raw` and `data/interim`.
+Most reports begin by loading one or more data sets from `data/deidentified` or (if identifying fields are needed) `data/interim`.
 
 Most reports knit to `github_document`, because that markdown formatting is what displays best on GitHub.
 
@@ -59,3 +59,4 @@ It also means we can more easily use the standalone images from `reports/figures
 
 - Simplify NALMS report. It's currently copied almost exactly from the DART_wave2_analysis repo, and we should have a much pithier version here.
 - Replace nested ifelses in participant_geocodes with case_whens
+- See if `reports/notebooks/participant_description.Rmd` can be done with only deid data
