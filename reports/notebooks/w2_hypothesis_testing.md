@@ -425,11 +425,11 @@ but note that only 243 actually show any activity from participants.
 
 ## Distributions and summary stats for all key variables
 
-<div id="iaxcyylbcz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rqzupksqyt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
-&#10;#iaxcyylbcz .gt_table {
+&#10;#rqzupksqyt .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -453,7 +453,7 @@ but note that only 243 actually show any activity from participants.
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_heading {
+&#10;#rqzupksqyt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -464,11 +464,11 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_caption {
+&#10;#rqzupksqyt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#iaxcyylbcz .gt_title {
+&#10;#rqzupksqyt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -479,7 +479,7 @@ but note that only 243 actually show any activity from participants.
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#iaxcyylbcz .gt_subtitle {
+&#10;#rqzupksqyt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -490,12 +490,12 @@ but note that only 243 actually show any activity from participants.
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#iaxcyylbcz .gt_bottom_border {
+&#10;#rqzupksqyt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_col_headings {
+&#10;#rqzupksqyt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -509,7 +509,7 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_col_heading {
+&#10;#rqzupksqyt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -528,7 +528,7 @@ but note that only 243 actually show any activity from participants.
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#iaxcyylbcz .gt_column_spanner_outer {
+&#10;#rqzupksqyt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -539,13 +539,13 @@ but note that only 243 actually show any activity from participants.
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#iaxcyylbcz .gt_column_spanner_outer:first-child {
+&#10;#rqzupksqyt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#iaxcyylbcz .gt_column_spanner_outer:last-child {
+&#10;#rqzupksqyt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#iaxcyylbcz .gt_column_spanner {
+&#10;#rqzupksqyt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -556,7 +556,7 @@ but note that only 243 actually show any activity from participants.
   display: inline-block;
   width: 100%;
 }
-&#10;#iaxcyylbcz .gt_group_heading {
+&#10;#rqzupksqyt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -581,7 +581,7 @@ but note that only 243 actually show any activity from participants.
   vertical-align: middle;
   text-align: left;
 }
-&#10;#iaxcyylbcz .gt_empty_group_heading {
+&#10;#rqzupksqyt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -595,13 +595,13 @@ but note that only 243 actually show any activity from participants.
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#iaxcyylbcz .gt_from_md > :first-child {
+&#10;#rqzupksqyt .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#iaxcyylbcz .gt_from_md > :last-child {
+&#10;#rqzupksqyt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#iaxcyylbcz .gt_row {
+&#10;#rqzupksqyt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -619,7 +619,7 @@ but note that only 243 actually show any activity from participants.
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#iaxcyylbcz .gt_stub {
+&#10;#rqzupksqyt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -631,7 +631,7 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#iaxcyylbcz .gt_stub_row_group {
+&#10;#rqzupksqyt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -644,10 +644,10 @@ but note that only 243 actually show any activity from participants.
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#iaxcyylbcz .gt_row_group_first td {
+&#10;#rqzupksqyt .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#iaxcyylbcz .gt_summary_row {
+&#10;#rqzupksqyt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -656,14 +656,14 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#iaxcyylbcz .gt_first_summary_row {
+&#10;#rqzupksqyt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_first_summary_row.thick {
+&#10;#rqzupksqyt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#iaxcyylbcz .gt_last_summary_row {
+&#10;#rqzupksqyt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -672,7 +672,7 @@ but note that only 243 actually show any activity from participants.
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_grand_summary_row {
+&#10;#rqzupksqyt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -681,7 +681,7 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#iaxcyylbcz .gt_first_grand_summary_row {
+&#10;#rqzupksqyt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -690,10 +690,10 @@ but note that only 243 actually show any activity from participants.
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_striped {
+&#10;#rqzupksqyt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#iaxcyylbcz .gt_table_body {
+&#10;#rqzupksqyt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -701,7 +701,7 @@ but note that only 243 actually show any activity from participants.
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_footnotes {
+&#10;#rqzupksqyt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -714,7 +714,7 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_footnote {
+&#10;#rqzupksqyt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -722,7 +722,7 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#iaxcyylbcz .gt_sourcenotes {
+&#10;#rqzupksqyt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -735,58 +735,58 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#iaxcyylbcz .gt_sourcenote {
+&#10;#rqzupksqyt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#iaxcyylbcz .gt_left {
+&#10;#rqzupksqyt .gt_left {
   text-align: left;
 }
-&#10;#iaxcyylbcz .gt_center {
+&#10;#rqzupksqyt .gt_center {
   text-align: center;
 }
-&#10;#iaxcyylbcz .gt_right {
+&#10;#rqzupksqyt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#iaxcyylbcz .gt_font_normal {
+&#10;#rqzupksqyt .gt_font_normal {
   font-weight: normal;
 }
-&#10;#iaxcyylbcz .gt_font_bold {
+&#10;#rqzupksqyt .gt_font_bold {
   font-weight: bold;
 }
-&#10;#iaxcyylbcz .gt_font_italic {
+&#10;#rqzupksqyt .gt_font_italic {
   font-style: italic;
 }
-&#10;#iaxcyylbcz .gt_super {
+&#10;#rqzupksqyt .gt_super {
   font-size: 65%;
 }
-&#10;#iaxcyylbcz .gt_footnote_marks {
+&#10;#rqzupksqyt .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
-&#10;#iaxcyylbcz .gt_asterisk {
+&#10;#rqzupksqyt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#iaxcyylbcz .gt_indent_1 {
+&#10;#rqzupksqyt .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#iaxcyylbcz .gt_indent_2 {
+&#10;#rqzupksqyt .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#iaxcyylbcz .gt_indent_3 {
+&#10;#rqzupksqyt .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#iaxcyylbcz .gt_indent_4 {
+&#10;#rqzupksqyt .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#iaxcyylbcz .gt_indent_5 {
+&#10;#rqzupksqyt .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -846,11 +846,11 @@ but note that only 243 actually show any activity from participants.
   </tfoot>
 </table>
 </div>
-<div id="nyqvrdgoak" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="udumcnxzxx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
-&#10;#nyqvrdgoak .gt_table {
+&#10;#udumcnxzxx .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -874,7 +874,7 @@ but note that only 243 actually show any activity from participants.
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_heading {
+&#10;#udumcnxzxx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -885,11 +885,11 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_caption {
+&#10;#udumcnxzxx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#nyqvrdgoak .gt_title {
+&#10;#udumcnxzxx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -900,7 +900,7 @@ but note that only 243 actually show any activity from participants.
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#nyqvrdgoak .gt_subtitle {
+&#10;#udumcnxzxx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -911,12 +911,12 @@ but note that only 243 actually show any activity from participants.
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#nyqvrdgoak .gt_bottom_border {
+&#10;#udumcnxzxx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_col_headings {
+&#10;#udumcnxzxx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -930,7 +930,7 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_col_heading {
+&#10;#udumcnxzxx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -949,7 +949,7 @@ but note that only 243 actually show any activity from participants.
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#nyqvrdgoak .gt_column_spanner_outer {
+&#10;#udumcnxzxx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -960,13 +960,13 @@ but note that only 243 actually show any activity from participants.
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#nyqvrdgoak .gt_column_spanner_outer:first-child {
+&#10;#udumcnxzxx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#nyqvrdgoak .gt_column_spanner_outer:last-child {
+&#10;#udumcnxzxx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#nyqvrdgoak .gt_column_spanner {
+&#10;#udumcnxzxx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -977,7 +977,7 @@ but note that only 243 actually show any activity from participants.
   display: inline-block;
   width: 100%;
 }
-&#10;#nyqvrdgoak .gt_group_heading {
+&#10;#udumcnxzxx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1002,7 +1002,7 @@ but note that only 243 actually show any activity from participants.
   vertical-align: middle;
   text-align: left;
 }
-&#10;#nyqvrdgoak .gt_empty_group_heading {
+&#10;#udumcnxzxx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1016,13 +1016,13 @@ but note that only 243 actually show any activity from participants.
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#nyqvrdgoak .gt_from_md > :first-child {
+&#10;#udumcnxzxx .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#nyqvrdgoak .gt_from_md > :last-child {
+&#10;#udumcnxzxx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#nyqvrdgoak .gt_row {
+&#10;#udumcnxzxx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1040,7 +1040,7 @@ but note that only 243 actually show any activity from participants.
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#nyqvrdgoak .gt_stub {
+&#10;#udumcnxzxx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1052,7 +1052,7 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#nyqvrdgoak .gt_stub_row_group {
+&#10;#udumcnxzxx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1065,10 +1065,10 @@ but note that only 243 actually show any activity from participants.
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#nyqvrdgoak .gt_row_group_first td {
+&#10;#udumcnxzxx .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#nyqvrdgoak .gt_summary_row {
+&#10;#udumcnxzxx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1077,14 +1077,14 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#nyqvrdgoak .gt_first_summary_row {
+&#10;#udumcnxzxx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_first_summary_row.thick {
+&#10;#udumcnxzxx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#nyqvrdgoak .gt_last_summary_row {
+&#10;#udumcnxzxx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1093,7 +1093,7 @@ but note that only 243 actually show any activity from participants.
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_grand_summary_row {
+&#10;#udumcnxzxx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1102,7 +1102,7 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#nyqvrdgoak .gt_first_grand_summary_row {
+&#10;#udumcnxzxx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1111,10 +1111,10 @@ but note that only 243 actually show any activity from participants.
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_striped {
+&#10;#udumcnxzxx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#nyqvrdgoak .gt_table_body {
+&#10;#udumcnxzxx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1122,7 +1122,7 @@ but note that only 243 actually show any activity from participants.
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_footnotes {
+&#10;#udumcnxzxx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1135,7 +1135,7 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_footnote {
+&#10;#udumcnxzxx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1143,7 +1143,7 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#nyqvrdgoak .gt_sourcenotes {
+&#10;#udumcnxzxx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1156,58 +1156,58 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#nyqvrdgoak .gt_sourcenote {
+&#10;#udumcnxzxx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#nyqvrdgoak .gt_left {
+&#10;#udumcnxzxx .gt_left {
   text-align: left;
 }
-&#10;#nyqvrdgoak .gt_center {
+&#10;#udumcnxzxx .gt_center {
   text-align: center;
 }
-&#10;#nyqvrdgoak .gt_right {
+&#10;#udumcnxzxx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#nyqvrdgoak .gt_font_normal {
+&#10;#udumcnxzxx .gt_font_normal {
   font-weight: normal;
 }
-&#10;#nyqvrdgoak .gt_font_bold {
+&#10;#udumcnxzxx .gt_font_bold {
   font-weight: bold;
 }
-&#10;#nyqvrdgoak .gt_font_italic {
+&#10;#udumcnxzxx .gt_font_italic {
   font-style: italic;
 }
-&#10;#nyqvrdgoak .gt_super {
+&#10;#udumcnxzxx .gt_super {
   font-size: 65%;
 }
-&#10;#nyqvrdgoak .gt_footnote_marks {
+&#10;#udumcnxzxx .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
-&#10;#nyqvrdgoak .gt_asterisk {
+&#10;#udumcnxzxx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#nyqvrdgoak .gt_indent_1 {
+&#10;#udumcnxzxx .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#nyqvrdgoak .gt_indent_2 {
+&#10;#udumcnxzxx .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#nyqvrdgoak .gt_indent_3 {
+&#10;#udumcnxzxx .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#nyqvrdgoak .gt_indent_4 {
+&#10;#udumcnxzxx .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#nyqvrdgoak .gt_indent_5 {
+&#10;#udumcnxzxx .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1245,11 +1245,11 @@ but note that only 243 actually show any activity from participants.
   </tfoot>
 </table>
 </div>
-<div id="naoqzwubrh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="htqjupscpb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
-&#10;#naoqzwubrh .gt_table {
+&#10;#htqjupscpb .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1273,7 +1273,7 @@ but note that only 243 actually show any activity from participants.
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_heading {
+&#10;#htqjupscpb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1284,11 +1284,11 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_caption {
+&#10;#htqjupscpb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#naoqzwubrh .gt_title {
+&#10;#htqjupscpb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1299,7 +1299,7 @@ but note that only 243 actually show any activity from participants.
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#naoqzwubrh .gt_subtitle {
+&#10;#htqjupscpb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1310,12 +1310,12 @@ but note that only 243 actually show any activity from participants.
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#naoqzwubrh .gt_bottom_border {
+&#10;#htqjupscpb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_col_headings {
+&#10;#htqjupscpb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1329,7 +1329,7 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_col_heading {
+&#10;#htqjupscpb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1348,7 +1348,7 @@ but note that only 243 actually show any activity from participants.
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#naoqzwubrh .gt_column_spanner_outer {
+&#10;#htqjupscpb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1359,13 +1359,13 @@ but note that only 243 actually show any activity from participants.
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#naoqzwubrh .gt_column_spanner_outer:first-child {
+&#10;#htqjupscpb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#naoqzwubrh .gt_column_spanner_outer:last-child {
+&#10;#htqjupscpb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#naoqzwubrh .gt_column_spanner {
+&#10;#htqjupscpb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1376,7 +1376,7 @@ but note that only 243 actually show any activity from participants.
   display: inline-block;
   width: 100%;
 }
-&#10;#naoqzwubrh .gt_group_heading {
+&#10;#htqjupscpb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1401,7 +1401,7 @@ but note that only 243 actually show any activity from participants.
   vertical-align: middle;
   text-align: left;
 }
-&#10;#naoqzwubrh .gt_empty_group_heading {
+&#10;#htqjupscpb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1415,13 +1415,13 @@ but note that only 243 actually show any activity from participants.
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#naoqzwubrh .gt_from_md > :first-child {
+&#10;#htqjupscpb .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#naoqzwubrh .gt_from_md > :last-child {
+&#10;#htqjupscpb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#naoqzwubrh .gt_row {
+&#10;#htqjupscpb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1439,7 +1439,7 @@ but note that only 243 actually show any activity from participants.
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#naoqzwubrh .gt_stub {
+&#10;#htqjupscpb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1451,7 +1451,7 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#naoqzwubrh .gt_stub_row_group {
+&#10;#htqjupscpb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1464,10 +1464,10 @@ but note that only 243 actually show any activity from participants.
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#naoqzwubrh .gt_row_group_first td {
+&#10;#htqjupscpb .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#naoqzwubrh .gt_summary_row {
+&#10;#htqjupscpb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1476,14 +1476,14 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#naoqzwubrh .gt_first_summary_row {
+&#10;#htqjupscpb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_first_summary_row.thick {
+&#10;#htqjupscpb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#naoqzwubrh .gt_last_summary_row {
+&#10;#htqjupscpb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1492,7 +1492,7 @@ but note that only 243 actually show any activity from participants.
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_grand_summary_row {
+&#10;#htqjupscpb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1501,7 +1501,7 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#naoqzwubrh .gt_first_grand_summary_row {
+&#10;#htqjupscpb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1510,10 +1510,10 @@ but note that only 243 actually show any activity from participants.
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_striped {
+&#10;#htqjupscpb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#naoqzwubrh .gt_table_body {
+&#10;#htqjupscpb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1521,7 +1521,7 @@ but note that only 243 actually show any activity from participants.
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_footnotes {
+&#10;#htqjupscpb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1534,7 +1534,7 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_footnote {
+&#10;#htqjupscpb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1542,7 +1542,7 @@ but note that only 243 actually show any activity from participants.
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#naoqzwubrh .gt_sourcenotes {
+&#10;#htqjupscpb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1555,58 +1555,58 @@ but note that only 243 actually show any activity from participants.
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#naoqzwubrh .gt_sourcenote {
+&#10;#htqjupscpb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#naoqzwubrh .gt_left {
+&#10;#htqjupscpb .gt_left {
   text-align: left;
 }
-&#10;#naoqzwubrh .gt_center {
+&#10;#htqjupscpb .gt_center {
   text-align: center;
 }
-&#10;#naoqzwubrh .gt_right {
+&#10;#htqjupscpb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#naoqzwubrh .gt_font_normal {
+&#10;#htqjupscpb .gt_font_normal {
   font-weight: normal;
 }
-&#10;#naoqzwubrh .gt_font_bold {
+&#10;#htqjupscpb .gt_font_bold {
   font-weight: bold;
 }
-&#10;#naoqzwubrh .gt_font_italic {
+&#10;#htqjupscpb .gt_font_italic {
   font-style: italic;
 }
-&#10;#naoqzwubrh .gt_super {
+&#10;#htqjupscpb .gt_super {
   font-size: 65%;
 }
-&#10;#naoqzwubrh .gt_footnote_marks {
+&#10;#htqjupscpb .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
-&#10;#naoqzwubrh .gt_asterisk {
+&#10;#htqjupscpb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#naoqzwubrh .gt_indent_1 {
+&#10;#htqjupscpb .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#naoqzwubrh .gt_indent_2 {
+&#10;#htqjupscpb .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#naoqzwubrh .gt_indent_3 {
+&#10;#htqjupscpb .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#naoqzwubrh .gt_indent_4 {
+&#10;#htqjupscpb .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#naoqzwubrh .gt_indent_5 {
+&#10;#htqjupscpb .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1641,7 +1641,7 @@ but note that only 243 actually show any activity from participants.
 
     ## Warning: Removed 4 rows containing missing values (geom_bar).
 
-<img src="../figures/ability_pre_post_hist.png" width="900" />
+<img src="../figures/ability_pre_post_hist.png" width="50%" />
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
@@ -1649,23 +1649,23 @@ but note that only 243 actually show any activity from participants.
 
     ## Warning: Removed 4 rows containing missing values (geom_bar).
 
-<img src="../figures/openscience_pre_post_hist.png" width="900" />
+<img src="../figures/openscience_pre_post_hist.png" width="50%" />
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
     ## Warning: Removed 295 rows containing non-finite values (stat_bin).
 
-<img src="../figures/change_hist.png" width="900" />
+<img src="../figures/change_hist.png" width="50%" />
 
 ## Change in ability from pre to post
 
     ## Warning: Removed 148 rows containing non-finite values (stat_boxplot).
 
-<img src="../figures/ability_boxplot.png" width="1500" />
+<img src="../figures/ability_boxplot.png" width="50%" />
 
     ## Warning: Removed 148 row(s) containing missing values (geom_path).
 
-<img src="../figures/ability_lineplot.png" width="1500" />
+<img src="../figures/ability_lineplot.png" width="50%" />
 
 Let’s look at the relationship between engagement and change in ability
 by pathway.
@@ -1676,17 +1676,17 @@ by pathway.
 
     ## Warning: Removed 148 rows containing missing values (geom_point).
 
-<img src="../figures/ability_change_by_pathway.png" width="1500" />
+<img src="../figures/ability_change_by_pathway.png" width="50%" />
 
 ## Change in open science from pre to post
 
     ## Warning: Removed 147 rows containing non-finite values (stat_boxplot).
 
-<img src="../figures/openscience_boxplot.png" width="1500" />
+<img src="../figures/openscience_boxplot.png" width="50%" />
 
     ## Warning: Removed 147 row(s) containing missing values (geom_path).
 
-<img src="../figures/openscience_lineplot.png" width="1500" />
+<img src="../figures/openscience_lineplot.png" width="50%" />
 
 Let’s look at the relationship between engagement and change in open
 science by pathway.
@@ -1697,8 +1697,8 @@ science by pathway.
 
     ## Warning: Removed 147 rows containing missing values (geom_point).
 
-<img src="../figures/openscience_change_by_pathway.png" width="1500" />
+<img src="../figures/openscience_change_by_pathway.png" width="50%" />
 
     ## Warning: Removed 148 rows containing missing values (geom_point).
 
-<img src="../figures/openscience_change_by_ability_change.png" width="1500" />
+<img src="../figures/openscience_change_by_ability_change.png" width="50%" />
