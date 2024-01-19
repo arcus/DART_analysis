@@ -16,6 +16,7 @@ source(here::here("src", "scripts", "functions_plotting.R"))
 # if the figures directory doesn't exist, create it
 dir.create(here::here("reports"), showWarnings = FALSE)
 dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+dir.create(here::here("reports", "tables"), showWarnings = FALSE)
 ```
 
 `r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
@@ -277,7 +278,13 @@ openscience_plot <- plot_data |>
 ```{r n_per_pathway}
 data |> 
   dplyr::select(pathway) |> 
-  gtsummary::tbl_summary()
+  gtsummary::tbl_summary() |> 
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "pathway_n.png",
+    path = here::here("reports", "tables"))
+
+knitr::include_graphics(here::here("reports", "tables", "pathway_n.png"))
 ```
 
 ```{r summary_stats_tables}
@@ -290,12 +297,24 @@ data |>
   tidyr::separate(col = name, into = c("name", "event"), sep = "_") |> 
   tidyr::pivot_wider(names_from = name, values_from = value) |> 
   dplyr::select(-record_id) |> 
-  gtsummary::tbl_summary(by = event)
+  gtsummary::tbl_summary(by = event) |> 
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "descriptives_outcomes.png",
+    path = here::here("reports", "tables"))
+
+knitr::include_graphics(here::here("reports", "tables", "descriptives_outcomes.png"))
 
 # covariates
 data |> 
   dplyr::select(engagement, pathway_fit, asynch) |>
-  gtsummary::tbl_summary(type = list(asynch ~ "continuous"))
+  gtsummary::tbl_summary(type = list(asynch ~ "continuous")) |> 
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "descriptives_covariates.png",
+    path = here::here("reports", "tables"))
+
+knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates.png"))
 ```
 
 ```{r}
