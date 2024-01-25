@@ -8,6 +8,7 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
                       out.width = "50%")
+
 library(ggplot2)
 
 # load custom functions for plotting
@@ -65,6 +66,8 @@ There are `r length(unique(nalms$record_id))` NALMS records (used to calculate e
 
 ## Define variables
 
+From our preregistration:
+
 > For all mean scores, the mean will be computed on available data (i.e. using na.rm = TRUE).
 
 > ability_pre and ability_post are the mean of participants' ratings (assessed pre- or post-program, respectively) on the following items from survey2: all items under the instructions "please rate your ability to complete the following tasks". 
@@ -113,17 +116,25 @@ asynch_and_pathway_fit <- exit |>
 data <- dplyr::left_join(data, asynch_and_pathway_fit, by = "record_id")
 ```
 
-```{r}
+Here is a quick summary of the fields that will be used in this analysis (scroll right to see the rest):
+
+```{r, results='asis'}
 # reorder columns, just for nicer printing
 data <- data |> 
-  dplyr::select(record_id, pathway, tidyselect::everything())
+  dplyr::select(record_id, pathway, tidyselect::everything()) |> 
+  # only keep records where we have data on all the fields needed
+  na.omit()
 
+options(knitr.kable.NA = "")
 # show a summary
-summary(data)
+summary(data) |> 
+  knitr::kable()
 ```
 
 
 # Preregistered hypothesis tests
+
+From our preregistration:
 
 > All central hypotheses tested with mixed effects change-score models, with a random effect of cluster (change = post - pre), one model on change scores for ability and one on change scores for open science tenets. Another model including the effect of moderators as a covariate. For example:
 >
@@ -165,7 +176,7 @@ summary(data)
 h1 <- lme4::lmer(ability_change ~ 1+ (1|pathway), data)
 summary(h1)
 
-t.test(y=data$ability_pre, x=data$ability_post, paired = TRUE)
+(h1_t <- t.test(y=data$ability_pre, x=data$ability_post, paired = TRUE))
 ```
 
 ## Hypothesis 2
@@ -176,7 +187,7 @@ t.test(y=data$ability_pre, x=data$ability_post, paired = TRUE)
 h2 <- lme4::lmer(openscience_change ~ 1+ (1|pathway), data)
 summary(h2)
 
-t.test(y=data$openscience_pre, x=data$openscience_post, paired = TRUE)
+(h2_t <- t.test(y=data$openscience_pre, x=data$openscience_post, paired = TRUE))
 ```
 
 ## Hypothesis 3
@@ -187,7 +198,7 @@ t.test(y=data$openscience_pre, x=data$openscience_post, paired = TRUE)
 h3_ability <- lme4::lmer(ability_change ~ 1 + engagement + (1+ engagement|pathway), data)
 summary(h3_ability)
 
-anova(h3_ability, h1)
+(h3_ability_aov <- anova(h3_ability, h1))
 ```
 
 ```{r h3_openscience}
@@ -195,7 +206,7 @@ h3_openscience <- lme4::lmer(openscience_change ~ 1 + engagement + (1+ engagemen
 h3_openscience <- lme4::lmer(openscience_change ~ 1 + engagement + (1|pathway), data)
 summary(h3_openscience)
 
-anova(h3_openscience, h2)
+(h3_openscience_aov <- anova(h3_openscience, h2))
 ```
 
 ## Hypothesis 4
@@ -206,12 +217,15 @@ anova(h3_openscience, h2)
 h4_ability <- lme4::lmer(ability_change ~ 1 + asynch + (1 + asynch|pathway), data)
 h4_ability <- lme4::lmer(ability_change ~ 1 + asynch + (1 |pathway), data)
 summary(h4_ability)
+
+(h4_ability_aov <- anova(h4_ability, h1))
 ```
 
 ```{r h4_openscience}
 h4_openscience <- lme4::lmer(openscience_change ~ 1 + asynch + (1 |pathway), data)
-h4_openscience <- lme4::lmer(openscience_change ~ 1 + asynch + (1 + asynch|pathway), data)
 summary(h4_openscience)
+
+(h4_openscience_aov <- anova(h4_openscience, h2))
 ```
 
 ## Hypothesis 5
@@ -222,11 +236,16 @@ summary(h4_openscience)
 h5_ability <- lme4::lmer(ability_change ~ 1 + pathway_fit + (1 + pathway_fit|pathway), data)
 h5_ability <- lme4::lmer(ability_change ~ 1 + pathway_fit + (1 |pathway), data)
 summary(h5_ability)
+
+(h5_ability_aov <- anova(h5_ability, h1))
 ```
 
 ```{r h5_openscience}
 h5_openscience <- lme4::lmer(openscience_change ~ 1 + pathway_fit + (1 + pathway_fit|pathway), data)
+h5_openscience <- lme4::lmer(openscience_change ~ 1 + pathway_fit + (1|pathway), data)
 summary(h5_openscience)
+
+(h5_openscience_aov <- anova(h5_openscience, h2))
 ```
 
 # Plots
@@ -434,4 +453,131 @@ Let's look at the relationship between engagement and change in open science by 
                  width = 5,
                  height = 5)
 ```
+
+# Executive summary
+
+```{r helper_functions}
+print_r <- function(r, digits=2){
+  format <- paste0("%0.", digits, "f")
+  sub(pattern = "^0", replacement = "", x=sprintf(format, r))
+}
+
+print_p <- function(p, digits = 3){
+  if (p < .001){
+    p_statement <- "p < .001"
+  } else {
+    format <- paste0("%0.", digits, "f")
+    p_statement <- paste0("p = ", sub(pattern = "^0", replacement = "", x=sprintf(format, p)))
+  }
+}
+
+print_lm <- function(model, digits = 2, digits_p = 3){
+  
+  format <- paste0("%0.", digits, "f")
+  
+  rsq <- summary(model)$r.squared
+  f <- summary(model)$fstatistic["value"]
+  df1 <- summary(model)$fstatistic["numdf"]
+  df2 <- summary(model)$fstatistic["dendf"]
+  p <- pf(f,df1,df2, lower.tail = FALSE)
+  paste0("R² = ", print_r(rsq, digits), ", F(", df1, ", ", df2, ") = ", sprintf(format, f), ", ", print_p(p, digits_p))
+}
+
+print_t <- function(ttest, digits = 2, digits_p = 3){
+  
+  format <- paste0("%0.", digits, "f")
+  
+  paste0("t(", ttest$parameter, ") = ", sprintf(format, ttest$statistic), ", ", print_p(ttest$p.value, digits_p) )
+}
+
+print_anova <- function(anova, digits=2, digits_p=3, n=NULL){
+  # good reference: https://online.stat.psu.edu/stat504/lesson/6/6.3/6.3.4
+  
+  if(nrow(anova) != 2) stop("Only enter two models at a time.")
+  
+  format <- paste0("%0.", digits, "f")
+  
+  if ("F" %in% colnames(anova)){
+    # for F tests comparing the R-sq of two linear models
+    df1 <- anova$Df[2]
+    df2 <- anova$Res.Df[2]
+    f <- anova$F[2]
+    p <- anova$`Pr(>F)`[2]
+    result <- paste0("F(", df1, ", ", df2, ") = ", sprintf(format, f), ", ", print_p(p, digits_p))
+  } else if ("Chisq" %in% colnames(anova)){
+    # for chi-sq tests comparing the deviance of two linear models
+    
+    if(is.null(n)) stop("You must provide N for analysis of deviance.")
+    
+    df <- anova$Df[2]
+    chisq <- anova$Chisq[2]
+    p <- anova$`Pr(>Chisq)`[2]
+    result <- paste0("χ2 (", df, ", N=", n, ") = ", sprintf(format, chisq), ", ", print_p(p, digits_p))
+  } else stop("ERROR: Unrecognized model comparison")
+  
+  return(result)
+}
+```
+
+```{r}
+ab_change_mean <- mean(data$ability_change, na.rm = TRUE) # average change
+ab_change_sd <- sd(data$ability_change, na.rm = TRUE) # standard deviation 
+
+os_change_mean <- mean(data$openscience_change, na.rm = TRUE) # average change
+os_change_sd <- sd(data$openscience_change, na.rm = TRUE) # standard deviation 
+```
+
+We collected participants' ratings of their own current level of ability in a variety of data science skills (e.g. "Build a data processing pipeline that can be used in multiple programs"), and also their level of agreement with important tenets of open science and reproducibility (e.g. "Open and efficient data sharing is vital to the advancement of the field"). 
+As per our preregistration, participants with missing data on any of the analysis variables are dropped (listwise deletion), resulting in `r nrow(data)` complete cases for analysis. 
+
+There is strong support for the hypothesis that learners' ability improved over the DART program (Hypothesis 1).
+A random intercepts model with pathway as random effect shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post (see table below). 
+A paired t-test, ignoring the grouping structure altogether, also shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post, `r print_t(h1_t)`, mean (SD) change is `r round(ab_change_mean, 2)` (`r round(ab_change_sd, 2)`) on a 4-point scale from 1 "I wouldn't know where to start" to 4 "I am confident in my ability to do it", an effect size of $d$ = `r round(ab_change_mean/ab_change_sd, 2)`.
+
+We also saw significant increase in participants' level of agreement with open science values (Hypothesis 2, see the table below for results of the random intercepts model), but with a more modest effect size than observed with the ability ratings.
+A paired t-test, ignoring the grouping structure altogether, shows a significant improvement in participants' self-rated level of agreement with open science values from pretest to post, `r print_t(h2_t)`, mean (SD) change is `r round(os_change_mean, 2)` (`r round(os_change_sd, 2)`) on a 7-point scale from 1 "strongly disagree" to 7 "strongly agree", an effect size of $d$ = `r round(os_change_mean/os_change_sd, 2)`. 
+An examination of the raw scores for open science items reveals a probable ceiling effect; the mean open science score at pretest was already `r round(mean(data$openscience_pre), 2)` on a scale from 1 to 7, so there was no room to improve for many participants.  
+
+```{r, results='asis', message=FALSE}
+library(stargazer)
+stargazer(h1, h2, type="html")
+```
+
+We can learn more about the nature of the gains observed over the course of participation in DART by controlling for relevant covariates. 
+In particular, if the DART program itself is driving gains, we would expect to see more improvement for participants that engaged more in the program, i.e. completed more of their assigned modules (Hypothesis 3). 
+We can test the predictive power of engagement by re-running the mixed effects models above with engagement added as a predictor. 
+Our preregistration specifies that we also allow a random slope for each covariate, with the backup plan that if the random slopes model doesn't converge we revert to a random intercept only; we were able to include a random slope for engagement in the model predicting change in ability, but only a random intercept in the model predicting change in open science values.
+Percent of assigned modules completed ("engagement") does significantly predict change in ability from pre to post, `r print_anova(h3_ability_aov, n=nrow(model.frame(h1)))`.
+However, engagement does not significantly predict change in agreement with open science values, `r print_anova(h3_openscience_aov, n=nrow(model.frame(h1)))`. 
+See table below for coefficient estimates. 
+
+```{r, results='asis', message=FALSE}
+library(stargazer)
+stargazer(h3_ability, h3_openscience, type="html")
+```
+
+Similarly, we might expect that a program like DART would work better for learners who report generally doing well with asynchronous education; their preference might allow them to get more from the program, increasing its effect. 
+Indeed, the degree to which participants agree with the statement "Self-paced asynchronous studying works well for me in general" significantly predicts change in ability, `r print_anova(h4_ability_aov, n=nrow(model.frame(h1)))`.
+Preference for asynchronous learning does not significantly predict change in open science values, though, `r print_anova(h4_openscience_aov, n=nrow(model.frame(h1)))`.
+
+```{r, results='asis', message=FALSE}
+library(stargazer)
+stargazer(h4_ability, h4_openscience, type="html")
+```
+
+And finally, we predicted that our success in designing an appropriate pathway for each learner would impact how much they gained from DART (Hypothesis 5). 
+We asked a number of questions probing how well their assigned pathway of models met their needs and expectations and used the mean of their responses on those items to create an index of pathway fit. 
+As predicted, pathway fit significantly predicts change in ability, `r print_anova(h5_ability_aov, n=nrow(model.frame(h1)))`.
+Pathway fit does not significantly predict change in open science values, though, `r print_anova(h5_openscience_aov, n=nrow(model.frame(h1)))`.
+
+Taken together, this pattern of results is consistent with the conclusion that DART participants improved in their data science skills as a result of their participation. 
+Although we did note also note an improvement in open science values from pre to post, that change appears to be independent of participants' experience with DART itself. 
+This may be the result of an overall increasing commitment to open science in the pool of participants we recruited from in response to changing expectations in their fields, their own growth as researchers, etc. 
+
+Of note is the fact that while all participants are assessed on the same set of data science skills and open science values, the actual content of individual learners' pathways differed, and for any given participant many of the measured skills would not have been explicitly covered in their modules. 
+Although more targeted measurement (i.e. assessing just those skills we have explicitly taught) may have resulted in more dramatic gains, a big part of our pedagogical design for DART was around building meta-cognitive and psycho-social skills, such as resilience to failure and reduced impostor syndrome. 
+It is our hope that DART participants come away with an improved ability to *learn* new data science skills, including on topics we don't currently cover -- an ability that should serve them well throughout their career in a rapidly evolving field. 
+Seeing our participants report dramatic gains in self-reported data science skills across such a wide range of topics suggests that DART might be working. 
+
+
 
