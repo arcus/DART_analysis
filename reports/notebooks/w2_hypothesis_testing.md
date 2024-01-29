@@ -511,6 +511,18 @@ From our preregistration:
 
 <img src="../figures/change_hist.png" width="50%" />
 
+    ## `geom_smooth()` using formula 'y ~ x'
+
+<img src="../figures/change_by_engagement.png" width="50%" />
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+<img src="../figures/change_by_asynch.png" width="50%" />
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+<img src="../figures/change_by_pathway_fit.png" width="50%" />
+
 ## Change in ability from pre to post
 
 <img src="../figures/ability_boxplot.png" width="50%" /><img src="../figures/ability_lineplot.png" width="50%" />
@@ -550,162 +562,34 @@ There is strong support for the hypothesis that learners’ ability
 improved over the DART program (Hypothesis 1). A random intercepts model
 with pathway as random effect shows a significant improvement in
 participants’ self-rated ability on data science tasks from pretest to
-post (see table below). A paired t-test, ignoring the grouping structure
-altogether, also shows a significant improvement in participants’
-self-rated ability on data science tasks from pretest to post, t(238) =
-17.12, p \< .001, mean (SD) change is 0.62 (0.56) on a 4-point scale
-from 1 “I wouldn’t know where to start” to 4 “I am confident in my
-ability to do it”, an effect size of
+post, b = 0.62, t(14.87) = 14.38, p \< .001 (all coefficient tests for
+mixed effects models are reported using Satterthwaite’s approximation
+for degrees of freedom). A paired t-test, ignoring the grouping
+structure altogether, also shows a significant improvement in
+participants’ self-rated ability on data science tasks from pretest to
+post, t(238) = 17.12, p \< .001, mean (SD) change is 0.62 (0.56) on a
+4-point scale from 1 “I wouldn’t know where to start” to 4 “I am
+confident in my ability to do it”, an effect size of
 ![d](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;d "d")
 = 1.11.
 
+![](../figures/ability_pre_post_hist.png)
+
 We also saw significant increase in participants’ level of agreement
-with open science values (Hypothesis 2, see the table below for results
-of the random intercepts model), but with a more modest effect size than
-observed with the ability ratings. A paired t-test, ignoring the
-grouping structure altogether, shows a significant improvement in
-participants’ self-rated level of agreement with open science values
-from pretest to post, t(238) = 7.95, p \< .001, mean (SD) change is 0.26
-(0.5) on a 7-point scale from 1 “strongly disagree” to 7 “strongly
-agree”, an effect size of
+with open science values (Hypothesis 2), b = 0.26, t(15.85) = 7.09, p \<
+.001, but with a more modest effect size than observed with the ability
+ratings. A paired t-test, ignoring the grouping structure altogether,
+shows a significant improvement in participants’ self-rated level of
+agreement with open science values from pretest to post, t(238) = 7.95,
+p \< .001, mean (SD) change is 0.26 (0.5) on a 7-point scale from 1
+“strongly disagree” to 7 “strongly agree”, an effect size of
 ![d](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;d "d")
 = 0.51. An examination of the raw scores for open science items reveals
 a probable ceiling effect; the mean open science score at pretest was
 already 6.19 on a scale from 1 to 7, so there was no room to improve for
-many participants.
+many participants, potentially resulting in a muted effect.
 
-<table style="text-align:center">
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="2">
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-ability_change
-</td>
-<td>
-openscience_change
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-\(1\)
-</td>
-<td>
-\(2\)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.620<sup>\*\*\*</sup>
-</td>
-<td>
-0.262<sup>\*\*\*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.043)
-</td>
-<td>
-(0.037)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-239
-</td>
-<td>
-239
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Log Likelihood
-</td>
-<td>
--203.772
-</td>
-<td>
--175.385
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Akaike Inf. Crit.
-</td>
-<td>
-413.544
-</td>
-<td>
-356.769
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Bayesian Inf. Crit.
-</td>
-<td>
-423.974
-</td>
-<td>
-367.199
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td colspan="2" style="text-align:right">
-<sup>*</sup>p\<0.1; <sup>**</sup>p\<0.05; <sup>***</sup>p\<0.01
-</td>
-</tr>
-</table>
+![](../figures/openscience_pre_post_hist.png)
 
 We can learn more about the nature of the gains observed over the course
 of participation in DART by controlling for relevant covariates. In
@@ -719,345 +603,30 @@ covariate, with the backup plan that if the random slopes model doesn’t
 converge we revert to a random intercept only; we were able to include a
 random slope for engagement in the model predicting change in ability,
 but only a random intercept in the model predicting change in open
-science values. Percent of assigned modules completed (“engagement”)
-does significantly predict change in ability from pre to post, χ2 (3,
-N=239) = 9.51, p = .023. However, engagement does not significantly
-predict change in agreement with open science values, χ2 (1, N=239) =
-1.45, p = .228. See table below for coefficient estimates.
+science values. In the mixed effects models, percent of assigned modules
+completed (“engagement”) does not significantly predict change in
+ability from pre to post, b = 0.28, t(13.22) = 1.98, p = .068, nor
+change in agreement with open science values, b = 0.11, t(235.24) =
+1.20, p = .230. Ignoring the grouping structure (pathways), there is a
+significant positive relationship between engagement and change in
+ability (b = 0.26, t(237) = 2.49, p = .014) but still not change in open
+science values (b = 0.11, t(237) = 1.20, p = .232).
 
-<table style="text-align:center">
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="2">
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-ability_change
-</td>
-<td>
-openscience_change
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-\(1\)
-</td>
-<td>
-\(2\)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-engagement
-</td>
-<td>
-0.279<sup>\*\*</sup>
-</td>
-<td>
-0.112
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.141)
-</td>
-<td>
-(0.093)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.535<sup>\*\*\*</sup>
-</td>
-<td>
-0.225<sup>\*\*\*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.057)
-</td>
-<td>
-(0.048)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-239
-</td>
-<td>
-239
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Log Likelihood
-</td>
-<td>
--200.115
-</td>
-<td>
--176.115
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Akaike Inf. Crit.
-</td>
-<td>
-412.230
-</td>
-<td>
-360.231
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Bayesian Inf. Crit.
-</td>
-<td>
-433.088
-</td>
-<td>
-374.137
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td colspan="2" style="text-align:right">
-<sup>*</sup>p\<0.1; <sup>**</sup>p\<0.05; <sup>***</sup>p\<0.01
-</td>
-</tr>
-</table>
+![](../figures/change_by_engagement.png)
 
 Similarly, we might expect that a program like DART would work better
 for learners who report generally doing well with asynchronous
 education; their preference might allow them to get more from the
 program, increasing its effect. Indeed, the degree to which participants
 agree with the statement “Self-paced asynchronous studying works well
-for me in general” significantly predicts change in ability, χ2 (1,
-N=239) = 4.43, p = .035. Preference for asynchronous learning does not
-significantly predict change in open science values, though, χ2 (1,
-N=239) = 1.16, p = .282.
+for me in general” significantly predicts change in ability, b = 0.07,
+t(235.18) = 2.10, p = .037 (without accounting for grouping by pathway,
+b = 0.07, t(237) = 2.13, p = .034). Preference for asynchronous learning
+does not significantly predict change in open science values, though, b
+= 0.03, t(235.35) = 1.09, p = .277 (without accounting for grouping by
+pathway, b = 0.03, t(237) = 1.02, p = .309).
 
-<table style="text-align:center">
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="2">
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-ability_change
-</td>
-<td>
-openscience_change
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-\(1\)
-</td>
-<td>
-\(2\)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-asynch
-</td>
-<td>
-0.068<sup>\*\*</sup>
-</td>
-<td>
-0.031
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.032)
-</td>
-<td>
-(0.029)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.374<sup>\*\*\*</sup>
-</td>
-<td>
-0.149
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.125)
-</td>
-<td>
-(0.111)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-239
-</td>
-<td>
-239
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Log Likelihood
-</td>
-<td>
--204.098
-</td>
-<td>
--177.425
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Akaike Inf. Crit.
-</td>
-<td>
-416.196
-</td>
-<td>
-362.850
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Bayesian Inf. Crit.
-</td>
-<td>
-430.102
-</td>
-<td>
-376.756
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td colspan="2" style="text-align:right">
-<sup>*</sup>p\<0.1; <sup>**</sup>p\<0.05; <sup>***</sup>p\<0.01
-</td>
-</tr>
-</table>
+![](../figures/change_by_asynch.png)
 
 And finally, we predicted that our success in designing an appropriate
 pathway for each learner would impact how much they gained from DART
@@ -1065,9 +634,13 @@ pathway for each learner would impact how much they gained from DART
 assigned pathway of models met their needs and expectations and used the
 mean of their responses on those items to create an index of pathway
 fit. As predicted, pathway fit significantly predicts change in ability,
-χ2 (1, N=239) = 30.10, p \< .001. Pathway fit does not significantly
-predict change in open science values, though, χ2 (1, N=239) = 2.43, p =
-.119.
+b = 0.28, t(234.84) = 5.64, p \< .001 (without accounting for grouping
+by pathway, b = 0.28, t(237) = 5.68, p \< .001). Pathway fit does not
+significantly predict change in open science values, though, b = 0.07,
+t(234.67) = 1.57, p = .118 (without accounting for grouping by pathway,
+b = 0.07, t(237) = 1.50, p = .134).
+
+![](../figures/change_by_pathway_fit.png)
 
 Taken together, this pattern of results is consistent with the
 conclusion that DART participants improved in their data science skills
@@ -1087,7 +660,7 @@ those skills we have explicitly taught) may have resulted in more
 dramatic gains, a big part of our pedagogical design for DART was around
 building meta-cognitive and psycho-social skills, such as resilience to
 failure and reduced impostor syndrome. It is our hope that DART
-participants come away with an improved ability to *learn* new data
+participants come away with an improved *ability to learn* new data
 science skills, including on topics we don’t currently cover – an
 ability that should serve them well throughout their career in a rapidly
 evolving field. Seeing our participants report dramatic gains in

@@ -206,6 +206,8 @@ h3_ability <- lmerTest::lmer(ability_change ~ 1 + engagement + (1+ engagement|pa
 summary(h3_ability)
 
 (h3_ability_aov <- anova(h3_ability, h1))
+
+h3_ability_lm <- lm(ability_change ~ 1 + engagement, data)
 ```
 
 ```{r h3_openscience}
@@ -214,6 +216,8 @@ h3_openscience <- lmerTest::lmer(openscience_change ~ 1 + engagement + (1|pathwa
 summary(h3_openscience)
 
 (h3_openscience_aov <- anova(h3_openscience, h2))
+
+h3_openscience_lm <- lm(openscience_change ~ 1 + engagement, data)
 ```
 
 ## Hypothesis 4
@@ -226,6 +230,8 @@ h4_ability <- lmerTest::lmer(ability_change ~ 1 + asynch + (1 |pathway), data)
 summary(h4_ability)
 
 (h4_ability_aov <- anova(h4_ability, h1))
+
+h4_ability_lm <- lm(ability_change ~ 1 + asynch, data)
 ```
 
 ```{r h4_openscience}
@@ -233,6 +239,8 @@ h4_openscience <- lmerTest::lmer(openscience_change ~ 1 + asynch + (1 |pathway),
 summary(h4_openscience)
 
 (h4_openscience_aov <- anova(h4_openscience, h2))
+
+h4_openscience_lm <- lm(openscience_change ~ 1 + asynch, data)
 ```
 
 ## Hypothesis 5
@@ -245,6 +253,8 @@ h5_ability <- lmerTest::lmer(ability_change ~ 1 + pathway_fit + (1 |pathway), da
 summary(h5_ability)
 
 (h5_ability_aov <- anova(h5_ability, h1))
+
+h5_ability_lm <- lm(ability_change ~ 1 + pathway_fit, data)
 ```
 
 ```{r h5_openscience}
@@ -253,6 +263,8 @@ h5_openscience <- lmerTest::lmer(openscience_change ~ 1 + pathway_fit + (1|pathw
 summary(h5_openscience)
 
 (h5_openscience_aov <- anova(h5_openscience, h2))
+
+h5_openscience_lm <- lm(openscience_change ~ 1 + pathway_fit, data)
 ```
 
 # Plots
@@ -346,13 +358,11 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
 ```{r}
 (ability_plot + 
   geom_histogram(bins = 30) + 
-  coord_flip() + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) + 
-  facet_wrap(~event, ncol = 1)) |> 
+  facet_wrap(~event, ncol = 2)) |> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "ability_pre_post_hist.png",
-                 width = 3,
-                 height = 7)
+                 width = 6,
+                 height = 3)
 ```
 
 
@@ -360,13 +370,11 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
 ```{r}
 (openscience_plot + 
   geom_histogram() + 
-  coord_flip() + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) + 
-  facet_wrap(~event, ncol = 1)) |> 
+  facet_wrap(~event, ncol = 2)) |> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "openscience_pre_post_hist.png",
-                 width = 3,
-                 height = 7)
+                 width = 6,
+                 height = 3)
 ```
 
 ```{r}
@@ -382,6 +390,50 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
                  height = 5)
 ```
 
+```{r}
+(data |> 
+  tidyr::pivot_longer(tidyselect::ends_with("_change")) |> 
+  dplyr::mutate(name = gsub(x=name, pattern = "(\\1)_change", replacement = "\\1")) |> 
+  ggplot(aes(x=engagement, y=value)) + 
+  geom_point(alpha = .5) + 
+  stat_smooth(method = "lm", color = chop_blue) + 
+  facet_wrap(~name, ncol = 2) + 
+  labs(y = "Change from pre to post")) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "change_by_engagement.png",
+                 width = 5,
+                 height = 3)
+```
+
+```{r}
+(data |> 
+  tidyr::pivot_longer(tidyselect::ends_with("_change")) |> 
+  dplyr::mutate(name = gsub(x=name, pattern = "(\\1)_change", replacement = "\\1")) |> 
+  ggplot(aes(x=asynch, y=value)) + 
+  geom_point(alpha = .5) + 
+  stat_smooth(method = "lm", color = chop_blue) + 
+  facet_wrap(~name, ncol = 2) + 
+  labs(y = "Change from pre to post") ) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "change_by_asynch.png",
+                 width = 5,
+                 height = 3)
+```
+
+```{r}
+(data |> 
+  tidyr::pivot_longer(tidyselect::ends_with("_change")) |> 
+  dplyr::mutate(name = gsub(x=name, pattern = "(\\1)_change", replacement = "\\1")) |> 
+  ggplot(aes(x=pathway_fit, y=value)) + 
+  geom_point(alpha = .5) + 
+  stat_smooth(method = "lm", color = chop_blue) + 
+  facet_wrap(~name, ncol = 2) + 
+  labs(y = "Change from pre to post") ) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "change_by_pathway_fit.png",
+                 width = 5,
+                 height = 3)
+```
 
 ## Change in ability from pre to post
 
@@ -561,53 +613,35 @@ There is strong support for the hypothesis that learners' ability improved over 
 A random intercepts model with pathway as random effect shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post, `r print_coef(h1, "(Intercept)")` (all coefficient tests for mixed effects models are reported using Satterthwaite's approximation for degrees of freedom). 
 A paired t-test, ignoring the grouping structure altogether, also shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post, `r print_t(h1_t)`, mean (SD) change is `r round(ab_change_mean, 2)` (`r round(ab_change_sd, 2)`) on a 4-point scale from 1 "I wouldn't know where to start" to 4 "I am confident in my ability to do it", an effect size of $d$ = `r round(ab_change_mean/ab_change_sd, 2)`.
 
+![](../figures/ability_pre_post_hist.png)
+
 We also saw significant increase in participants' level of agreement with open science values (Hypothesis 2), `r print_coef(h2, "(Intercept)")`, but with a more modest effect size than observed with the ability ratings.
 A paired t-test, ignoring the grouping structure altogether, shows a significant improvement in participants' self-rated level of agreement with open science values from pretest to post, `r print_t(h2_t)`, mean (SD) change is `r round(os_change_mean, 2)` (`r round(os_change_sd, 2)`) on a 7-point scale from 1 "strongly disagree" to 7 "strongly agree", an effect size of $d$ = `r round(os_change_mean/os_change_sd, 2)`. 
-An examination of the raw scores for open science items reveals a probable ceiling effect; the mean open science score at pretest was already `r round(mean(data$openscience_pre), 2)` on a scale from 1 to 7, so there was no room to improve for many participants.  
+An examination of the raw scores for open science items reveals a probable ceiling effect; the mean open science score at pretest was already `r round(mean(data$openscience_pre), 2)` on a scale from 1 to 7, so there was no room to improve for many participants, potentially resulting in a muted effect. 
 
-```{r, message=FALSE}
-library(stargazer)
-# need to re-save models with class(model) <- "lmerMod" so stargazer can process them
-class(h1) <- "lmerMod"
-class(h2) <- "lmerMod"
-class(h3_ability) <- "lmerMod"
-class(h3_openscience) <- "lmerMod"
-class(h4_ability) <- "lmerMod"
-class(h4_openscience) <- "lmerMod"
-class(h5_ability) <- "lmerMod"
-class(h5_openscience) <- "lmerMod"
-```
-
-```{r, results='asis'}
-stargazer(h1, h2, type="html")
-```
+![](../figures/openscience_pre_post_hist.png)
 
 We can learn more about the nature of the gains observed over the course of participation in DART by controlling for relevant covariates. 
 In particular, if the DART program itself is driving gains, we would expect to see more improvement for participants that engaged more in the program, i.e. completed more of their assigned modules (Hypothesis 3). 
 We can test the predictive power of engagement by re-running the mixed effects models above with engagement added as a predictor. 
 Our preregistration specifies that we also allow a random slope for each covariate, with the backup plan that if the random slopes model doesn't converge we revert to a random intercept only; we were able to include a random slope for engagement in the model predicting change in ability, but only a random intercept in the model predicting change in open science values.
-Percent of assigned modules completed ("engagement") does significantly predict change in ability from pre to post, `r print_anova(h3_ability_aov, n=nrow(model.frame(h1)))`.
-However, engagement does not significantly predict change in agreement with open science values, `r print_anova(h3_openscience_aov, n=nrow(model.frame(h1)))`. 
-See table below for coefficient estimates. 
+In the mixed effects models, percent of assigned modules completed ("engagement") does not significantly predict change in ability from pre to post, `r print_coef(h3_ability, "engagement")`, nor change in agreement with open science values, `r print_coef(h3_openscience, "engagement")`. 
+Ignoring the grouping structure (pathways), there is a significant positive relationship between engagement and change in ability (`r print_coef(h3_ability_lm, "engagement")`) but still not change in open science values (`r print_coef(h3_openscience_lm, "engagement")`).
 
-```{r, results='asis', message=FALSE}
-library(stargazer)
-stargazer(h3_ability, h3_openscience, type="html")
-```
+![](../figures/change_by_engagement.png)
 
 Similarly, we might expect that a program like DART would work better for learners who report generally doing well with asynchronous education; their preference might allow them to get more from the program, increasing its effect. 
-Indeed, the degree to which participants agree with the statement "Self-paced asynchronous studying works well for me in general" significantly predicts change in ability, `r print_anova(h4_ability_aov, n=nrow(model.frame(h1)))`.
-Preference for asynchronous learning does not significantly predict change in open science values, though, `r print_anova(h4_openscience_aov, n=nrow(model.frame(h1)))`.
+Indeed, the degree to which participants agree with the statement "Self-paced asynchronous studying works well for me in general" significantly predicts change in ability, `r print_coef(h4_ability, "asynch")` (without accounting for grouping by pathway, `r print_coef(h4_ability_lm, "asynch")`).
+Preference for asynchronous learning does not significantly predict change in open science values, though, `r print_coef(h4_openscience, "asynch")` (without accounting for grouping by pathway, `r print_coef(h4_openscience_lm, "asynch")`).
 
-```{r, results='asis', message=FALSE}
-library(stargazer)
-stargazer(h4_ability, h4_openscience, type="html")
-```
+![](../figures/change_by_asynch.png)
 
 And finally, we predicted that our success in designing an appropriate pathway for each learner would impact how much they gained from DART (Hypothesis 5). 
 We asked a number of questions probing how well their assigned pathway of models met their needs and expectations and used the mean of their responses on those items to create an index of pathway fit. 
-As predicted, pathway fit significantly predicts change in ability, `r print_anova(h5_ability_aov, n=nrow(model.frame(h1)))`.
-Pathway fit does not significantly predict change in open science values, though, `r print_anova(h5_openscience_aov, n=nrow(model.frame(h1)))`.
+As predicted, pathway fit significantly predicts change in ability, `r print_coef(h5_ability, "pathway_fit")` (without accounting for grouping by pathway, `r print_coef(h5_ability_lm, "pathway_fit")`).
+Pathway fit does not significantly predict change in open science values, though, `r print_coef(h5_openscience, "pathway_fit")` (without accounting for grouping by pathway, `r print_coef(h5_openscience_lm, "pathway_fit")`).
+
+![](../figures/change_by_pathway_fit.png)
 
 Taken together, this pattern of results is consistent with the conclusion that DART participants improved in their data science skills as a result of their participation. 
 Although we did note also note an improvement in open science values from pre to post, that change appears to be independent of participants' experience with DART itself. 
