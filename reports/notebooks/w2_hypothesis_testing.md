@@ -1,7 +1,7 @@
 Wave 2 Hypothesis Testing
 ================
 Rose Hartman
-2024-01-25
+2024-01-29
 
 > Note that code chunks are not printed in this report in order to keep
 > the output tidy. To see all of the code to generate these results,
@@ -127,13 +127,29 @@ From our preregistration:
 > p values for mixed effects models calculated using Satterthwaite
 > approximation (lmerTest package in R)
 
+    ## Loading required package: lme4
+
+    ## Loading required package: Matrix
+
+    ## 
+    ## Attaching package: 'lmerTest'
+
+    ## The following object is masked from 'package:lme4':
+    ## 
+    ##     lmer
+
+    ## The following object is masked from 'package:stats':
+    ## 
+    ##     step
+
 ## Hypothesis 1
 
 > 1.  Learners’ self-ratings of their own ability to perform data
 >     science tasks will increase over the course of the program (pre to
 >     post).
 
-    ## Linear mixed model fit by REML ['lmerMod']
+    ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    ## lmerModLmerTest]
     ## Formula: ability_change ~ 1 + (1 | pathway)
     ##    Data: data
     ## 
@@ -150,8 +166,10 @@ From our preregistration:
     ## Number of obs: 239, groups:  pathway, 19
     ## 
     ## Fixed effects:
-    ##             Estimate Std. Error t value
-    ## (Intercept)  0.62025    0.04313   14.38
+    ##             Estimate Std. Error       df t value Pr(>|t|)    
+    ## (Intercept)  0.62025    0.04313 14.86711   14.38 3.96e-10 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
     ## 
     ##  Paired t-test
@@ -171,7 +189,8 @@ From our preregistration:
 >     open science will increase over the course of the program (pre to
 >     post).
 
-    ## Linear mixed model fit by REML ['lmerMod']
+    ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    ## lmerModLmerTest]
     ## Formula: openscience_change ~ 1 + (1 | pathway)
     ##    Data: data
     ## 
@@ -188,8 +207,10 @@ From our preregistration:
     ## Number of obs: 239, groups:  pathway, 19
     ## 
     ## Fixed effects:
-    ##             Estimate Std. Error t value
-    ## (Intercept)  0.26242    0.03703   7.088
+    ##             Estimate Std. Error       df t value Pr(>|t|)    
+    ## (Intercept)  0.26242    0.03703 15.85001   7.088 2.71e-06 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
     ## 
     ##  Paired t-test
@@ -208,7 +229,8 @@ From our preregistration:
 > 3.  Change in 1 and 2 will be stronger for learners who report higher
 >     levels of engagement in the program.
 
-    ## Linear mixed model fit by REML ['lmerMod']
+    ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    ## lmerModLmerTest]
     ## Formula: ability_change ~ 1 + engagement + (1 + engagement | pathway)
     ##    Data: data
     ## 
@@ -226,9 +248,11 @@ From our preregistration:
     ## Number of obs: 239, groups:  pathway, 19
     ## 
     ## Fixed effects:
-    ##             Estimate Std. Error t value
-    ## (Intercept)  0.53508    0.05749   9.307
-    ## engagement   0.27933    0.14082   1.984
+    ##             Estimate Std. Error       df t value Pr(>|t|)    
+    ## (Intercept)  0.53508    0.05749 12.22751   9.307 6.68e-07 ***
+    ## engagement   0.27933    0.14082 13.22258   1.984   0.0685 .  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##            (Intr)
@@ -248,7 +272,10 @@ From our preregistration:
 
     ## boundary (singular) fit: see ?isSingular
 
-    ## Linear mixed model fit by REML ['lmerMod']
+    ## Warning: Model failed to converge with 1 negative eigenvalue: -3.0e+00
+
+    ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    ## lmerModLmerTest]
     ## Formula: openscience_change ~ 1 + engagement + (1 | pathway)
     ##    Data: data
     ## 
@@ -265,9 +292,11 @@ From our preregistration:
     ## Number of obs: 239, groups:  pathway, 19
     ## 
     ## Fixed effects:
-    ##             Estimate Std. Error t value
-    ## (Intercept)  0.22485    0.04840   4.645
-    ## engagement   0.11209    0.09316   1.203
+    ##              Estimate Std. Error        df t value Pr(>|t|)    
+    ## (Intercept)   0.22485    0.04840  40.13628   4.645 3.62e-05 ***
+    ## engagement    0.11209    0.09316 235.23604   1.203     0.23    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##            (Intr)
@@ -291,7 +320,8 @@ From our preregistration:
 
     ## boundary (singular) fit: see ?isSingular
 
-    ## Linear mixed model fit by REML ['lmerMod']
+    ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    ## lmerModLmerTest]
     ## Formula: ability_change ~ 1 + asynch + (1 | pathway)
     ##    Data: data
     ## 
@@ -308,9 +338,11 @@ From our preregistration:
     ## Number of obs: 239, groups:  pathway, 19
     ## 
     ## Fixed effects:
-    ##             Estimate Std. Error t value
-    ## (Intercept)  0.37424    0.12462   3.003
-    ## asynch       0.06757    0.03216   2.101
+    ##              Estimate Std. Error        df t value Pr(>|t|)   
+    ## (Intercept)   0.37424    0.12462 207.88860   3.003   0.0030 **
+    ## asynch        0.06757    0.03216 235.18177   2.101   0.0367 * 
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##        (Intr)
@@ -328,7 +360,8 @@ From our preregistration:
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-    ## Linear mixed model fit by REML ['lmerMod']
+    ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    ## lmerModLmerTest]
     ## Formula: openscience_change ~ 1 + asynch + (1 | pathway)
     ##    Data: data
     ## 
@@ -345,9 +378,9 @@ From our preregistration:
     ## Number of obs: 239, groups:  pathway, 19
     ## 
     ## Fixed effects:
-    ##             Estimate Std. Error t value
-    ## (Intercept)  0.14879    0.11128   1.337
-    ## asynch       0.03130    0.02874   1.089
+    ##              Estimate Std. Error        df t value Pr(>|t|)
+    ## (Intercept)   0.14879    0.11128 209.60571   1.337    0.183
+    ## asynch        0.03130    0.02874 235.34819   1.089    0.277
     ## 
     ## Correlation of Fixed Effects:
     ##        (Intr)
@@ -377,7 +410,8 @@ From our preregistration:
 
     ## boundary (singular) fit: see ?isSingular
 
-    ## Linear mixed model fit by REML ['lmerMod']
+    ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    ## lmerModLmerTest]
     ## Formula: ability_change ~ 1 + pathway_fit + (1 | pathway)
     ##    Data: data
     ## 
@@ -394,9 +428,11 @@ From our preregistration:
     ## Number of obs: 239, groups:  pathway, 19
     ## 
     ## Fixed effects:
-    ##             Estimate Std. Error t value
-    ## (Intercept) -0.44167    0.19249  -2.295
-    ## pathway_fit  0.27532    0.04884   5.638
+    ##              Estimate Std. Error        df t value Pr(>|t|)    
+    ## (Intercept)  -0.44167    0.19249 236.09129  -2.295   0.0226 *  
+    ## pathway_fit   0.27532    0.04884 234.84478   5.638 4.92e-08 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)
@@ -417,7 +453,8 @@ From our preregistration:
     ## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
     ## Model failed to converge with max|grad| = 0.00401604 (tol = 0.002, component 1)
 
-    ## Linear mixed model fit by REML ['lmerMod']
+    ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    ## lmerModLmerTest]
     ## Formula: openscience_change ~ 1 + pathway_fit + (1 | pathway)
     ##    Data: data
     ## 
@@ -434,9 +471,9 @@ From our preregistration:
     ## Number of obs: 239, groups:  pathway, 19
     ## 
     ## Fixed effects:
-    ##             Estimate Std. Error t value
-    ## (Intercept) -0.01515    0.18107  -0.084
-    ## pathway_fit  0.07206    0.04588   1.571
+    ##              Estimate Std. Error        df t value Pr(>|t|)
+    ## (Intercept)  -0.01515    0.18107 236.08468  -0.084    0.933
+    ## pathway_fit   0.07206    0.04588 234.67062   1.571    0.118
     ## 
     ## Correlation of Fixed Effects:
     ##             (Intr)

@@ -168,12 +168,19 @@ From our preregistration:
 
 > p values for mixed effects models calculated using Satterthwaite approximation (lmerTest package in R)
 
+```{r load_lmerTest}
+library(lmerTest)
+# note that lmerTest::lmer() is the same as lme4::lmer except that it adds some slots needed for the computation of Satterthwaite denominator degrees of freedom
+# see ?lmerTest::lmer
+```
+
+
 ## Hypothesis 1
 
 > 1. Learners' self-ratings of their own ability to perform data science tasks will increase over the course of the program (pre to post).
 
 ```{r}
-h1 <- lme4::lmer(ability_change ~ 1+ (1|pathway), data)
+h1 <- lmerTest::lmer(ability_change ~ 1+ (1|pathway), data)
 summary(h1)
 
 (h1_t <- t.test(y=data$ability_pre, x=data$ability_post, paired = TRUE))
@@ -184,7 +191,7 @@ summary(h1)
 > 2. Learners' self-ratings of their agreement with important tenets of open science will increase over the course of the program (pre to post).
 
 ```{r}
-h2 <- lme4::lmer(openscience_change ~ 1+ (1|pathway), data)
+h2 <- lmerTest::lmer(openscience_change ~ 1+ (1|pathway), data)
 summary(h2)
 
 (h2_t <- t.test(y=data$openscience_pre, x=data$openscience_post, paired = TRUE))
@@ -195,15 +202,15 @@ summary(h2)
 > 3. Change in 1 and 2 will be stronger for learners who report higher levels of engagement in the program.
 
 ```{r h3_ability}
-h3_ability <- lme4::lmer(ability_change ~ 1 + engagement + (1+ engagement|pathway), data)
+h3_ability <- lmerTest::lmer(ability_change ~ 1 + engagement + (1+ engagement|pathway), data)
 summary(h3_ability)
 
 (h3_ability_aov <- anova(h3_ability, h1))
 ```
 
 ```{r h3_openscience}
-h3_openscience <- lme4::lmer(openscience_change ~ 1 + engagement + (1+ engagement|pathway), data) # boundary (singular) fit: see ?isSingular
-h3_openscience <- lme4::lmer(openscience_change ~ 1 + engagement + (1|pathway), data)
+h3_openscience <- lmerTest::lmer(openscience_change ~ 1 + engagement + (1+ engagement|pathway), data) # boundary (singular) fit: see ?isSingular
+h3_openscience <- lmerTest::lmer(openscience_change ~ 1 + engagement + (1|pathway), data)
 summary(h3_openscience)
 
 (h3_openscience_aov <- anova(h3_openscience, h2))
@@ -214,15 +221,15 @@ summary(h3_openscience)
 > 4. Change in 1 and 2 will be higher for learners who report higher levels of agreement with the statement "Self-paced asynchronous studying works well for me in general"
 
 ```{r h4_ability}
-h4_ability <- lme4::lmer(ability_change ~ 1 + asynch + (1 + asynch|pathway), data)
-h4_ability <- lme4::lmer(ability_change ~ 1 + asynch + (1 |pathway), data)
+h4_ability <- lmerTest::lmer(ability_change ~ 1 + asynch + (1 + asynch|pathway), data)
+h4_ability <- lmerTest::lmer(ability_change ~ 1 + asynch + (1 |pathway), data)
 summary(h4_ability)
 
 (h4_ability_aov <- anova(h4_ability, h1))
 ```
 
 ```{r h4_openscience}
-h4_openscience <- lme4::lmer(openscience_change ~ 1 + asynch + (1 |pathway), data)
+h4_openscience <- lmerTest::lmer(openscience_change ~ 1 + asynch + (1 |pathway), data)
 summary(h4_openscience)
 
 (h4_openscience_aov <- anova(h4_openscience, h2))
@@ -233,16 +240,16 @@ summary(h4_openscience)
 > 5. Change in 1 and 2 will be higher for learners who report higher average levels of agreement with the statements about the appropriateness of their assigned pathway ("The skills and topics I was hoping to learn were covered in my modules", "My assigned modules worked together well as a learning pathway", "My assigned modules were appropriate to my skill level", "I learned things from my assigned modules that I can apply in my research", and "The assigned modules for my pathway were relevant to my learning goals")
 
 ```{r h5_ability}
-h5_ability <- lme4::lmer(ability_change ~ 1 + pathway_fit + (1 + pathway_fit|pathway), data)
-h5_ability <- lme4::lmer(ability_change ~ 1 + pathway_fit + (1 |pathway), data)
+h5_ability <- lmerTest::lmer(ability_change ~ 1 + pathway_fit + (1 + pathway_fit|pathway), data)
+h5_ability <- lmerTest::lmer(ability_change ~ 1 + pathway_fit + (1 |pathway), data)
 summary(h5_ability)
 
 (h5_ability_aov <- anova(h5_ability, h1))
 ```
 
 ```{r h5_openscience}
-h5_openscience <- lme4::lmer(openscience_change ~ 1 + pathway_fit + (1 + pathway_fit|pathway), data)
-h5_openscience <- lme4::lmer(openscience_change ~ 1 + pathway_fit + (1|pathway), data)
+h5_openscience <- lmerTest::lmer(openscience_change ~ 1 + pathway_fit + (1 + pathway_fit|pathway), data)
+h5_openscience <- lmerTest::lmer(openscience_change ~ 1 + pathway_fit + (1|pathway), data)
 summary(h5_openscience)
 
 (h5_openscience_aov <- anova(h5_openscience, h2))
@@ -517,6 +524,26 @@ print_anova <- function(anova, digits=2, digits_p=3, n=NULL){
   
   return(result)
 }
+
+print_coef <- function(model, coef, digits = 2, digits_p = 3){
+  b <- summary(model)$coefficients[coef, "Estimate"]
+  t <- summary(model)$coefficients[coef, "t value"]
+  p <- summary(model)$coefficients[coef, "Pr(>|t|)"]
+  
+  if("df" %in% colnames(summary(model)$coefficients)){
+    # for lmerTest models
+    df <- summary(model)$coefficients[coef, "df"]
+  } else if (class(model) == "lm") {
+    # for lm models
+    df <- model$df.residual
+  } else stop("Cannot recover df for coefficient test.")
+  
+  format <- paste0("%0.", digits, "f")
+  
+  result <- paste0("b = ", round(b, digits), ", t(", round(df, digits), ") = ", sprintf(format, t), ", ", print_p(p, digits_p) )
+  
+  return(result)
+}
 ```
 
 ```{r}
@@ -531,15 +558,27 @@ We collected participants' ratings of their own current level of ability in a va
 As per our preregistration, participants with missing data on any of the analysis variables are dropped (listwise deletion), resulting in `r nrow(data)` complete cases for analysis. 
 
 There is strong support for the hypothesis that learners' ability improved over the DART program (Hypothesis 1).
-A random intercepts model with pathway as random effect shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post (see table below). 
+A random intercepts model with pathway as random effect shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post, `r print_coef(h1, "(Intercept)")` (all coefficient tests for mixed effects models are reported using Satterthwaite's approximation for degrees of freedom). 
 A paired t-test, ignoring the grouping structure altogether, also shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post, `r print_t(h1_t)`, mean (SD) change is `r round(ab_change_mean, 2)` (`r round(ab_change_sd, 2)`) on a 4-point scale from 1 "I wouldn't know where to start" to 4 "I am confident in my ability to do it", an effect size of $d$ = `r round(ab_change_mean/ab_change_sd, 2)`.
 
-We also saw significant increase in participants' level of agreement with open science values (Hypothesis 2, see the table below for results of the random intercepts model), but with a more modest effect size than observed with the ability ratings.
+We also saw significant increase in participants' level of agreement with open science values (Hypothesis 2), `r print_coef(h2, "(Intercept)")`, but with a more modest effect size than observed with the ability ratings.
 A paired t-test, ignoring the grouping structure altogether, shows a significant improvement in participants' self-rated level of agreement with open science values from pretest to post, `r print_t(h2_t)`, mean (SD) change is `r round(os_change_mean, 2)` (`r round(os_change_sd, 2)`) on a 7-point scale from 1 "strongly disagree" to 7 "strongly agree", an effect size of $d$ = `r round(os_change_mean/os_change_sd, 2)`. 
 An examination of the raw scores for open science items reveals a probable ceiling effect; the mean open science score at pretest was already `r round(mean(data$openscience_pre), 2)` on a scale from 1 to 7, so there was no room to improve for many participants.  
 
-```{r, results='asis', message=FALSE}
+```{r, message=FALSE}
 library(stargazer)
+# need to re-save models with class(model) <- "lmerMod" so stargazer can process them
+class(h1) <- "lmerMod"
+class(h2) <- "lmerMod"
+class(h3_ability) <- "lmerMod"
+class(h3_openscience) <- "lmerMod"
+class(h4_ability) <- "lmerMod"
+class(h4_openscience) <- "lmerMod"
+class(h5_ability) <- "lmerMod"
+class(h5_openscience) <- "lmerMod"
+```
+
+```{r, results='asis'}
 stargazer(h1, h2, type="html")
 ```
 
@@ -576,8 +615,5 @@ This may be the result of an overall increasing commitment to open science in th
 
 Of note is the fact that while all participants are assessed on the same set of data science skills and open science values, the actual content of individual learners' pathways differed, and for any given participant many of the measured skills would not have been explicitly covered in their modules. 
 Although more targeted measurement (i.e. assessing just those skills we have explicitly taught) may have resulted in more dramatic gains, a big part of our pedagogical design for DART was around building meta-cognitive and psycho-social skills, such as resilience to failure and reduced impostor syndrome. 
-It is our hope that DART participants come away with an improved ability to *learn* new data science skills, including on topics we don't currently cover -- an ability that should serve them well throughout their career in a rapidly evolving field. 
+It is our hope that DART participants come away with an improved *ability to learn* new data science skills, including on topics we don't currently cover -- an ability that should serve them well throughout their career in a rapidly evolving field. 
 Seeing our participants report dramatic gains in self-reported data science skills across such a wide range of topics suggests that DART might be working. 
-
-
-
