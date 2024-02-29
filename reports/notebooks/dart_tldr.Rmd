@@ -1,0 +1,281 @@
+---
+title: "DART Summary"
+author: "Rose Hartman"
+date: "`r Sys.Date()`"
+output: github_document
+params:
+  wave: "all"
+  chop: "all"
+  career_stage: "all"
+  underrepresented: "all"
+  completed_pre: "all"
+  completed_post: "all"
+---
+
+```{r echo = FALSE, eval=FALSE}
+# career_stage options
+#   1 "Student (PhD, MD)"
+#   2 "Postdoc, MD resident, MD fellow"
+#   3 "Junior faculty"
+#   4 "Established faculty"
+#   5 "Research staff"
+#   6 "Other"
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+
+# load custom functions for plotting
+source(here::here("src", "scripts", "functions_plotting.R"))
+
+# if the figures directory doesn't exist, create it
+dir.create(here::here("reports"), showWarnings = FALSE)
+dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+```
+
+`r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
+
+## Study design
+
+The DART program is efficient, targetted data science education for biomedical researchers. 
+We provide a tailored pathway of learning "modules" designed to match each learners' current expertise, professional needs, and interest, and also supported an online Community of Practice to give learners the opportunity to work collaboratively and network. 
+We ran DART twice, each for 16 weeks.
+
+We assessed the effectiveness of DART by measuring self-report data science ability and agreement with important tenets of open science both before and after the program. 
+There's no control group. 
+We used hierarchical clustering to identify groups of learners with similar educational needs and built a pathway for each; pathway is treated as a random effect in the models to account for that grouping structure. 
+
+```{r load_data}
+waves <- readr::read_csv(here::here("participant_waves.csv"), 
+                         show_col_types = FALSE)
+needs_assessment <- readRDS(here::here("data", "deidentified", "needs_assessment.rds"))
+demographics <- readRDS(here::here("data", "deidentified", "demographics.rds"))
+participant_geocodes <- readRDS(here::here("data", "deidentified", "participant_geocodes.rds")) |> 
+  dplyr::mutate(chop = institution == "CHOP")
+exit <- readRDS(here::here("data", "deidentified", "exit_survey.rds"))
+nih_pre <- readRDS(here::here("data", "deidentified", "nih_pre.rds")) |> 
+  dplyr::mutate(event = "pre")
+nih_post <- readRDS(here::here("data", "deidentified", "nih_post.rds")) |> 
+  dplyr::mutate(event = "post")
+# combine pre and post into a single dataframe
+nih <- dplyr::bind_rows(nih_pre, nih_post) |> 
+  # convert factors to numeric so they can be pivoted longer 
+  dplyr::mutate(dplyr::across(tidyselect::where(is.factor), as.numeric)) |> 
+  # pivot longer to combine event with field name before pivoting wide
+  tidyr::pivot_longer(-c(record_id, event)) |> 
+  # combine event and field name into one column
+  tidyr::unite(col = "name", 
+               event:name,
+               sep = "-") |> 
+  # pivot wider so each row is one record_id
+  tidyr::pivot_wider(id_cols = record_id,
+                     names_from = name,
+                     values_from = value)
+  
+# the full dataset of everyone who was assigned a wave
+data_full <- waves |> 
+  dplyr::full_join(needs_assessment, by = "record_id") |> 
+  dplyr::full_join(demographics, by = "record_id") |> 
+  # this is a left_join because geocodes are taken from the email field in screening, before participants are enrolled (i.e. some of these record_ids were never invited to enroll)
+  dplyr::left_join(participant_geocodes, by = "record_id") |> 
+  dplyr::full_join(nih, by = "record_id") |> 
+  dplyr::full_join(exit, by = "record_id")
+```
+
+```{r filter_data, message=FALSE}
+# start with the full dataset
+data <- data_full
+
+# filter by wave
+if(any(tolower(params$wave) != "all")){
+  n <- nrow(data)
+  data <- dplyr::filter(data, 
+                        wave %in% params$wave)
+  message("Removed ", n-nrow(data), " rows filtering for wave")
+} else message("Not filtering on wave")
+
+# filter by whether their institution is CHOP
+if(tolower(params$chop) != "all"){
+  n <- nrow(data)
+  if(params$chop){
+    data <- dplyr::filter(data, chop)
+  } else if (! params$chop){
+    data <- dplyr::filter(data, !chop)
+  } else message("Parameter chop must be one of TRUE or FALSE to filter.")
+  message("Removed ", n-nrow(data), " rows filtering for chop.")
+} else message("Not filtering on chop.")
+
+# filter by career_stage
+if(any(tolower(params$career_stage) != "all")){
+  n <- nrow(data)
+  data <- dplyr::filter(data, 
+                        as.numeric(career_stage) %in% params$career_stage)
+  message("Removed ", n-nrow(data), " rows filtering for career_stage.")
+} else message("Not filtering on career_stage.")
+
+# filter by underrepresented
+if(tolower(params$underrepresented) != "all"){
+  n <- nrow(data)
+  if(params$underrepresented){
+    data <- dplyr::filter(data, 
+                        underrepresented == "Underrepresented")
+  } else if (! params$underrepresented){
+    data <- dplyr::filter(data, 
+                        underrepresented == "Not Underrepresented")
+  } else message("Parameter underrepresented must be one of TRUE or FALSE to filter.")
+  message("Removed ", n-nrow(data), " rows filtering for underrepresented.")
+} else message("Not filtering on underrepresented.")
+
+# filter by completed_pre
+if(tolower(params$completed_pre) != "all"){
+  n <- nrow(data)
+  if(params$completed_pre){
+    # if it is TRUE, then only include records with record_id in nih_pre
+    data <- dplyr::filter(data, 
+                        record_id %in% nih_pre$record_id)
+  } else if (!params$completed_pre){
+   # if it is FALSE, then only include records with record_id NOT in nih_pre
+    data <- dplyr::filter(data, 
+                          ! record_id %in% nih_pre$record_id) 
+  } else message("Parameter completed_pre must be one of TRUE or FALSE to filter.")
+  message("Removed ", n-nrow(data), " rows filtering for completed_pre")
+} else message("Not filtering on completed_pre")
+
+# filter by completed_post
+if(tolower(params$completed_post) != "all"){
+  n <- nrow(data)
+  if(params$completed_post){
+    # if it is TRUE, then only include records with record_id in nih_pre
+    data <- dplyr::filter(data, 
+                        record_id %in% nih_pre$record_id)
+  } else if (!params$completed_post){
+   # if it is FALSE, then only include records with record_id NOT in nih_pre
+    data <- dplyr::filter(data, 
+                          ! record_id %in% nih_pre$record_id) 
+  } else message("Parameter completed_post must be one of TRUE or FALSE to filter.")
+  message("Removed ", n-nrow(data), " rows filtering for completed_post")
+} else message("Not filtering on completed_post")
+```
+
+## This report
+
+This report refers to `r nrow(data)` participants in DART meeting the following criteria ("all" means no filtering):
+
+- wave: `r params$wave`
+- institution is CHOP: `r params$chop`
+- career stage: `r params$career_stage`
+- identifies as from an underrepresented racial or ethnic group as per NIH guidelines: `r params$underrepresented`
+- completed pretest surveys: `r params$completed_pre`
+- completed posttest surveys: `r params$completed_post`
+
+```{r describe_filters}
+wave <- ifelse(any(tolower(params$wave) == "all"), 
+               "", 
+               paste("wave", params$wave, sep = "-"))
+chop <- ifelse(any(tolower(params$chop) == "all"), 
+               "", 
+               paste("chop", params$chop, sep = "-"))
+career_stage <- ifelse(any(tolower(params$career_stage) == "all"), 
+                       "",
+                       paste("career", paste0(params$career_stage, collapse = ""), sep = "-"))
+underrepresented <- ifelse(any(tolower(params$underrepresented) == "all"), 
+               "", 
+               paste("ur", params$underrepresented, sep = "-"))
+completed_pre <- ifelse(any(tolower(params$completed_pre) == "all"), 
+                        "", 
+                        paste("pre", params$completed_pre, sep = "-"))
+completed_post <- ifelse(any(tolower(params$completed_post) == "all"), 
+                        "", 
+                        paste("post", params$completed_post, sep = "-"))
+
+# for use in saving plot files etc. 
+filters <- paste0(c(wave, chop, career_stage, underrepresented, completed_pre, completed_post), collapse = "_")
+n <- nrow(data)
+```
+
+## Needs assessment
+
+```{r, warning=FALSE}
+data |> 
+  dplyr::select(record_id, data_viz_relevance:longitudinal_learn) |> 
+  dplyr::rowwise() |> 
+  dplyr::mutate(expertise = mean(dplyr::c_across(tidyselect::ends_with("_expertise")), na.rm = TRUE),
+                relevance = mean(dplyr::c_across(tidyselect::ends_with("_relevance")), na.rm = TRUE),
+                learn = mean(dplyr::c_across(tidyselect::ends_with("_learn"))), na.rm = TRUE) |> 
+  tidyr::pivot_longer(c(expertise, relevance, learn)) |> 
+  ggplot(aes(x=value)) + 
+  geom_histogram(bins = 10) + 
+  facet_wrap(~name) + 
+  scale_x_continuous(limits = c(.5,5.5), breaks = 1:5) + 
+  labs(title = paste0("N=", n))
+ggsave(paste0("NeedsAssessmentHist-", filters, ".png"),
+       path = here::here("reports", "figures"),
+       width = 8, height = 5, units = "in")
+```
+
+
+## Pretest data science ability and open science values
+
+```{r}
+prepost_data <- data |> 
+  dplyr::select(record_id, `pre-data_storage_1`:`post-atomize`) |> 
+  dplyr::group_by(record_id) |> 
+  dplyr::summarize(openscience_pre = mean(dplyr::c_across(`pre-data_storage_1`:`pre-code_efficient`), na.rm = TRUE),
+                   openscience_post = mean(dplyr::c_across(`post-data_storage_1`:`post-code_efficient`), na.rm = TRUE),
+                   ability_pre = mean(dplyr::c_across(`pre-findable`:`pre-atomize`), na.rm = TRUE),
+                   ability_post = mean(dplyr::c_across(`post-findable`:`post-atomize`), na.rm = TRUE)) |> 
+  tidyr::pivot_longer(-record_id) |> 
+  tidyr::separate(name, into = c("name", "event"), sep = "_") |> 
+  tidyr::pivot_wider(names_from = name, values_from = value)
+```
+
+```{r}
+prepost_data |> 
+  dplyr::filter(event == "pre") |> 
+  ggplot(aes(x=ability)) + 
+  geom_histogram(bins = 10) + 
+  scale_x_continuous(limits = c(.5,4.5), breaks = 1:4) + 
+  labs(subtitle = paste0("N=", n),
+       title = "Pretest")
+ggsave(paste0("NIHPreAbilityHist-", filters, ".png"),
+       path = here::here("reports", "figures"),
+       width = 5, height = 5, units = "in")
+
+prepost_data |> 
+  dplyr::filter(event == "pre") |> 
+  ggplot(aes(x=openscience)) + 
+  geom_histogram(bins = 10) + 
+  scale_x_continuous(limits = c(.5,7.5), breaks = 1:7) + 
+  labs(subtitle = paste0("N=", n),
+       title = "Pretest")
+ggsave(paste0("NIHPreOpenscienceHist-", filters, ".png"),
+       path = here::here("reports", "figures"),
+       width = 5, height = 5, units = "in")
+```
+
+## Posttest data science ability and open science values
+
+```{r}
+prepost_data |> 
+  dplyr::filter(event == "post") |> 
+  ggplot(aes(x=ability)) + 
+  geom_histogram(bins = 10) + 
+  scale_x_continuous(limits = c(.5,4.5), breaks = 1:4) + 
+  labs(subtitle = paste0("N=", n),
+       title = "Posttest")
+ggsave(paste0("NIHPostAbilityHist-", filters, ".png"),
+       path = here::here("reports", "figures"),
+       width = 5, height = 5, units = "in")
+
+prepost_data |> 
+  dplyr::filter(event == "post") |> 
+  ggplot(aes(x=openscience)) + 
+  geom_histogram(bins = 10) + 
+  scale_x_continuous(limits = c(.5,7.5), breaks = 1:7) + 
+  labs(subtitle = paste0("N=", n),
+       title = "Posttest")
+ggsave(paste0("NIHPostOpenscienceHist-", filters, ".png"),
+       path = here::here("reports", "figures"),
+       width = 5, height = 5, units = "in")
+```
