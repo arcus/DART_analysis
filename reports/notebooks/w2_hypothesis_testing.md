@@ -1,7 +1,7 @@
 Wave 2 Hypothesis Testing
 ================
 Rose Hartman
-2024-01-29
+2024-02-29
 
 > Note that code chunks are not printed in this report in order to keep
 > the output tidy. To see all of the code to generate these results,
@@ -569,9 +569,7 @@ structure altogether, also shows a significant improvement in
 participants’ self-rated ability on data science tasks from pretest to
 post, t(238) = 17.12, p \< .001, mean (SD) change is 0.62 (0.56) on a
 4-point scale from 1 “I wouldn’t know where to start” to 4 “I am
-confident in my ability to do it”, an effect size of
-![d](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;d "d")
-= 1.11.
+confident in my ability to do it”, an effect size of $d$ = 1.11.
 
 ![](../figures/ability_pre_post_hist.png)
 
@@ -582,10 +580,9 @@ ratings. A paired t-test, ignoring the grouping structure altogether,
 shows a significant improvement in participants’ self-rated level of
 agreement with open science values from pretest to post, t(238) = 7.95,
 p \< .001, mean (SD) change is 0.26 (0.5) on a 7-point scale from 1
-“strongly disagree” to 7 “strongly agree”, an effect size of
-![d](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;d "d")
-= 0.51. An examination of the raw scores for open science items reveals
-a probable ceiling effect; the mean open science score at pretest was
+“strongly disagree” to 7 “strongly agree”, an effect size of $d$ = 0.51.
+An examination of the raw scores for open science items reveals a
+probable ceiling effect; the mean open science score at pretest was
 already 6.19 on a scale from 1 to 7, so there was no room to improve for
 many participants, potentially resulting in a muted effect.
 

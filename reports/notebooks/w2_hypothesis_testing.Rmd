@@ -358,7 +358,11 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
 ```{r}
 (ability_plot + 
   geom_histogram(bins = 30) + 
-  facet_wrap(~event, ncol = 2)) |> 
+  facet_wrap(~event, ncol = 2) + 
+   theme(
+    strip.text = element_text(face = "bold"),
+    strip.background = element_rect(colour = "black", size = 1))
+ ) |> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "ability_pre_post_hist.png",
                  width = 6,
