@@ -1,0 +1,67 @@
+---
+title: "Pariticpant counts and attrition"
+author: "Rose Hartman"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      out.width = "50%")
+
+library(ggplot2)
+
+# load custom functions for plotting
+source(here::here("src", "scripts", "functions_plotting.R"))
+
+# if the figures directory doesn't exist, create it
+dir.create(here::here("reports"), showWarnings = FALSE)
+dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+dir.create(here::here("reports", "tables"), showWarnings = FALSE)
+```
+
+`r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
+
+
+```{r load_data}
+waves <- readr::read_csv(here::here("participant_waves.csv"), show_col_types = FALSE)
+
+institutions <- readRDS(here::here("data", "deidentified", "participant_geocodes.rds")) |> 
+  dplyr::select(record_id, institution)
+
+# for each of the main surveys, read in just the record_id, so we can see who we have data for
+needs_assessment <- readRDS(here::here("data", "deidentified", "needs_assessment.rds")) |> 
+  dplyr::select(record_id)
+nih_pre <- readRDS(here::here("data", "deidentified", "nih_pre.rds")) |> 
+  dplyr::select(record_id)
+nih_post <- readRDS(here::here("data", "deidentified", "nih_post.rds")) |> 
+  dplyr::select(record_id)
+exit <- readRDS(here::here("data", "deidentified", "exit_survey.rds")) |> 
+  dplyr::select(record_id)
+```
+
+```{r combine_data}
+data <- waves |> 
+  dplyr::left_join(institutions, by = "record_id") |> 
+  dplyr::mutate(needs_assessment = record_id %in% needs_assessment$record_id,
+                nih_pre = record_id %in% nih_pre$record_id,
+                nih_post = record_id %in% nih_post$record_id,
+                exit = record_id %in% exit$record_id)
+```
+
+## How many total participants invited for each wave?
+
+```{r}
+data |> 
+  dplyr::count(wave)
+```
+
+## How many participants completed each assessment phase for each wave?
+
+```{r counts_by_phase}
+data |> 
+  dplyr::select(wave, needs_assessment, nih_pre, nih_post, exit) |> 
+  dplyr::mutate(wave = paste("Wave", wave)) |> 
+  gtsummary::tbl_summary(by=wave)
+```
+
