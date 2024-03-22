@@ -49,7 +49,9 @@ data <- waves |>
   dplyr::mutate(needs_assessment = record_id %in% needs_assessment$record_id,
                 nih_pre = record_id %in% nih_pre$record_id,
                 nih_post = record_id %in% nih_post$record_id,
-                exit = record_id %in% exit$record_id)
+                exit = record_id %in% exit$record_id) |> 
+  # convert logical to 0/1
+  dplyr::mutate(dplyr::across(tidyselect::where(is.logical), as.numeric))
 ```
 
 ## How many total participants invited for each wave?
@@ -72,6 +74,26 @@ data |>
     path = here::here("reports", "tables"))
 
 knitr::include_graphics(here::here("reports", "tables", "participant_n_by_phase.png"))
+```
+
+## How many institutions?
+
+```{r}
+data |> 
+  dplyr::count(institution, wave) |> 
+  dplyr::count(wave, name = "n_institutions") |> 
+  knitr::kable()
+```
+
+Limited only to participants that made it all the way through the exit survey:
+
+```{r}
+data |> 
+  # limit only to participants that made it all the way through the exit survey
+  dplyr::filter(exit == 1) |> 
+  dplyr::count(institution, wave) |> 
+  dplyr::count(wave, name = "n_institutions") |> 
+  knitr::kable()
 ```
 
 ## CHOP vs other institutions
