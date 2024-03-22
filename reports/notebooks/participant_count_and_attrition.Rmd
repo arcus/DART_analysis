@@ -1,5 +1,5 @@
 ---
-title: "Pariticpant counts and attrition"
+title: "Participant counts and attrition"
 author: "Rose Hartman"
 date: "`r Sys.Date()`"
 output: github_document
@@ -85,6 +85,15 @@ data |>
   knitr::kable()
 ```
 
+What about overall number of institutions across both waves?
+
+```{r}
+data |> 
+  dplyr::select(institution) |>
+  unique() |>
+  nrow()
+```
+
 Limited only to participants that made it all the way through the exit survey:
 
 ```{r}
@@ -95,6 +104,18 @@ data |>
   dplyr::count(wave, name = "n_institutions") |> 
   knitr::kable()
 ```
+
+Across both waves?
+
+```{r}
+data |> 
+  # limit only to participants that made it all the way through the exit survey
+  dplyr::filter(exit == 1) |> 
+  dplyr::select(institution) |>
+  unique() |>
+  nrow()
+```
+
 
 ## CHOP vs other institutions
 
@@ -109,6 +130,7 @@ data |>
 
 knitr::include_graphics(here::here("reports", "tables", "participant_n_by_chop.png"))
 ```
+
 ```{r}
 data |> 
   dplyr::select(wave, chop, needs_assessment, nih_pre, nih_post, exit) |> 
