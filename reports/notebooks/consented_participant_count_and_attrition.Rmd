@@ -33,6 +33,8 @@ institutions <- readRDS(here::here("data", "deidentified", "participant_geocodes
   dplyr::mutate(chop = ifelse(institution == "CHOP", "CHOP", "non-CHOP"))
 
 # for each of the main surveys, read in just the record_id, so we can see who we have data for
+consented <- readRDS(here::here("data", "deidentified", "consented.rds")) |> 
+  dplyr::select(record_id)
 needs_assessment <- readRDS(here::here("data", "deidentified", "needs_assessment.rds")) |> 
   dplyr::select(record_id)
 nih_pre <- readRDS(here::here("data", "deidentified", "nih_pre.rds")) |> 
@@ -46,12 +48,22 @@ exit <- readRDS(here::here("data", "deidentified", "exit_survey.rds")) |>
 ```{r combine_data}
 data <- waves |> 
   dplyr::left_join(institutions, by = "record_id") |> 
-  dplyr::mutate(needs_assessment = record_id %in% needs_assessment$record_id,
+  dplyr::mutate(consented = record_id %in% consented$record_id,
+                needs_assessment = record_id %in% needs_assessment$record_id,
                 nih_pre = record_id %in% nih_pre$record_id,
                 nih_post = record_id %in% nih_post$record_id,
                 exit = record_id %in% exit$record_id) |> 
   # convert logical to 0/1
   dplyr::mutate(dplyr::across(tidyselect::where(is.logical), as.numeric))
+```
+
+## Now, limit to just the consented participants 
+
+Participants who consented + agreed to Code of Conduct
+
+```{r}
+data <- data |>
+  dplyr::filter(consented == 1)
 ```
 
 ## How many total participants invited for each wave?
@@ -70,10 +82,10 @@ data |>
   gtsummary::tbl_summary(by=wave) |>   
   gtsummary::as_gt() |> # convert to gt table
   gt::gtsave( # save table as image
-    filename = "participant_n_by_phase.png",
+    filename = "consented_participant_n_by_phase.png",
     path = here::here("reports", "tables"))
 
-knitr::include_graphics(here::here("reports", "tables", "participant_n_by_phase.png"))
+knitr::include_graphics(here::here("reports", "tables", "consented_participant_n_by_phase.png"))
 ```
 
 ## How many institutions?
@@ -125,10 +137,10 @@ data |>
   gtsummary::tbl_summary(by=wave) |>   
   gtsummary::as_gt() |> # convert to gt table
   gt::gtsave( # save table as image
-    filename = "participant_n_by_chop.png",
+    filename = "consented_participant_n_by_chop.png",
     path = here::here("reports", "tables"))
 
-knitr::include_graphics(here::here("reports", "tables", "participant_n_by_chop.png"))
+knitr::include_graphics(here::here("reports", "tables", "consented_participant_n_by_chop.png"))
 ```
 
 ```{r}
@@ -138,8 +150,8 @@ data |>
                         .tbl_fun = gtsummary::tbl_summary) |>   
   gtsummary::as_gt() |> # convert to gt table
   gt::gtsave( # save table as image
-    filename = "participant_n_by_phase_chop.png",
+    filename = "consented_participant_n_by_phase_chop.png",
     path = here::here("reports", "tables"))
 
-knitr::include_graphics(here::here("reports", "tables", "participant_n_by_phase_chop.png"))
+knitr::include_graphics(here::here("reports", "tables", "consented_participant_n_by_phase_chop.png"))
 ```

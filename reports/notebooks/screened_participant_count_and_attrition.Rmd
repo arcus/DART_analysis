@@ -1,0 +1,171 @@
+---
+title: "Participant counts and attrition"
+author: "Rose Hartman"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      out.width = "50%")
+
+library(ggplot2)
+
+# load custom functions for plotting
+source(here::here("src", "scripts", "functions_plotting.R"))
+
+# if the figures directory doesn't exist, create it
+dir.create(here::here("reports"), showWarnings = FALSE)
+dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+dir.create(here::here("reports", "tables"), showWarnings = FALSE)
+```
+
+`r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
+
+
+```{r load_data}
+waves <- readr::read_csv(here::here("participant_waves.csv"), show_col_types = FALSE) |> 
+  # just for tidier printing in the tables
+  dplyr::mutate(wave = paste("Wave", wave))
+
+institutions <- readRDS(here::here("data", "deidentified", "participant_geocodes.rds")) |> 
+  dplyr::select(record_id, institution) |> 
+  dplyr::mutate(chop = ifelse(institution == "CHOP", "CHOP", "non-CHOP"))
+
+# for each of the main surveys, read in just the record_id, so we can see who we have data for
+consented <- readRDS(here::here("data", "deidentified", "consented.rds")) |> 
+  dplyr::select(record_id)
+needs_assessment <- readRDS(here::here("data", "deidentified", "needs_assessment.rds")) |> 
+  dplyr::select(record_id)
+nih_pre <- readRDS(here::here("data", "deidentified", "nih_pre.rds")) |> 
+  dplyr::select(record_id)
+nih_post <- readRDS(here::here("data", "deidentified", "nih_post.rds")) |> 
+  dplyr::select(record_id)
+exit <- readRDS(here::here("data", "deidentified", "exit_survey.rds")) |> 
+  dplyr::select(record_id)
+```
+
+```{r combine_data}
+data <- waves |> 
+  dplyr::left_join(institutions, by = "record_id") |> 
+  dplyr::mutate(consented = record_id %in% consented$record_id,
+                needs_assessment = record_id %in% needs_assessment$record_id,
+                nih_pre = record_id %in% nih_pre$record_id,
+                nih_post = record_id %in% nih_post$record_id,
+                exit = record_id %in% exit$record_id) |> 
+  # convert logical to 0/1
+  dplyr::mutate(dplyr::across(tidyselect::where(is.logical), as.numeric))
+```
+
+## How many total participants invited for each wave?
+
+```{r}
+data |> 
+  dplyr::count(wave) |> 
+  knitr::kable()
+```
+
+## How many participants completed each assessment phase for each wave?
+
+```{r counts_by_phase}
+data |> 
+  dplyr::select(wave, consented, needs_assessment, nih_pre, nih_post, exit) |> 
+  gtsummary::tbl_summary(by=wave) |>   
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "screened_participant_n_by_phase.png",
+    path = here::here("reports", "tables"))
+
+knitr::include_graphics(here::here("reports", "tables", "screened_participant_n_by_phase.png"))
+```
+
+## How many institutions?
+
+```{r}
+data |> 
+  dplyr::count(institution, wave) |> 
+  dplyr::count(wave, name = "n_institutions") |> 
+  knitr::kable()
+```
+
+What about overall number of institutions across both waves?
+
+```{r}
+data |> 
+  dplyr::select(institution) |>
+  unique() |>
+  nrow()
+```
+
+Limited only to participants that consented
+
+
+```{r}
+data |> 
+  # limit only to participants that consented
+  dplyr::filter(consented == 1) |> 
+  dplyr::count(institution, wave) |> 
+  dplyr::count(wave, name = "n_institutions") |> 
+  knitr::kable()
+```
+
+Across both waves?
+
+```{r}
+data |> 
+  # limit only to participants that consented
+  dplyr::filter(consented == 1) |> 
+  dplyr::select(institution) |>
+  unique() |>
+  nrow()
+```
+
+Limited only to participants that made it all the way through the exit survey:
+
+```{r}
+data |> 
+  # limit only to participants that made it all the way through the exit survey
+  dplyr::filter(exit == 1) |> 
+  dplyr::count(institution, wave) |> 
+  dplyr::count(wave, name = "n_institutions") |> 
+  knitr::kable()
+```
+
+Across both waves?
+
+```{r}
+data |> 
+  # limit only to participants that made it all the way through the exit survey
+  dplyr::filter(exit == 1) |> 
+  dplyr::select(institution) |>
+  unique() |>
+  nrow()
+```
+
+
+## CHOP vs other institutions
+
+```{r}
+data |> 
+  dplyr::select(wave, chop) |> 
+  gtsummary::tbl_summary(by=wave) |>   
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "screened_participant_n_by_chop.png",
+    path = here::here("reports", "tables"))
+
+knitr::include_graphics(here::here("reports", "tables", "screened_participant_n_by_chop.png"))
+```
+
+```{r}
+data |> 
+  dplyr::select(wave, chop, consented, needs_assessment, nih_pre, nih_post, exit) |> 
+  gtsummary::tbl_strata(strata=c("wave", "chop"),
+                        .tbl_fun = gtsummary::tbl_summary) |>   
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "screened_participant_n_by_phase_chop.png",
+    path = here::here("reports", "tables"))
+
+knitr::include_graphics(here::here("reports", "tables", "screened_participant_n_by_phase_chop.png"))
+```
