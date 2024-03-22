@@ -11,4 +11,4 @@ enrollment <- readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |>
   saveRDS(file = here::here("data", "interim", "consented.rds"))
 
 # save a de-identified version that we can share (the function save_data_deid is defined in functions_data_cleaning.R)
-save_data_deid("nih_pre")
+save_data_deid("consented")
