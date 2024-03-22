@@ -29,6 +29,17 @@ What about overall number of institutions across both waves?
 
     ## [1] 78
 
+Limited only to participants that consented
+
+| wave   | n_institutions |
+|:-------|---------------:|
+| Wave 1 |             23 |
+| Wave 2 |             58 |
+
+Across both waves?
+
+    ## [1] 64
+
 Limited only to participants that made it all the way through the exit
 survey:
 

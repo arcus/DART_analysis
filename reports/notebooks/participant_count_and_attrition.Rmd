@@ -33,6 +33,8 @@ institutions <- readRDS(here::here("data", "deidentified", "participant_geocodes
   dplyr::mutate(chop = ifelse(institution == "CHOP", "CHOP", "non-CHOP"))
 
 # for each of the main surveys, read in just the record_id, so we can see who we have data for
+consented <- readRDS(here::here("data", "deidentified", "consented.rds")) |> 
+  dplyr::select(record_id)
 needs_assessment <- readRDS(here::here("data", "deidentified", "needs_assessment.rds")) |> 
   dplyr::select(record_id)
 nih_pre <- readRDS(here::here("data", "deidentified", "nih_pre.rds")) |> 
@@ -46,7 +48,8 @@ exit <- readRDS(here::here("data", "deidentified", "exit_survey.rds")) |>
 ```{r combine_data}
 data <- waves |> 
   dplyr::left_join(institutions, by = "record_id") |> 
-  dplyr::mutate(needs_assessment = record_id %in% needs_assessment$record_id,
+  dplyr::mutate(consented = record_id %in% consented$record_id,
+                needs_assessment = record_id %in% needs_assessment$record_id,
                 nih_pre = record_id %in% nih_pre$record_id,
                 nih_post = record_id %in% nih_post$record_id,
                 exit = record_id %in% exit$record_id) |> 
@@ -66,7 +69,7 @@ data |>
 
 ```{r counts_by_phase}
 data |> 
-  dplyr::select(wave, needs_assessment, nih_pre, nih_post, exit) |> 
+  dplyr::select(wave, consented, needs_assessment, nih_pre, nih_post, exit) |> 
   gtsummary::tbl_summary(by=wave) |>   
   gtsummary::as_gt() |> # convert to gt table
   gt::gtsave( # save table as image
@@ -89,6 +92,29 @@ What about overall number of institutions across both waves?
 
 ```{r}
 data |> 
+  dplyr::select(institution) |>
+  unique() |>
+  nrow()
+```
+
+Limited only to participants that consented
+
+
+```{r}
+data |> 
+  # limit only to participants that consented
+  dplyr::filter(consented == 1) |> 
+  dplyr::count(institution, wave) |> 
+  dplyr::count(wave, name = "n_institutions") |> 
+  knitr::kable()
+```
+
+Across both waves?
+
+```{r}
+data |> 
+  # limit only to participants that consented
+  dplyr::filter(consented == 1) |> 
   dplyr::select(institution) |>
   unique() |>
   nrow()
@@ -133,7 +159,7 @@ knitr::include_graphics(here::here("reports", "tables", "participant_n_by_chop.p
 
 ```{r}
 data |> 
-  dplyr::select(wave, chop, needs_assessment, nih_pre, nih_post, exit) |> 
+  dplyr::select(wave, chop, consented, needs_assessment, nih_pre, nih_post, exit) |> 
   gtsummary::tbl_strata(strata=c("wave", "chop"),
                         .tbl_fun = gtsummary::tbl_summary) |>   
   gtsummary::as_gt() |> # convert to gt table
