@@ -189,6 +189,14 @@ ggsave(filename = "participant_geocodes.png",
        plot = p3,
        path = here::here("reports", "figures"),
        width = 8, height = 4, units = "in")
+
+p3_small <- p3 + 
+  theme(legend.position = "bottom")
+
+ggsave(filename = "participant_geocodes_small.png", 
+       plot = p3_small,
+       path = here::here("reports", "figures"),
+       width = 5, height = 4, units = "in")
 ```
 
 ![](../figures/participant_geocodes.png)
