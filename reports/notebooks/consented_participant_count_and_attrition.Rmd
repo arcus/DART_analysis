@@ -57,6 +57,15 @@ data <- waves |>
   dplyr::mutate(dplyr::across(tidyselect::where(is.logical), as.numeric))
 ```
 
+## Now, limit to just the consented participants 
+
+Participants who consented + agreed to Code of Conduct
+
+```{r}
+data <- data |>
+  dplyr::filter(consented == 1)
+```
+
 ## How many total participants invited for each wave?
 
 ```{r}
@@ -69,14 +78,14 @@ data |>
 
 ```{r counts_by_phase}
 data |> 
-  dplyr::select(wave, consented, needs_assessment, nih_pre, nih_post, exit) |> 
+  dplyr::select(wave, needs_assessment, nih_pre, nih_post, exit) |> 
   gtsummary::tbl_summary(by=wave) |>   
   gtsummary::as_gt() |> # convert to gt table
   gt::gtsave( # save table as image
-    filename = "participant_n_by_phase.png",
+    filename = "consented_participant_n_by_phase.png",
     path = here::here("reports", "tables"))
 
-knitr::include_graphics(here::here("reports", "tables", "participant_n_by_phase.png"))
+knitr::include_graphics(here::here("reports", "tables", "consented_participant_n_by_phase.png"))
 ```
 
 ## How many institutions?
@@ -92,29 +101,6 @@ What about overall number of institutions across both waves?
 
 ```{r}
 data |> 
-  dplyr::select(institution) |>
-  unique() |>
-  nrow()
-```
-
-Limited only to participants that consented
-
-
-```{r}
-data |> 
-  # limit only to participants that consented
-  dplyr::filter(consented == 1) |> 
-  dplyr::count(institution, wave) |> 
-  dplyr::count(wave, name = "n_institutions") |> 
-  knitr::kable()
-```
-
-Across both waves?
-
-```{r}
-data |> 
-  # limit only to participants that consented
-  dplyr::filter(consented == 1) |> 
   dplyr::select(institution) |>
   unique() |>
   nrow()
@@ -151,21 +137,21 @@ data |>
   gtsummary::tbl_summary(by=wave) |>   
   gtsummary::as_gt() |> # convert to gt table
   gt::gtsave( # save table as image
-    filename = "participant_n_by_chop.png",
+    filename = "consented_participant_n_by_chop.png",
     path = here::here("reports", "tables"))
 
-knitr::include_graphics(here::here("reports", "tables", "participant_n_by_chop.png"))
+knitr::include_graphics(here::here("reports", "tables", "consented_participant_n_by_chop.png"))
 ```
 
 ```{r}
 data |> 
-  dplyr::select(wave, chop, consented, needs_assessment, nih_pre, nih_post, exit) |> 
+  dplyr::select(wave, chop, needs_assessment, nih_pre, nih_post, exit) |> 
   gtsummary::tbl_strata(strata=c("wave", "chop"),
                         .tbl_fun = gtsummary::tbl_summary) |>   
   gtsummary::as_gt() |> # convert to gt table
   gt::gtsave( # save table as image
-    filename = "participant_n_by_phase_chop.png",
+    filename = "consented_participant_n_by_phase_chop.png",
     path = here::here("reports", "tables"))
 
-knitr::include_graphics(here::here("reports", "tables", "participant_n_by_phase_chop.png"))
+knitr::include_graphics(here::here("reports", "tables", "consented_participant_n_by_phase_chop.png"))
 ```
