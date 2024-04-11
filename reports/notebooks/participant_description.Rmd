@@ -1,0 +1,207 @@
+---
+title: "Description of DART Participants"
+author: "Rose Hartman"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+library(gtsummary)
+
+# load custom functions for plotting
+source(here::here("src", "scripts", "functions_plotting.R"))
+
+# if the figures directory doesn't exist, create it
+dir.create(here::here("reports"), showWarnings = FALSE)
+dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+```
+
+`r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
+
+**Important note:**
+This report focuses on **enrolled** participants, regardless of whether they completed the program. 
+This is a larger and more inclusive sample than that used for the hypothesis testing analyses. 
+
+```{r load_data}
+started_pretest <- readRDS(here::here("data", "deidentified", "demographics.rds"))$record_id
+completed_pretest <- readRDS(here::here("data", "deidentified", "oss_data_pre.rds"))$record_id
+started_posttest <- readRDS(here::here("data", "deidentified", "nih_post.rds"))$record_id
+completed_posttest <- readRDS(here::here("data", "deidentified", "exit_survey.rds"))$record_id
+
+# start with full list of all participant record_ids from the raw data
+participant_info <- readRDS(here::here("data", "raw", "DART_Pipeline.rds")) |> 
+  dplyr::select(record_id) |> 
+  unique() |> 
+  # add wave
+  dplyr::left_join(readr::read_csv(here::here("participant_waves.csv"), show_col_types = FALSE), by = "record_id") |> 
+  # add pathway
+  dplyr::left_join(readr::read_csv(here::here("participant_pathways.csv"), show_col_types = FALSE), by = "record_id") |> 
+  # add demographics info created by 04_clean_demographics.R
+  dplyr::left_join(readRDS(here::here("data", "deidentified", "demographics.rds")), by = "record_id") |> 
+  # add geocodes created by 04_clean_demographics.R
+  dplyr::left_join(readRDS(here::here("data", "deidentified", "participant_geocodes.rds")), by = "record_id") |> 
+  # add exit survey
+  dplyr::left_join(readRDS(here::here("data", "deidentified", "exit_survey.rds")), by = "record_id") |> 
+  # add info about completing pretest and posttest
+  dplyr::mutate(started_pre = ifelse(record_id %in% started_pretest, TRUE, FALSE),
+                completed_pre  = ifelse(record_id %in% completed_pretest, TRUE, FALSE),
+                started_post = ifelse(record_id %in% started_posttest, TRUE, FALSE),
+                completed_post = ifelse(record_id %in% completed_posttest, TRUE, FALSE))
+```
+
+# How many participants?
+
+## Total participants that have a record in DART, including just screener
+
+Note that this doesn't remove retakers, so this number is a little inflated.
+
+```{r}
+nrow(participant_info)
+```
+
+## Total participants assigned to each wave
+
+```{r}
+dplyr::count(participant_info, wave)
+```
+
+## Total CHOP vs. non-CHOP participants
+
+```{r}
+participant_info |> 
+  dplyr::mutate(is_chop = ifelse(institution == "CHOP", "CHOP", "non-CHOP")) |> 
+  dplyr::count(wave, is_chop) |> 
+  tidyr::pivot_wider(names_from = wave, values_from = n)
+```
+
+## Total completing pretest and postest
+
+```{r}
+participant_info |> 
+  # only bother with people that were assigned a wave
+  dplyr::filter(wave %in% c(1,2)) |> 
+  dplyr::count(wave, started_pre, completed_pre) |> 
+  tidyr::pivot_wider(names_from = wave, values_from = n) 
+```
+```{r}
+participant_info |> 
+  # only bother with people that were assigned a wave
+  dplyr::filter(wave %in% c(1,2)) |> 
+  dplyr::count(wave, started_post, completed_post) |> 
+  tidyr::pivot_wider(names_from = wave, values_from = n) 
+```
+
+# Participant demographics
+
+## Career stage and highest degree
+
+```{r}
+participant_info |> 
+  # only bother with people that were assigned a wave
+  dplyr::filter(wave %in% c(1,2)) |> 
+  dplyr::select(career_stage, highest_degree, wave) |> 
+  tbl_summary(by = wave)
+```
+
+```{r}
+p1 <- participant_info |> 
+  dplyr::filter(wave == 1) |> 
+  droplevels() |> 
+  ggplot(aes(y=forcats::fct_infreq(career_stage))) + 
+  geom_bar(fill = chop_blue) + 
+  labs(y=NULL,x=NULL,
+       title="Number of participants by career stage\nWave 1") 
+
+p2 <- participant_info |> 
+  dplyr::filter(wave == 2) |> 
+  droplevels() |> 
+  ggplot(aes(y=forcats::fct_infreq(career_stage))) + 
+  geom_bar(fill = chop_blue) + 
+  labs(y=NULL,x=NULL,
+       title="Number of participants by career stage\nWave 2") 
+
+p3 <- participant_info |> 
+  # only bother with people that were assigned a wave
+  dplyr::filter(wave %in% c(1,2)) |> 
+  droplevels() |> 
+  ggplot(aes(y=forcats::fct_infreq(career_stage))) + 
+  geom_bar(fill = chop_blue) + 
+  labs(y=NULL,x=NULL,
+       title="Number of participants by career stage\nWave 1 and 2") 
+ggsave(filename = "participants_career_w1.png", 
+       plot = p1,
+       path = here::here("reports", "figures"),
+       width = 5.5, height = 3, units = "in")
+ggsave(filename = "participants_career_w2.png", 
+       plot = p2,
+       path = here::here("reports", "figures"),
+       width = 5.5, height = 3, units = "in")
+ggsave(filename = "participants_career_w1andw2.png", 
+       plot = p3,
+       path = here::here("reports", "figures"),
+       width = 5.5, height = 3, units = "in")
+
+# save a version dropping missing counts
+p4 <- participant_info |> 
+  # only bother with people that were assigned a wave
+  dplyr::filter(wave %in% c(1,2)) |> 
+  dplyr::select(career_stage) |> 
+  na.omit() |> 
+  droplevels() |> 
+  ggplot(aes(y=forcats::fct_infreq(career_stage))) + 
+  geom_bar(fill = chop_blue) + 
+  labs(y=NULL,x=NULL,
+       title = "Number of participants by career stage", 
+       subtitle = "Wave 1 and 2") 
+ggsave(filename = "participants_career_w1andw2_dropNA.png", 
+       plot = p4,
+       path = here::here("reports", "figures"),
+       width = 6, height = 3, units = "in")
+
+p5 <- participant_info |> 
+  # only bother with people that were assigned a wave
+  dplyr::filter(wave %in% c(1,2)) |> 
+  droplevels() |> 
+  ggplot(aes(y=forcats::fct_infreq(career_stage), fill = highest_degree)) + 
+  geom_bar(fill = chop_blue) + 
+  labs(y=NULL, x=NULL, fill = NULL,
+       title = "Number of participants by career stage and\nhighest degree earned",
+       subtitle = "Wave 1 and 2") 
+ggsave(filename = "participants_career_highestdegree.png", 
+       plot = p5,
+       path = here::here("reports", "figures"),
+       width = 6, height = 3, units = "in")
+```
+
+## Race and gender
+
+Due to a bug in our survey, we failed to collect gender information for Wave 1. 
+Rather an assuming gender categories a priori, we provided a write-in text box for participants to specify their gender. 
+The overwhelming majority of responses were variations on the categories that typically appear on demographics forms (e.g. "female", "woman", or even just "F"), but many participants did take advantage of the open format to describe their gender more specifically or fully (e.g. "non-binary trans man", "cis-gendered woman (she/her)", "agender").
+For the purposes of summarizing we have grouped responses into categories in the table below. 
+
+```{r}
+participant_info |> 
+  dplyr::filter(wave == 2) |> 
+  dplyr::select(Gender = gender_coded) |> 
+  tbl_summary()
+```
+
+```{r}
+participant_info |> 
+  dplyr::filter(wave %in% c(1,2)) |> 
+  dplyr::select(Ethnicity = ethnicity, Race = race, Underrepresented = underrepresented) |> 
+  tbl_summary()
+```
+
+```{r}
+participant_info |> 
+  dplyr::filter(wave %in% c(1,2)) |> 
+  dplyr::select(Gender = gender_coded, underrepresented) |> 
+  tbl_summary(by = underrepresented)
+```
+
+
+
