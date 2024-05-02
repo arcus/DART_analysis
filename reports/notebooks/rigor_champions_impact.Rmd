@@ -123,6 +123,40 @@ feedback_by_month <- quick_module_feedback |>
 
 During our first year, we received an average of `r round(mean(head(feedback_by_month,12)$n), 1)` feedback submissions per month. That has grown to an average of `r round(mean(tail(feedback_by_month,3)$n), 1)` per month over the last quarter.  
 
+```{r}
+p2 <- quick_module_feedback |> 
+  dplyr::mutate(week = lubridate::floor_date(feedback_timestamp, unit = "week")) |> 
+  dplyr::count(type, week) |> 
+  dplyr::mutate(date = as.Date(week)) |> 
+  ggplot(aes(x=date, y=n)) + 
+  labs(x=NULL, 
+       y = "Number of responses per week", 
+       title = "Feedback responses submitted per week", 
+       subtitle = "Shaded bars represent timing of Pilot, Wave 1, and Wave 2") +
+  annotate("rect", fill = chop_blue, alpha = 0.3, 
+        xmin = program_dates["pilot_start"], 
+        xmax = program_dates["pilot_end"],
+        ymin = -Inf, ymax = Inf)  + 
+  annotate("rect", fill = chop_blue, alpha = 0.3, 
+        xmin = program_dates["w1_start"], 
+        xmax = program_dates["w1_end"],
+        ymin = -Inf, ymax = Inf)  + 
+  annotate("rect", fill = chop_blue, alpha = 0.3, 
+        xmin = program_dates["w2_start"], 
+        xmax = program_dates["w2_end"],
+        ymin = -Inf, ymax = Inf) + 
+  geom_line(color = chop_darkblue)  + 
+  scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +  
+  facet_wrap(~type, scales = "free_y")
+
+ggsave(filename = "feedback_by_week_nonparticipants.png", 
+       plot = p2,
+       path = here::here("reports", "figures"),
+       width = 8, height = 4, units = "in")
+```
+
+![](../figures/feedback_by_week_nonparticipants.png)
 
 ## Impact of DART program on researchers' data science skills
 
