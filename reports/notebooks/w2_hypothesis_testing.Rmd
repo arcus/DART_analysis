@@ -293,7 +293,10 @@ ability_plot <- plot_data |>
                                 "(3) I could probably do it\nwith some trial and error",
                                 "(4) I am confident in my ability to do it")) + 
   labs(x=NULL, y=NULL, 
-       title = "Ability")
+       title = "Ability") + 
+   theme(
+    strip.text = element_text(face = "bold"),
+    strip.background = element_rect(colour = "black", size = 1))
 
 openscience_plot <- plot_data |> 
   dplyr::filter(event %in% c("pre", "post")) |> 
@@ -307,7 +310,10 @@ openscience_plot <- plot_data |>
                                 "(6) Agree", 
                                 "(7) Strongly Agree")) + 
   labs(x=NULL, y=NULL, 
-       title = "Open Science Values")
+       title = "Open Science Values") + 
+   theme(
+    strip.text = element_text(face = "bold"),
+    strip.background = element_rect(colour = "black", size = 1))
 ```
 
 
@@ -358,18 +364,13 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
 ```{r}
 (ability_plot + 
   geom_histogram(bins = 30) + 
-  facet_wrap(~event, ncol = 2) + 
-   theme(
-    strip.text = element_text(face = "bold"),
-    strip.background = element_rect(colour = "black", size = 1))
+  facet_wrap(~event, ncol = 2) 
  ) |> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "ability_pre_post_hist.png",
                  width = 6,
                  height = 3)
 ```
-
-
 
 ```{r}
 (openscience_plot + 
@@ -380,6 +381,19 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
                  width = 6,
                  height = 3)
 ```
+
+```{r}
+(openscience_plot + 
+  geom_histogram(fill = chop_pink) + 
+  theme(strip.background = element_rect(fill=chop_pink_light8))+
+  facet_wrap(~event, ncol = 2)) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "openscience_pre_post_hist_pink.png",
+                 width = 6,
+                 height = 3)
+```
+
+
 
 ```{r}
 (data |> 
