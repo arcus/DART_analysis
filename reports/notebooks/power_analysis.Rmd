@@ -88,7 +88,14 @@ First: Do we already know the results for any of the power analyses for H2?
 ```{r}
 
 # here's the measured effect size for H2
-d <- mean(data$openscience_change)/sd(data$openscience_change)
+d_h2 <- mean(data$openscience_change)/sd(data$openscience_change)
+
+pwr::pwr.t.test(n = NULL,
+                d = d_h2,
+                sig.level = .05,
+                power = .8,
+                type = "paired",
+                alternative = "two.sided")
 ```
 
 
@@ -138,18 +145,6 @@ for(i in 1:length(correlations)){
 }
 ```
 
-
-
-```{r}
-h3_ability_lm
-h3_openscience_lm
-
-h4_ability_lm
-h4_openscience_lm
-
-h5_ability_lm
-h5_openscience_lm
-```
 
 ## Solving the power equation with more complex models
 
