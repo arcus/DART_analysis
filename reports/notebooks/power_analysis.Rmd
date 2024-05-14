@@ -1,0 +1,166 @@
+---
+title: "Power Analysis"
+author: "Rose Hartman"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      eval = FALSE)
+```
+
+`r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
+
+# What is power?
+
+In [null hypothesis significace testing](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/intro_to_nhst/intro_to_nhst.md#1) power is the probability of correctly rejecting the null hypothesis. 
+Put another way, assuming that the null is *false*, power is the probability of a significant result. 
+It is 1 - the probability of a type 2 error (failing to reject a false null), $\beta$.
+When the null is true, then the probability of a significant result is $\alpha$, also called the criterion, usually set to .05. 
+That's the probability of a type 1 error. 
+
+## The power equation
+
+Power is a function of three things: effect size, sample size, and $/alpha$.
+Since we generally set $/alpha$ to .05 and don't change it, we think of power as mostly being related to effect size and sample size. 
+
+Because these three values are related -- power, effect size, and sample size -- we can solve the equation for any one of them by filling in the other two. 
+
+- The most common kind of power analysis is *a priori* power analysis, which is when we plug in effect size and power and solve for sample size, answering the question, "For this effect size, how many observations would I need to achieve 80% power?" 
+- A *post hoc* or *a posteriori* power analysis is when you plug in effect size and sample size and solve for power, answering the question, "With this many observations and this size effect, what power would/did I have?" 
+- A sensitivity analysis is when you plug in power and sample size and solve for effect size, answering, "What is the smallest effect I could detect at 80% power with this sample size?"
+
+(Note that 80% power is often used as a cutoff, but you could definitely decide to use something higher or lower.)
+
+## Solving the power equation
+
+Keep in mind you can only really do a power analysis for a single effect at a time. 
+So if your model is something like a linear regression, you have to decide which effect (the overall model fit? The coefficient of my key predictor?) you want to focus on. 
+
+For most simple effects, there are quick R functions available to run any of the above kinds of power analyses. 
+See `help(package = "pwr")` for a list of models you can test easily.
+
+### Power anlayses for H1 t-test 
+
+For example, consider H1: "Learners' self-ratings of their own ability to perform data science tasks will increase over the course of the program (pre to post)."
+
+```{r}
+# run w2_hypothesis_testing.Rmd first to create and clean data
+
+h1_t # the t-test for H1
+```
+
+And here's a sensitivity analysis for the paired t-test for H1:
+
+```{r h1_t_sensitivity}
+pwr::pwr.t.test(n = nrow(data),
+                d = NULL,
+                sig.level = .05,
+                power = .8,
+                type = "paired",
+                alternative = "two.sided")
+```
+
+```{r h1_t_posthoc}
+pwr::pwr.t.test(n = nrow(data),
+                d = mean(data$ability_change)/sd(data$ability_change),
+                sig.level = .05,
+                power = NULL,
+                type = "paired",
+                alternative = "two.sided")
+```
+
+```{r h1_t_apriori}
+pwr::pwr.t.test(n = NULL,
+                d = mean(data$ability_change)/sd(data$ability_change),
+                sig.level = .05,
+                power = .8,
+                type = "paired",
+                alternative = "two.sided")
+```
+### Power anlayses for H2 t-test
+
+H2: "Learners' self-ratings of their agreement with important tenets of open science will increase over the course of the program (pre to post)."
+
+First: Do we already know the results for any of the power analyses for H2?
+
+```{r}
+
+# here's the measured effect size for H2
+d <- mean(data$openscience_change)/sd(data$openscience_change)
+```
+
+
+### Power analyses for H3, H4, and H5
+
+H3: "Change in 1 and 2 will be stronger for learners who report higher levels of engagement in the program."
+
+H4: "Change in 1 and 2 will be higher for learners who report higher levels of agreement with the statement 'Self-paced asynchronous studying works well for me in general'"
+
+H5: "Change in 1 and 2 will be higher for learners who report higher average levels of agreement with the statements about the appropriateness of their assigned pathway ("The skills and topics I was hoping to learn were covered in my modules", "My assigned modules worked together well as a learning pathway", "My assigned modules were appropriate to my skill level", "I learned things from my assigned modules that I can apply in my research", and "The assigned modules for my pathway were relevant to my learning goals")"
+
+In each case, the hypothesis is really about the effect of the covariate (engagement for H3, async preference for H4, pathway fit for H5).
+In a linear regression with only one predictor (as each of these is), the test of that predictor's coefficient is the same as a test of the correlation between the predictor and the outcome. 
+
+```{r}
+# sensitivity analysis
+pwr::pwr.r.test(n = nrow(data),
+                r = NULL,
+                sig.level = .05,
+                power = .8)
+```
+```{r}
+# post hoc power
+h3_ability <- cor(data$ability_change, data$engagement, use = "pairwise.complete.obs")
+h3_openscience <- cor(data$openscience_change, data$engagement, use = "pairwise.complete.obs")
+h4_ability <- cor(data$ability_change, data$asynch, use = "pairwise.complete.obs")
+h4_openscience <- cor(data$openscience_change, data$asynch, use = "pairwise.complete.obs")
+h5_ability <- cor(data$ability_change, data$pathway_fit, use = "pairwise.complete.obs")
+h5_openscience <- cor(data$openscience_change, data$pathway_fit, use = "pairwise.complete.obs")
+
+correlations <- c(h3_ability = h3_ability, 
+                  h3_openscience = h3_openscience,
+                  h4_ability = h4_ability, 
+                  h4_openscience = h4_openscience,
+                  h5_ability = h5_ability, 
+                  h5_openscience = h5_openscience)
+
+
+for(i in 1:length(correlations)){
+  
+  message(names(correlations)[i])
+  
+  print(pwr::pwr.r.test(n = nrow(data),
+                r = correlations[i],
+                sig.level = .05,
+                power = NULL))
+}
+```
+
+
+
+```{r}
+h3_ability_lm
+h3_openscience_lm
+
+h4_ability_lm
+h4_openscience_lm
+
+h5_ability_lm
+h5_openscience_lm
+```
+
+## Solving the power equation with more complex models
+
+When your effect of interest is in a more complex model, though (like a mixed effects model), calculating power becomes trickier. 
+You can do a power analysis with any sort of model at all through simulation, though!
+
+The idea is this: 
+
+- describe the "data generating process", whereby the predictors in your model together generate the outcome(s) plus random error, with effect size(s) you specify (and can vary)
+- simulate a random data set using this process 100 times (at a given n, or you can vary n), and run your model test on each simulated data set
+- power = significant tests / total tests run
+
+See [Estimating power in (generalized) linear mixed models: An open introduction and tutorial in R](https://link.springer.com/article/10.3758/s13428-021-01546-0).
+
