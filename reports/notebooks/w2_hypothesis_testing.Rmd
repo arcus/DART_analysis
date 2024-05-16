@@ -116,6 +116,11 @@ asynch_and_pathway_fit <- exit |>
 data <- dplyr::left_join(data, asynch_and_pathway_fit, by = "record_id")
 ```
 
+```{r data_for_testing}
+# save this file in case we want it handy for other notebooks
+saveRDS(data, file = here::here("data", "interim", "data_for_hyp_testing_w2.rds"))
+```
+
 Here is a quick summary of the fields that will be used in this analysis (scroll right to see the rest):
 
 ```{r, results='asis'}
