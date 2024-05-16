@@ -31,21 +31,24 @@ The text descriptions preceeding the analyses in this report (except for this op
 Note that all of our [surveys are available on GH](https://github.com/arcus/education_dart_recruitment_comms/tree/main/surveys), including the exact wording of questions and options.
 
 ```{r load_data, message=FALSE}
-# load the cleaned data
-nih_pre <- readRDS(here::here("data", "interim", "nih_pre.rds")) |> 
+waves <- readr::read_csv(here::here("participant_waves.csv"), show_col_types = FALSE)
+
+nih_pre <- readRDS(here::here("data", "deidentified", "nih_pre.rds")) |> 
+  dplyr::left_join(waves, by = "record_id") |> 
+  dplyr::filter(wave == 1) |> 
   dplyr::mutate(event = "pre")
-nih_post <- readRDS(here::here("data", "interim", "nih_post.rds")) |> 
+nih_post <- readRDS(here::here("data", "deidentified", "nih_post.rds")) |> 
+  dplyr::left_join(waves, by = "record_id") |> 
+  dplyr::filter(wave == 1)|> 
   dplyr::mutate(event = "post")
+nih <- dplyr::bind_rows(nih_post, nih_pre)
 
-# combine pre and post into a single tidy data frame
-nih <- rbind(nih_pre, nih_post) |> 
-  dplyr::mutate(event = factor(event, levels = c("pre", "post")))
-
-# load exit survey
-exit <- readRDS(here::here("data", "interim", "exit_survey.rds"))
+exit <- readRDS(here::here("data", "deidentified", "exit_survey.rds")) |> 
+  dplyr::left_join(waves, by = "record_id") |> 
+  dplyr::filter(wave == 1)
 
 # get pathway assignments
-pathways <- readr::read_csv(here::here("pathway_assignments.csv"))
+pathways <- readr::read_csv(here::here("participant_pathways.csv"), show_col_types = FALSE)
 ```
 
 ### Variables
@@ -56,6 +59,8 @@ pathways <- readr::read_csv(here::here("pathway_assignments.csv"))
 
 ```{r calculate_mean_scores}
 nih <- nih |> 
+  # make factors numeric, so we can calculate means
+  dplyr::mutate(dplyr::across(tidyselect::where(is.factor), as.numeric)) |> 
   dplyr::rowwise() |> 
   dplyr::mutate(ability = mean(dplyr::c_across(findable:atomize), na.rm = TRUE),
                 openscience = mean(dplyr::c_across(data_storage_1:code_efficient), na.rm = TRUE))
@@ -65,6 +70,8 @@ nih <- nih |>
 
 ```{r calculate_engagement}
 engagement <- exit |> 
+  # make factors numeric, so we can calculate means
+  dplyr::mutate(dplyr::across(tidyselect::where(is.factor), as.numeric)) |> 
   dplyr::rowwise() |> 
   dplyr::mutate(engagement = mean(c(completed_modules, interaction_how_often), na.rm = TRUE)) |> 
   # only keep record_id and the engagement index
@@ -87,7 +94,7 @@ data <- nih |>
   dplyr::filter(!is.na(engagement) & !is.na(ability_change) & !is.na(openscience_change))
 
 # save this file in case we want it handy for other notebooks
-saveRDS(data, file = here::here("data", "interim", "data_for_hyp_testing.rds"))
+saveRDS(data, file = here::here("data", "interim", "data_for_hyp_testing_w1.rds"))
 ```
 
 ## Hypotheses
@@ -125,10 +132,14 @@ mean(data$ability_change, na.rm = TRUE) # average change
 sd(data$ability_change, na.rm = TRUE) # standard deviation
 
 # hist of change scores
-data |> 
+(data |> 
   dplyr::filter(!is.na(engagement)) |> 
   ggplot(aes(x=ability_change)) + 
-  geom_histogram()
+  geom_histogram()) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "ability_change_hist_w1.png",
+                 width = 6,
+                 height = 3)
 ```
 
 Random intercepts model:
@@ -148,10 +159,14 @@ mean(data$openscience_change, na.rm = TRUE) # average change
 sd(data$openscience_change, na.rm = TRUE) # standard deviation
 
 # hist of change scores
-data |> 
+(data |> 
   dplyr::filter(!is.na(engagement)) |> 
   ggplot(aes(x=openscience_change)) + 
-  geom_histogram()
+  geom_histogram()) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "openscience_change_hist_w1.png",
+                 width = 6,
+                 height = 3)
 ```
 
 ```{r h2_lme}
@@ -324,17 +339,25 @@ How about those engagement scores?
 - `completed_modules` = How many of the assigned learning modules on your pathway did you complete? (1, None at all | 2, A few | 3, About half | 4, Most | 5, All)
 
 ```{r engagement}
-engagement |> 
+(engagement |> 
   tidyr::pivot_longer(cols = -record_id) |> 
   ggplot(aes(x=value)) + 
   geom_histogram(bins=5) + 
-  facet_wrap(~name, ncol=1)
+  facet_wrap(~name, ncol=1)) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "engagement_hist_w1.png",
+                 width = 5,
+                 height = 5)
 
-engagement |> 
+(engagement |> 
   ggplot(aes(x=completed_modules, y=interaction_how_often)) + 
   geom_jitter(width = .2, height = .2, alpha=.5) + 
   geom_rug(position = "jitter", alpha=.5) + 
-  stat_smooth(method = "lm")
+  stat_smooth(method = "lm")) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "engagement_scatter_w1.png",
+                 width = 5,
+                 height = 5)
 ```
 
 
@@ -342,40 +365,56 @@ engagement |>
 
 ```{r change_plots}
 # 1, I wouldn't know where to start | 2, I could struggle through, but not confident I could do it | 3, I could probably do it with some trial and error | 4, I am confident in my ability to do it	
-plot_data |> 
+(plot_data |> 
   dplyr::filter(event %in% c("pre", "post")) |> 
   ggplot(aes(x=event, y=ability, group = record_id)) + 
   geom_line(alpha = .5) + 
   scale_y_continuous(breaks = 1:4, limits = c(1,4)) + 
-  labs(x=NULL)
+  labs(x=NULL)) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "ability_change_lines_w1.png",
+                 width = 6,
+                 height = 3)
 
 # 1, strongly disagree | 2, disagree | 3, somewhat disagree | 4, neither agree nor disagree | 5, somewhat agree | 6, agree | 7, strongly agree
-plot_data |> 
+(plot_data |> 
   dplyr::filter(event %in% c("pre", "post")) |> 
   ggplot(aes(x=event, y=openscience, group = record_id)) + 
   geom_line(alpha = .5) + 
   scale_y_continuous(breaks = 1:7, limits = c(1,7)) + 
-  labs(x=NULL)
+  labs(x=NULL)) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "openscience_change_lines_w1.png",
+                 width = 6,
+                 height = 3)
 ```
 
 ```{r change_plots_by_pathway}
 # 1, I wouldn't know where to start | 2, I could struggle through, but not confident I could do it | 3, I could probably do it with some trial and error | 4, I am confident in my ability to do it	
-plot_data |> 
+(plot_data |> 
   dplyr::filter(event %in% c("pre", "post")) |> 
   ggplot(aes(x=event, y=ability, group = record_id)) + 
   geom_line(alpha = .5) + 
   scale_y_continuous(breaks = 1:4, limits = c(1,4)) + 
   labs(x=NULL) + 
-  facet_wrap(~pathway)
+  facet_wrap(~pathway)) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "ability_change_by_pathway_w1.png",
+                 width = 6,
+                 height = 6)
 
 # 1, strongly disagree | 2, disagree | 3, somewhat disagree | 4, neither agree nor disagree | 5, somewhat agree | 6, agree | 7, strongly agree
-plot_data |> 
+(plot_data |> 
   dplyr::filter(event %in% c("pre", "post")) |> 
   ggplot(aes(x=event, y=openscience, group = record_id)) + 
   geom_line(alpha = .5) + 
   scale_y_continuous(breaks = 1:7, limits = c(1,7)) + 
   labs(x=NULL) + 
-  facet_wrap(~pathway)
+  facet_wrap(~pathway))|> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "openscience_change_by_pathway_w1.png",
+                 width = 6,
+                 height = 6)
 ```
 
 ### n per cluster
