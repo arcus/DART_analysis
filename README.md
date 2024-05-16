@@ -18,6 +18,7 @@ The `.Rmd` version is the "raw" file; if you want to see all of the code used to
 
 Here are a few good ones to start with if you want an overview of our findings so far:
 
+- [Results of our pre-registered hypothesis tests for Wave 1](reports/notebooks/w1_hypothesis_testing.md)
 - [Results of our pre-registered hypothesis tests for Wave 2](reports/notebooks/w2_hypothesis_testing.md)
 - [Report with figres etc. from our presentation at the R3ISE symposium, Nov 2023](reports/notebooks/R3ISE_symposium.md)
 - [Report with figres etc. our Rigor Champions Prize submission, Dec 2023](reports/notebooks/rigor_champions_impact.md)
