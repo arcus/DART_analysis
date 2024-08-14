@@ -67,7 +67,8 @@ name_id_pairs <- tibble::tribble(
   "statistical_tests",   "statistical tests in open source software",
   "tidy_data",   "tidy data",
   "using_redcap_api",   "using the redcap api"
-)
+) |> 
+  dplyr::mutate(module_id = as.factor(module_id))
 
 readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |> 
   dplyr::mutate(date = lubridate::floor_date(feedback_timestamp, unit = "days")) |> 
@@ -81,7 +82,7 @@ readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |>
                 type = as.factor(type)) |> 
   # clean up factors
   dplyr::mutate(learning_objectives = factor(learning_objectives, levels = c(0, 1), labels = c("no", "yes")),
-                module_id = as.factor(module_id),
+                chop_affiliation = factor(chop_affiliation, levels = 1:3, labels = c("currently affiliated with CHOP", "previously/formerly affiliated with CHOP", "never been affiliated with CHOP")),
                 version = as.factor(version),
                 module_type = as.factor(module_type)) |> 
   # module_name used to include quotes, now it doesn't. remove all the quotes to make it consistent.
@@ -110,8 +111,7 @@ readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |>
   # replace the original module_id column with left_join from name_id_pairs
   dplyr::select(-module_id) |> 
   dplyr::left_join(name_id_pairs, by = "module_name") |> 
-  # make module_id a factor
-  dplyr::mutate(module_id = factor(module_id)) |> 
+  dplyr::mutate(module_id = as.factor(module_id)) |> 
   # saved cleaned data
   saveRDS(file = here::here("data", "interim", "quick_module_feedback.rds"))
 
