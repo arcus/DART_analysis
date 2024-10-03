@@ -413,45 +413,54 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
                  height = 5)
 ```
 
-```{r}
+```{r change_by_engagement}
 (data |> 
   tidyr::pivot_longer(tidyselect::ends_with("_change")) |> 
-  dplyr::mutate(name = gsub(x=name, pattern = "(\\1)_change", replacement = "\\1")) |> 
+  dplyr::mutate(name = dplyr::case_when(name == "ability_change" ~ "Data Science Ability",
+                                 name == "openscience_change" ~ "Open Science Values",
+                                 .default = name)) |> 
   ggplot(aes(x=engagement, y=value)) + 
   geom_point(alpha = .5) + 
   stat_smooth(method = "lm", color = chop_blue) + 
   facet_wrap(~name, ncol = 2) + 
-  labs(y = "Change from pre to post")) |> 
+  labs(y = "Change from pre to post",
+       x = "Engagement\n(proportion of modules completed)")) |> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "change_by_engagement.png",
                  width = 5,
                  height = 3)
 ```
 
-```{r}
+```{r change_by_asynch}
 (data |> 
   tidyr::pivot_longer(tidyselect::ends_with("_change")) |> 
-  dplyr::mutate(name = gsub(x=name, pattern = "(\\1)_change", replacement = "\\1")) |> 
+  dplyr::mutate(name = dplyr::case_when(name == "ability_change" ~ "Data Science Ability",
+                                 name == "openscience_change" ~ "Open Science Values",
+                                 .default = name)) |> 
   ggplot(aes(x=asynch, y=value)) + 
   geom_point(alpha = .5) + 
   stat_smooth(method = "lm", color = chop_blue) + 
   facet_wrap(~name, ncol = 2) + 
-  labs(y = "Change from pre to post") ) |> 
+  labs(y = "Change from pre to post",
+       x = "Preference for asynchronous learning")) |> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "change_by_asynch.png",
                  width = 5,
                  height = 3)
 ```
 
-```{r}
+```{r change_by_pathway_fit}
 (data |> 
   tidyr::pivot_longer(tidyselect::ends_with("_change")) |> 
-  dplyr::mutate(name = gsub(x=name, pattern = "(\\1)_change", replacement = "\\1")) |> 
+  dplyr::mutate(name = dplyr::case_when(name == "ability_change" ~ "Data Science Ability",
+                                 name == "openscience_change" ~ "Open Science Values",
+                                 .default = name)) |> 
   ggplot(aes(x=pathway_fit, y=value)) + 
   geom_point(alpha = .5) + 
   stat_smooth(method = "lm", color = chop_blue) + 
   facet_wrap(~name, ncol = 2) + 
-  labs(y = "Change from pre to post") ) |> 
+  labs(y = "Change from pre to post",
+       x = "Pathway fit")) |> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "change_by_pathway_fit.png",
                  width = 5,
