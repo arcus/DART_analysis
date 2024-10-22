@@ -46,9 +46,9 @@ Citizen science will be included wherever it feels like there's interest or some
 
 ## Cluster 1
 
-![](explore_clusters_files/figure-gfm/eight_topics-1.png)
-![](explore_clusters_files/figure-gfm/eight_topics-2.png)
-![](explore_clusters_files/figure-gfm/eight_topics-3.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-1.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-2.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-3.png)
 
 This cluster reports higher levels of expertise with EHR and data visualization, but medium-low expertise in R and SQL and low in python, so they may have been working mostly with non-open source software so far.
 
@@ -102,9 +102,9 @@ High interest in learning R and data visualization.
 
 ## Cluster 2
 
-![](explore_clusters_files/figure-gfm/eight_topics-4.png)
-![](explore_clusters_files/figure-gfm/eight_topics-5.png)
-![](explore_clusters_files/figure-gfm/eight_topics-6.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-4.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-5.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-6.png)
 
 This cluster has very low to low expertise on most items, except medium expertise in data viz and collaboration, and medium-low in R.
 
@@ -169,9 +169,9 @@ Probably focus on building skill in R and python, but skip bash for now.
 
 ## Cluster 3
 
-![](explore_clusters_files/figure-gfm/eight_topics-7.png)
-![](explore_clusters_files/figure-gfm/eight_topics-8.png)
-![](explore_clusters_files/figure-gfm/eight_topics-9.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-7.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-8.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-9.png)
 
 This is a group with medium expertise on several topics, including R, data viz, omics, and image analysis.
 
@@ -241,9 +241,9 @@ Also want to learn R.
 
 ## Cluster 4
 
-![](explore_clusters_files/figure-gfm/eight_topics-10.png)
-![](explore_clusters_files/figure-gfm/eight_topics-11.png)
-![](explore_clusters_files/figure-gfm/eight_topics-12.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-10.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-11.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-12.png)
 
 Very small cluster (just two people).
 
@@ -314,9 +314,9 @@ Possibly also good:
 
 ## Cluster 5
 
-![](explore_clusters_files/figure-gfm/eight_topics-13.png)
-![](explore_clusters_files/figure-gfm/eight_topics-14.png)
-![](explore_clusters_files/figure-gfm/eight_topics-15.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-13.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-14.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-15.png)
 
 Medium to low expertise on most topics --- they're not novices.
 R and SQL expertise is medium to low, python lower.
@@ -385,9 +385,9 @@ Python, definitely --- all rated it 5 for desire to learn despite generally low 
 
 ## Cluster 6
 
-![](explore_clusters_files/figure-gfm/eight_topics-16.png)
-![](explore_clusters_files/figure-gfm/eight_topics-17.png)
-![](explore_clusters_files/figure-gfm/eight_topics-18.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-16.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-17.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-18.png)
 
 Very low expertise on most topics, except image analysis (medium to low), data viz (low) and collaboration (low).
 
@@ -452,9 +452,9 @@ Include intro python and data viz in seaborn, but skip more involved python cont
 
 ## Cluster 7
 
-![](explore_clusters_files/figure-gfm/eight_topics-19.png)
-![](explore_clusters_files/figure-gfm/eight_topics-20.png)
-![](explore_clusters_files/figure-gfm/eight_topics-21.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-19.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-20.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-21.png)
 
 Generally very low expertise on most topics, with the exception of data viz (low).
 
@@ -512,9 +512,9 @@ Possibly also good:
 
 ## Cluster 8
 
-![](explore_clusters_files/figure-gfm/eight_topics-22.png)
-![](explore_clusters_files/figure-gfm/eight_topics-23.png)
-![](explore_clusters_files/figure-gfm/eight_topics-24.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-22.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-23.png)
+![](explore_clusters_w1_files/figure-gfm/eight_topics-24.png)
 
 Mostly low to very low expertise, except for collaboration and data viz (low to medium).
 

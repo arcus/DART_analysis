@@ -28,9 +28,9 @@ Learning to learn and how to troubleshoot will be included for beginners, but no
 
 ## Cluster 1
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-1.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-2.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-3.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-1.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-2.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-3.png)
 
 Medium-high expertise group, especially R (~4) and reproducible methods (~4).
 Also pretty high on bash, stats, and omics (3-4), and not-novice with python (mostly 2-3).
@@ -94,9 +94,9 @@ regular_expressions_basics
 
 ## Cluster 2
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-4.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-5.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-6.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-4.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-5.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-6.png)
 
 Mostly low expertise, except data viz and stats (both ~2). In terms of programming languages, they're mostly novices (1's) on python, SQL, bash, git, and also mostly 1s on R but some people rating it a little higher (~2).
 
@@ -160,9 +160,9 @@ statistical_tests
 
 ## Cluster 3
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-7.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-8.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-9.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-7.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-8.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-9.png)
 
 One of our more "unconvinced" clusters. Low expertise on most topics except data viz, text and stats (all ~2). Seem to be new to programming (mostly 1s on R, python, SQL, and bash).
 
@@ -226,9 +226,9 @@ statistical_tests
 
 ## Cluster 4
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-10.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-11.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-12.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-10.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-11.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-12.png)
 
 This is one of the most distinct clusters (it appears high in the hierarchical tree).
 Generally low-ish expertise except for reproducibility (3-4), stats (~3), and data viz (~3). These might be people with training in tools we don't teach (e.g. Stata, SAS).
@@ -306,9 +306,9 @@ demystifying_sql
 
 ## Cluster 5
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-13.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-14.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-15.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-13.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-14.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-15.png)
 
 Overall medium to medium-low expertise on most topics, not novices. Few 1's on expertise except for SDH, geospatial and citizen science. Otherwise they appear to have pretty broad experience. 
 
@@ -387,9 +387,9 @@ python_practice
 
 ## Cluster 6
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-16.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-17.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-18.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-16.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-17.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-18.png)
 
 This is one of the most distinct clusters (it appears high in the hierachical tree).
 Mostly medium-low expertise group, with focused interest in omics. 
@@ -434,9 +434,9 @@ r_practice
 
 ## Cluster 7
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-19.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-20.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-21.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-19.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-20.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-21.png)
 
 Medium expertise overall, with medium-high expertise on data cleaning, text, and database. 
 
@@ -485,9 +485,9 @@ regular_expressions_lookaheads
 
 ## Cluster 8
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-22.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-23.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-24.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-22.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-23.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-24.png)
 
 This is one of the most distinct clusters (it appears high in the hierachical tree).
 A small cluster (n=4), and they're absolute beginners! 1's on everything for expertise (although remember we impute 1 for missing values on this instrument, so some of these may be true 1's and some could have been left blank).
@@ -534,9 +534,9 @@ demystifying_large_language_models
 
 ## Cluster 9
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-25.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-26.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-27.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-25.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-26.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-27.png)
 
 This is an enthusastic group. :) They rate almost every topic as 5 for both relevance and learn (except bash, sorry bash). 
 Medium-high to medium expertise on most topics, but less so on programming skills: R is pretty evenly spread 1-4, SQL and bash 1-3, and python is mostly 1s. 
@@ -588,9 +588,9 @@ geocode_lat_long
 
 ## Cluster 10
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-28.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-29.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-30.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-28.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-29.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-30.png)
 
 Overall medium expertise, R users (~3, but there are people at both 1 and 5). 
 Pretty high expertise in data cleaning (3-4), stats (3-4), and data viz (~3). 
@@ -659,9 +659,9 @@ git_history_of_project
 
 ## Cluster 11
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-31.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-32.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-33.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-31.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-32.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-33.png)
 
 Medium-high expertise across the board, very few 1's for expertise, plenty of 4's and 5's. 
 Especially high in data cleaning, SQL, and reproducibility.
@@ -728,9 +728,9 @@ regular_expressions_lookaheads
 
 ## Cluster 12
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-34.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-35.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-36.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-34.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-35.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-36.png)
 
 Generally medium-low expertise, with the exception of reproducibility and data viz (both ~3), and stats and bash (both mostly 2-3). 
 
@@ -805,9 +805,9 @@ git_history_of_project
 
 ## Cluster 13
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-37.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-38.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-39.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-37.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-38.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-39.png)
 
 Medium high expertise (3-4) on many topics, especially SDH, text, stats, reproducibility, data viz and data cleaning. 
 
@@ -876,9 +876,9 @@ demystifying_geospatial_data
 
 ## Cluster 14
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-40.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-41.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-42.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-40.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-41.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-42.png)
 
 Medium-low expertise in general, appear to be programming novices. 
 Higher for reproducibility, data viz, data sharing (all ~3), more like 2-3 for data cleaning, stats, text, and database. 
@@ -951,9 +951,9 @@ omics_orientation
 
 ## Cluster 15
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-43.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-44.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-45.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-43.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-44.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-45.png)
 
 Medium to medium-low expertise in general. 
 Medium expertise (~3) in stats, reproducibility, data viz, learn data science, and data cleaning. 
@@ -1017,9 +1017,9 @@ demystifying_large_language_models
 
 ## Cluster 16
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-46.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-47.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-48.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-46.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-47.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-48.png)
 
 Mostly low expertise except reproducible, stats, and data viz (~3). 
 As to languages, R expertise spread 1-4, SQL split pretty evenly between 1s and 3s, bash 1-3, python mostly 1s. 
@@ -1087,9 +1087,9 @@ python_practice
 
 ## Cluster 17
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-49.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-50.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-51.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-49.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-50.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-51.png)
 
 This is one of the most distinct clusters (it appears high in the hierachical tree).
 Generally low expertise, but medium-low on data cleaning, stats, data viz, and reproducibility.
@@ -1152,9 +1152,9 @@ demystifying_large_language_models
 
 ## Cluster 18
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-52.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-53.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-54.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-52.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-53.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-54.png)
 
 Pretty low expertise on most topics. More R than python, but it's still mostly 1s. 
 
@@ -1208,9 +1208,9 @@ High interest in database, data cleaning, R, and text.
 
 ## Cluster 19
 
-![](explore_clusters_19_files/figure-gfm/rank_topics-55.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-56.png)
-![](explore_clusters_19_files/figure-gfm/rank_topics-57.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-55.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-56.png)
+![](explore_clusters_w2_files/figure-gfm/rank_topics-57.png)
 
 This is a very small cluster (just 4 people), and pretty distinct (it appears back when we split from 12 to 13 clusters). 
 
