@@ -6,23 +6,26 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,
+                      out.width = "50%")
+
+library(ggplot2)
 
 # load custom functions for plotting
-library(ggplot2)
-theme_set(theme_classic())
 source(here::here("src", "scripts", "functions_plotting.R"))
 
 # if the figures directory doesn't exist, create it
 dir.create(here::here("reports"), showWarnings = FALSE)
 dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+dir.create(here::here("reports", "tables"), showWarnings = FALSE)
 ```
 
+`r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
 
 ```{r reformat_data}
-needs_assessment_long <- readRDS(here::here("data", "interim", "needs_assessment_with_clusters.rds")) |> 
+needs_assessment_long <- readRDS(here::here("data", "deidentified", "needs_assessment_with_clusters_w1.rds")) |> 
   # reformat to long
-  tidyr::pivot_longer(cols = dplyr::matches("_relevance|_expertise|_learn")) |> 
+  tidyr::pivot_longer(cols = tidyselect::matches("_relevance|_expertise|_learn")) |> 
   # separate topic (e.g. data_viz) from question type (relevance, expertise, or learn)
   tidyr::extract(name, into = c("topic", "question"), regex = "(.*)_([[:lower:]]+)", remove = TRUE) |> 
   dplyr::mutate(question = factor(question, levels = c("relevance", "expertise", "learn")),

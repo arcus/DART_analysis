@@ -2,32 +2,32 @@
 title: "Explore clusters"
 author: "Rose Hartman"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output:
-  html_document:
-    self_contained: true
-    fig_width: 4
-    fig_height: 4
+output: github_document
 params:
-  n_cluster: 20
-  cluster: "group20"
+  n_cluster: 19
+  cluster: "group19"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE,
+                      out.width = "50%")
+
+library(ggplot2)
 
 # load custom functions for plotting
-library(ggplot2)
-theme_set(theme_classic())
 source(here::here("src", "scripts", "functions_plotting.R"))
 
 # if the figures directory doesn't exist, create it
 dir.create(here::here("reports"), showWarnings = FALSE)
 dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+dir.create(here::here("reports", "tables"), showWarnings = FALSE)
 ```
+
+`r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
 
 
 ```{r reformat_data}
-needs_assessment_long <- readRDS(here::here("data", "interim", "needs_assessment_with_clusters.rds")) |> 
+needs_assessment_long <- readRDS(here::here("data", "deidentified", "needs_assessment_with_clusters_w2.rds")) |> 
   # reformat to long
   tidyr::pivot_longer(cols = dplyr::matches("_relevance|_expertise|_learn")) |> 
   # separate topic (e.g. data_viz) from question type (relevance, expertise, or learn)
