@@ -1,0 +1,99 @@
+---
+title: "Explore clusters"
+author: "Rose Hartman"
+date: '2023-01-17'
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# load custom functions for plotting
+library(ggplot2)
+theme_set(theme_classic())
+source(here::here("src", "scripts", "functions_plotting.R"))
+
+# if the figures directory doesn't exist, create it
+dir.create(here::here("reports"), showWarnings = FALSE)
+dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+```
+
+
+```{r reformat_data}
+needs_assessment_long <- readRDS(here::here("data", "interim", "needs_assessment_with_clusters.rds")) |> 
+  # reformat to long
+  tidyr::pivot_longer(cols = dplyr::matches("_relevance|_expertise|_learn")) |> 
+  # separate topic (e.g. data_viz) from question type (relevance, expertise, or learn)
+  tidyr::extract(name, into = c("topic", "question"), regex = "(.*)_([[:lower:]]+)", remove = TRUE) |> 
+  dplyr::mutate(question = factor(question, levels = c("relevance", "expertise", "learn")),
+                topic = as.factor(topic))
+```
+
+
+## distributions by cluster 
+
+```{r four_clusters}
+plot_by_theme(needs_assessment_long, cluster = group4)
+```
+
+
+```{r five_clusters}
+plot_by_theme(needs_assessment_long, cluster = group5)
+```
+
+```{r six_clusters}
+plot_by_theme(needs_assessment_long, cluster = group6)
+```
+
+```{r seven_clusters}
+plot_by_theme(needs_assessment_long, cluster = group7)
+```
+
+```{r eight_clusters}
+plot_by_theme(needs_assessment_long, cluster = group8)
+```
+
+```{r nine_clusters}
+plot_by_theme(needs_assessment_long, cluster = group9)
+```
+
+## Which topics are most important to each cluster?
+
+for each cluster, rank topics by desire to learn, expertise, or relevance
+
+### 4 cluster solution
+
+```{r four_topics}
+rank_topics(needs_assessment_long, cluster = group4, n_cluster = 4)
+```
+
+### 5 cluster solution
+
+```{r five_topics}
+rank_topics(needs_assessment_long, cluster = group5, n_cluster = 5)
+```
+
+### 6 cluster solution
+
+```{r six_topics}
+rank_topics(needs_assessment_long, cluster = group6, n_cluster = 6)
+```
+
+### 7 cluster solution
+
+```{r seven_topics}
+rank_topics(needs_assessment_long, cluster = group7, n_cluster = 7)
+```
+
+### 8 cluster solution
+
+```{r eight_topics}
+rank_topics(needs_assessment_long, cluster = group8, n_cluster = 8)
+```
+
+### 9 cluster solution
+
+```{r nine_topics}
+rank_topics(needs_assessment_long, cluster = group9, n_cluster = 9)
+```
+

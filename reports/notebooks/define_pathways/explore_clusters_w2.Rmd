@@ -1,0 +1,53 @@
+---
+title: "Explore clusters"
+author: "Rose Hartman"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    self_contained: true
+    fig_width: 4
+    fig_height: 4
+params:
+  n_cluster: 20
+  cluster: "group20"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# load custom functions for plotting
+library(ggplot2)
+theme_set(theme_classic())
+source(here::here("src", "scripts", "functions_plotting.R"))
+
+# if the figures directory doesn't exist, create it
+dir.create(here::here("reports"), showWarnings = FALSE)
+dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+```
+
+
+```{r reformat_data}
+needs_assessment_long <- readRDS(here::here("data", "interim", "needs_assessment_with_clusters.rds")) |> 
+  # reformat to long
+  tidyr::pivot_longer(cols = dplyr::matches("_relevance|_expertise|_learn")) |> 
+  # separate topic (e.g. data_viz) from question type (relevance, expertise, or learn)
+  tidyr::extract(name, into = c("topic", "question"), regex = "(.*)_([[:lower:]]+)", remove = TRUE) |> 
+  dplyr::mutate(question = factor(question, levels = c("relevance", "expertise", "learn")),
+                topic = as.factor(topic))
+```
+
+# Solution with `r params$n_cluster` clusters
+
+## distributions by cluster 
+
+```{r cluster_distributions, eval = FALSE}
+plot_by_theme(needs_assessment_long, cluster=(!!sym(params$cluster)))
+```
+
+## Which topics are most important to each cluster?
+
+for each cluster, rank topics by desire to learn, expertise, or relevance
+
+```{r rank_topics}
+rank_topics(needs_assessment_long, cluster = (!!sym(params$cluster)), n_cluster = params$n_cluster)
+```
