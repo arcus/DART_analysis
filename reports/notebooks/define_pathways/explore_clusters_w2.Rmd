@@ -1,0 +1,53 @@
+---
+title: "Explore clusters"
+author: "Rose Hartman"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: github_document
+params:
+  n_cluster: 19
+  cluster: "group19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      out.width = "50%")
+
+library(ggplot2)
+
+# load custom functions for plotting
+source(here::here("src", "scripts", "functions_plotting.R"))
+
+# if the figures directory doesn't exist, create it
+dir.create(here::here("reports"), showWarnings = FALSE)
+dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+dir.create(here::here("reports", "tables"), showWarnings = FALSE)
+```
+
+`r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
+
+
+```{r reformat_data}
+needs_assessment_long <- readRDS(here::here("data", "deidentified", "needs_assessment_with_clusters_w2.rds")) |> 
+  # reformat to long
+  tidyr::pivot_longer(cols = dplyr::matches("_relevance|_expertise|_learn")) |> 
+  # separate topic (e.g. data_viz) from question type (relevance, expertise, or learn)
+  tidyr::extract(name, into = c("topic", "question"), regex = "(.*)_([[:lower:]]+)", remove = TRUE) |> 
+  dplyr::mutate(question = factor(question, levels = c("relevance", "expertise", "learn")),
+                topic = as.factor(topic))
+```
+
+# Solution with `r params$n_cluster` clusters
+
+## distributions by cluster 
+
+```{r cluster_distributions, eval = FALSE}
+plot_by_theme(needs_assessment_long, cluster=(!!sym(params$cluster)))
+```
+
+## Which topics are most important to each cluster?
+
+for each cluster, rank topics by desire to learn, expertise, or relevance
+
+```{r rank_topics}
+rank_topics(needs_assessment_long, cluster = (!!sym(params$cluster)), n_cluster = params$n_cluster)
+```
