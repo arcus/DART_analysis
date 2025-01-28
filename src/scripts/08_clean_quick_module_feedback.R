@@ -16,7 +16,7 @@ name_id_pairs <- tibble::tribble(
   "data_visualization_in_open_source_software",   "data visualization in open source software",
   "data_visualization_in_seaborn",   "data visualizations in seaborn",
   "database_normalization",   "database normalization",
-  "demystifying_api",   "demystifying application programming interfaces (apis)",
+  "demystifying_apis",   "demystifying application programming interfaces (apis)",
   "demystifying_command_line",   "demystifying the command line interface",
   "demystifying_containers",   "demystifying containers",
   "demystifying_geospatial_data",   "demystifying geospatial data",
@@ -43,6 +43,7 @@ name_id_pairs <- tibble::tribble(
   "learning_to_learn",   "learning to learn data science",
   "omics_orientation",   "omics orientation",
   "pandas_transform",   "transform data with pandas",
+  "python_basics", "python basics  writing python code",
   "python_basics_exercise",   "python basics exercise",
   "python_basics_lists_dictionaries",   "python basics lists and dictionaries",
   "python_basics_loops_conditionals",   "python basics loops and conditionals",
@@ -80,6 +81,8 @@ readRDS(here::here("data", "raw", "quick_module_feedback.rds")) |>
                                         pilot_participant == "yes" ~ "Study Participants", 
                                         research_participant_yn == 0 & pilot_participant == "no" ~ "Other Users"),
                 type = as.factor(type)) |> 
+  # if version is missing, put in 1.0.0
+  dplyr::mutate(version = ifelse(is.na(version), "1.0.0", version)) |> 
   # clean up factors
   dplyr::mutate(learning_objectives = factor(learning_objectives, levels = c(0, 1), labels = c("no", "yes")),
                 chop_affiliation = factor(chop_affiliation, levels = 1:3, labels = c("currently affiliated with CHOP", "previously/formerly affiliated with CHOP", "never been affiliated with CHOP")),
