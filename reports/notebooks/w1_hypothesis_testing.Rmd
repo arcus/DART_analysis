@@ -5,8 +5,6 @@ date: '2023-06-15'
 output: github_document
 ---
 
-
-
 ```{r setup}
 # load custom functions for plotting
 library(ggplot2)
@@ -145,7 +143,7 @@ sd(data$ability_change, na.rm = TRUE) # standard deviation
 Random intercepts model:
 
 ```{r h1_lme}
-h1_randomint <- lme4::lmer(ability_change ~ 1 + (1|pathway), data)
+h1_randomint <- lmerTest::lmer(ability_change ~ 1 + (1|pathway), data)
 summary(h1_randomint)
 ```
 
@@ -272,6 +270,26 @@ print_anova <- function(anova, digits=2, digits_p=3){
   p <- anova$`Pr(>F)`[2]
   paste0("F(", df1, ", ", df2, ") = ", sprintf(format, f), ", ", print_p(p, digits_p))
 }
+
+print_coef <- function(model, coef, digits = 2, digits_p = 3){
+  b <- summary(model)$coefficients[coef, "Estimate"]
+  t <- summary(model)$coefficients[coef, "t value"]
+  p <- summary(model)$coefficients[coef, "Pr(>|t|)"]
+  
+  if("df" %in% colnames(summary(model)$coefficients)){
+    # for lmerTest models
+    df <- summary(model)$coefficients[coef, "df"]
+  } else if (class(model) == "lm") {
+    # for lm models
+    df <- model$df.residual
+  } else stop("Cannot recover df for coefficient test.")
+  
+  format <- paste0("%0.", digits, "f")
+  
+  result <- paste0("b = ", round(b, digits), ", t(", round(df, digits), ") = ", sprintf(format, t), ", ", print_p(p, digits_p) )
+  
+  return(result)
+}
 ```
 
 
@@ -289,13 +307,10 @@ os_change_mean <- mean(data$openscience_change, na.rm = TRUE) # average change
 os_change_sd <- sd(data$openscience_change, na.rm = TRUE) # standard deviation 
 ```
 
-H1 is supported by the data. A random intercepts model  with pathway as random effect shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post (see table below). 
+H1 is supported by the data. A random intercepts model with pathway as random effect shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post (`r print_coef(h1_randomint, "(Intercept)")`). 
 A paired t-test, ignoring the grouping structure altogether, also shows a significant improvement in participants' self-rated ability on data science tasks from pretest to post, `r print_t(h1_t)` (mean (SD) change is `r round(ab_change_mean, 2)` (`r round(ab_change_sd, 2)`) on a 4-point scale from 1 "I wouldn't know where to start" to 4 "I am confident in my ability to do it").
 
-```{r, results='asis', echo=FALSE, message=FALSE}
-library(stargazer)
-stargazer(h1_randomint, type="html")
-```
+
 
 H2 is not clearly supported by the data, although there's some suggestion of a trend in the predicted direction. 
 The planned random intercepts model was singular and therefore couldn't be estimated. 
@@ -304,7 +319,7 @@ A paired t-test, ignoring the grouping structure altogether, shows a significant
 An examination of the raw scores for open science items reveals a probable ceiling effect; the mean open science score at pretest was already `r round(mean(data$openscience_pre), 2)` on a scale from 1 to 7, so there was no room to improve for many participants.  
 
 ```{r, results='asis', echo=FALSE, message=FALSE}
-stargazer(h2_fe, type = "html")
+#stargazer(h2_fe, type = "html")
 ```
 
 H3 is partially supported in the data. 
@@ -323,7 +338,7 @@ An alternative approach would be to build a more complete model of the engagemen
 
 ## Discussion
 
-### plots
+### Plots for hypothesis testing
 
 ```{r plot_data}
 plot_data <- data |> 
@@ -331,7 +346,68 @@ plot_data <- data |>
   tidyr::separate(name, into=c("measure", "event"), sep="_") |> 
   tidyr::pivot_wider(names_from = measure, values_from = value) |> 
   dplyr::mutate(event = factor(event, levels = c("pre", "post", "change")))
+
+plot_data_means <- plot_data |> 
+  dplyr::filter(event %in% c("pre", "post")) |> 
+  dplyr::group_by(event) |> 
+  dplyr::summarise(ability = mean(ability), 
+                   openscience = mean(openscience))
 ```
+
+```{r define_base_plots}
+ability_plot <- plot_data |> 
+  dplyr::filter(event %in% c("pre", "post")) |> 
+  ggplot(aes(y=ability)) + 
+  scale_y_continuous(breaks = 1:4, limits = c(1,4),
+                     labels = c("(1) I wouldn't know where to start",
+                                "(2) I could struggle through,\nbut not confident I could do it",
+                                "(3) I could probably do it\nwith some trial and error",
+                                "(4) I am confident in my ability to do it")) + 
+  labs(x=NULL, y=NULL) + 
+   theme(
+    strip.text = element_text(face = "bold"),
+    strip.background = element_rect(colour = "black", linewidth = 1))
+
+openscience_plot <- plot_data |> 
+  dplyr::filter(event %in% c("pre", "post")) |> 
+  ggplot(aes(y=openscience)) + 
+  scale_y_continuous(breaks = 1:7, limits = c(1,7),
+                     labels = c("(1) Strongly Disagree",
+                                "(2) Disagree",
+                                "(3) Somewhat Disagree",
+                                "(4) Neither Agree nor Disagree",
+                                "(5) Somewhat Agree",
+                                "(6) Agree", 
+                                "(7) Strongly Agree")) + 
+  labs(x=NULL, y=NULL) + 
+   theme(
+    strip.text = element_text(face = "bold"),
+    strip.background = element_rect(colour = "black", linewidth = 1))
+```
+
+```{r pre_post_ability}
+(ability_plot + 
+  geom_histogram(bins = 30) + 
+  facet_wrap(~event, ncol = 2) 
+ ) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "ability_pre_post_hist_w1.tiff",
+                 width = 6,
+                 height = 3)
+```
+
+```{r pre_post_openscience}
+(openscience_plot + 
+  geom_histogram() + 
+  facet_wrap(~event, ncol = 2)) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "openscience_pre_post_hist_w1.tiff",
+                 width = 6,
+                 height = 3)
+```
+
+
+### Additional plots
 
 How about those engagement scores?
 
