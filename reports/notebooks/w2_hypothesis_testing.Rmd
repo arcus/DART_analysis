@@ -114,6 +114,12 @@ asynch_and_pathway_fit <- exit |>
 
 # Add exit data 
 data <- dplyr::left_join(data, asynch_and_pathway_fit, by = "record_id")
+
+# reorder columns, just for nicer printing
+data <- data |> 
+  dplyr::select(record_id, pathway, tidyselect::everything()) |> 
+  # only keep records where we have data on all the fields needed
+  na.omit()
 ```
 
 ```{r data_for_testing}
@@ -124,12 +130,6 @@ saveRDS(data, file = here::here("data", "interim", "data_for_hyp_testing_w2.rds"
 Here is a quick summary of the fields that will be used in this analysis (scroll right to see the rest):
 
 ```{r, results='asis'}
-# reorder columns, just for nicer printing
-data <- data |> 
-  dplyr::select(record_id, pathway, tidyselect::everything()) |> 
-  # only keep records where we have data on all the fields needed
-  na.omit()
-
 options(knitr.kable.NA = "")
 # show a summary
 summary(data) |> 
@@ -297,11 +297,10 @@ ability_plot <- plot_data |>
                                 "(2) I could struggle through,\nbut not confident I could do it",
                                 "(3) I could probably do it\nwith some trial and error",
                                 "(4) I am confident in my ability to do it")) + 
-  labs(x=NULL, y=NULL, 
-       title = "Ability") + 
+  labs(x=NULL, y=NULL) + 
    theme(
     strip.text = element_text(face = "bold"),
-    strip.background = element_rect(colour = "black", size = 1))
+    strip.background = element_rect(colour = "black", linewidth = 1))
 
 openscience_plot <- plot_data |> 
   dplyr::filter(event %in% c("pre", "post")) |> 
@@ -314,11 +313,10 @@ openscience_plot <- plot_data |>
                                 "(5) Somewhat Agree",
                                 "(6) Agree", 
                                 "(7) Strongly Agree")) + 
-  labs(x=NULL, y=NULL, 
-       title = "Open Science Values") + 
+  labs(x=NULL, y=NULL) + 
    theme(
     strip.text = element_text(face = "bold"),
-    strip.background = element_rect(colour = "black", size = 1))
+    strip.background = element_rect(colour = "black", linewidth = 1))
 ```
 
 
@@ -372,7 +370,7 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
   facet_wrap(~event, ncol = 2) 
  ) |> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "ability_pre_post_hist.png",
+  save_and_print(filename = "ability_pre_post_hist_w2.tiff",
                  width = 6,
                  height = 3)
 ```
@@ -382,7 +380,7 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
   geom_histogram() + 
   facet_wrap(~event, ncol = 2)) |> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "openscience_pre_post_hist.png",
+  save_and_print(filename = "openscience_pre_post_hist_w2.tiff",
                  width = 6,
                  height = 3)
 ```
@@ -426,7 +424,7 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
   labs(y = "Change from pre to post",
        x = "Engagement\n(proportion of modules completed)")) |> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "change_by_engagement.png",
+  save_and_print(filename = "change_by_engagement_w2.tiff",
                  width = 5,
                  height = 3)
 ```
@@ -444,7 +442,7 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
   labs(y = "Change from pre to post",
        x = "Preference for asynchronous learning")) |> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "change_by_asynch.png",
+  save_and_print(filename = "change_by_asynch_w2.tiff",
                  width = 5,
                  height = 3)
 ```
@@ -462,7 +460,7 @@ knitr::include_graphics(here::here("reports", "tables", "descriptives_covariates
   labs(y = "Change from pre to post",
        x = "Pathway fit")) |> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "change_by_pathway_fit.png",
+  save_and_print(filename = "change_by_pathway_fit_w2.tiff",
                  width = 5,
                  height = 3)
 ```
