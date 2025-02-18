@@ -1,0 +1,321 @@
+---
+title: "Attrition analysis"
+author: "Rose Hartman"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      out.width = "50%")
+
+library(ggplot2)
+
+# load custom functions for plotting
+source(here::here("src", "scripts", "functions_plotting.R"))
+
+# if the figures directory doesn't exist, create it
+dir.create(here::here("reports"), showWarnings = FALSE)
+dir.create(here::here("reports", "figures"), showWarnings = FALSE)
+dir.create(here::here("reports", "tables"), showWarnings = FALSE)
+```
+
+`r if(!knitr::opts_chunk$get()$echo) ">Note that code chunks are not printed in this report in order to keep the output tidy. To see all of the code to generate these results, open the .Rmd file."`
+
+
+Comment from reviewer 2: 
+
+> My concern about the methodology and discussion of results is that the authors do not discuss the fact that a significant number of participants in both waves, nearly half, didn't complete both the pre and post test. 
+This may introduce bias into the results, in a similar way to when patients are lost to follow up in a clinical trial. 
+We can't know for sure anything about the experience of the people who didn't respond to the post test. 
+Did they find the training useful but just not get around to the post test, or did they stop participating because they didn't see value in the training? 
+It seems reasonable to expect that the participants who did take the time to complete the post test may be different from those who did not in how useful they found the training, and this potential bias should at the very least be addressed in the discussion of limitations.
+
+```{r load_data}
+waves <- readr::read_csv(here::here("participant_waves.csv"), show_col_types = FALSE) |> 
+  # just for tidier printing in the tables
+  dplyr::mutate(wave = paste("Wave", wave))
+
+# each survey separately
+consented <- readRDS(here::here("data", "deidentified", "consented.rds")) 
+needs_assessment <- readRDS(here::here("data", "deidentified", "needs_assessment.rds")) 
+nih_pre <- readRDS(here::here("data", "deidentified", "nih_pre.rds")) 
+nih_post <- readRDS(here::here("data", "deidentified", "nih_post.rds")) 
+exit <- readRDS(here::here("data", "deidentified", "exit_survey.rds")) 
+
+# the data used for hypothesis testing
+w1 <- readRDS(here::here("data", "interim", "data_for_hyp_testing_w1.rds"))
+w2 <- readRDS(here::here("data", "interim", "data_for_hyp_testing_w2.rds"))
+
+# NALMS
+nalms <- consented <- readRDS(here::here("data", "deidentified", "nalms_summary.rds")) 
+```
+
+```{r combine_data}
+# for each of the main surveys, just capture whether we have the record_id in that survey file (i.e. did the participant do the survey at all)
+attrition_data <- waves |> 
+  dplyr::mutate(consented = record_id %in% consented$record_id,
+                needs_assessment = record_id %in% needs_assessment$record_id,
+                nih_pre = record_id %in% nih_pre$record_id,
+                nih_post = record_id %in% nih_post$record_id,
+                exit = record_id %in% exit$record_id,
+                analyzed = record_id %in% w1$record_id | record_id %in% w2$record_id) |> 
+  # convert logical to 0/1
+  dplyr::mutate(dplyr::across(tidyselect::where(is.logical), as.numeric))
+```
+
+## How many participants completed each assessment phase for each wave?
+
+```{r counts_by_phase}
+attrition_data |> 
+  dplyr::select(wave, consented, needs_assessment, nih_pre, nih_post, exit, analyzed) |> 
+  gtsummary::tbl_summary(by=wave) |>   
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "screened_participant_n_by_phase.png",
+    path = here::here("reports", "tables"))
+
+knitr::include_graphics(here::here("reports", "tables", "screened_participant_n_by_phase.png"))
+```
+
+## Look for differences for participants who dropped out
+
+### Needs assessment differences for analyzed vs not?
+
+```{r}
+needs_asssessment_and_attrition <- needs_assessment |> 
+  tidyr::pivot_longer(-record_id) |> 
+  dplyr::mutate(question = gsub(x=name, 
+                                pattern = ".*_([[:lower:]]+)$", 
+                                replacement = "\\1"),
+                question = as.factor(question)) |> 
+  dplyr::summarize(mean = mean(value, na.rm = TRUE),
+                   .by = c(record_id, question)) |> 
+  # add in attrition info
+  dplyr::left_join(attrition_data, by = "record_id") |> 
+  dplyr::mutate(analyzed = as.factor(analyzed))
+
+needs_asssessment_and_attrition |> 
+  ggplot(aes(y=mean, group=analyzed, fill = analyzed)) + 
+  geom_boxplot() + 
+  facet_grid(wave ~ question)
+```
+
+```{r manova_needs_assessment}
+needs_asssessment_and_attrition_wide <- needs_asssessment_and_attrition |> 
+  tidyr::pivot_wider(names_from = question, values_from = mean)
+
+manova_na_w1 <- manova(cbind(relevance, expertise, learn) ~ analyzed, data = dplyr::filter(needs_asssessment_and_attrition_wide,
+                                                                                        needs_assessment == 1 & 
+                                                                                          wave == "Wave 1"))
+
+summary(manova_na_w1)
+summary.aov(manova_na_w1)
+
+manova_na_w2 <- manova(cbind(relevance, expertise, learn) ~ analyzed, data = dplyr::filter(needs_asssessment_and_attrition_wide,
+                                                                                        needs_assessment == 1 & 
+                                                                                          wave == "Wave 2"))
+summary(manova_na_w2)
+summary.aov(manova_na_w2)
+```
+
+### Pretest differences for analyzed vs not?
+
+```{r}
+nih_pre_and_attrition <- nih_pre |> 
+  dplyr::mutate(dplyr::across(tidyselect::where(is.factor), as.numeric)) |> 
+  dplyr::rowwise() |> 
+  dplyr::mutate(ability_pre = mean(dplyr::c_across(findable:atomize), na.rm = TRUE),
+                openscience_pre = mean(dplyr::c_across(data_storage_1:code_efficient), na.rm = TRUE)) |> 
+  dplyr::select(record_id, ability_pre, openscience_pre) |> 
+  # join in the attrition data
+  dplyr::left_join(attrition_data, by = "record_id")
+```
+
+```{r glm_nih_pre}
+glm(analyzed ~ ability_pre * openscience_pre,
+    family= "binomial",
+    data = dplyr::filter(nih_pre_and_attrition, nih_pre == 1 & wave == "Wave 1")) |> summary()
+
+glm(analyzed ~ ability_pre * openscience_pre,
+    family= "binomial",
+    data = dplyr::filter(nih_pre_and_attrition, nih_pre == 1 & wave == "Wave 2")) |> summary()
+```
+
+
+```{r manova_nih_pre}
+manova_pre_w1 <- manova(cbind(ability_pre, openscience_pre) ~ analyzed, data = dplyr::filter(nih_pre_and_attrition,
+                                                                                         nih_pre == 1 & 
+                                                                                          wave == "Wave 1"))
+
+summary(manova_pre_w1)
+summary.aov(manova_pre_w1)
+
+manova_pre_w2 <- manova(cbind(ability_pre, openscience_pre) ~ analyzed, data = dplyr::filter(nih_pre_and_attrition,
+                                                                                        nih_pre == 1 & 
+                                                                                          wave == "Wave 2"))
+summary(manova_pre_w2)
+summary.aov(manova_pre_w2)
+```
+
+### combined data
+
+```{r}
+needs_assessment_summary <- needs_assessment |> 
+  tidyr::pivot_longer(-record_id) |> 
+  dplyr::mutate(question = gsub(x=name, 
+                                pattern = ".*_([[:lower:]]+)$", 
+                                replacement = "\\1"),
+                question = as.factor(question)) |> 
+  dplyr::summarize(mean = mean(value, na.rm = TRUE),
+                   .by = c(record_id, question)) |> 
+  tidyr::pivot_wider(names_from = question, values_from = mean)
+
+nih_pre_summary <- nih_pre |> 
+  dplyr::mutate(dplyr::across(tidyselect::where(is.factor), as.numeric)) |> 
+  dplyr::rowwise() |> 
+  dplyr::mutate(ability_pre = mean(dplyr::c_across(findable:atomize), na.rm = TRUE),
+                openscience_pre = mean(dplyr::c_across(data_storage_1:code_efficient), na.rm = TRUE)) |> 
+  dplyr::select(record_id, ability_pre, openscience_pre) 
+
+combined_data <- attrition_data |> 
+  dplyr::left_join(needs_assessment_summary, by = "record_id") |> 
+  dplyr::left_join(nih_pre_summary, by = "record_id")
+```
+
+```{r individual_comparisons_tables}
+combined_data |> 
+  dplyr::filter(needs_assessment==1 & wave == "Wave 1") |> 
+  dplyr::select(analyzed:openscience_pre) |> 
+  dplyr::mutate(analyzed = factor(analyzed, levels = c(0,1), labels= c("Not Analyzed", "Analyzed"))) |> 
+  gtsummary::tbl_summary(by = analyzed,
+                         missing = "no",
+                         label = list(relevance ~ "Relevance",
+                                      expertise ~ "Expertise",
+                                      learn ~ "Interest in Learning",
+                                      ability_pre ~ "Data Science Ability",
+                                      openscience_pre ~ "Open Science Values")) |> 
+  gtsummary::add_p(pvalue_fun = function(x) gtsummary::style_pvalue(x, digits = 3)) |>
+  gtsummary::modify_table_body(
+    dplyr::mutate,
+    groupname_col = dplyr::case_when(variable %in% c("relevance", "expertise", "learn") ~ "Needs Assessment",
+                                     variable %in% c("ability_pre", "openscience_pre") ~ "Pretest")
+  )
+  
+
+combined_data |> 
+  dplyr::filter(needs_assessment==1 & wave == "Wave 2") |> 
+  dplyr::select(analyzed:openscience_pre) |> 
+  dplyr::mutate(analyzed = factor(analyzed, levels = c(0,1), labels= c("Not Analyzed", "Analyzed"))) |> 
+  gtsummary::tbl_summary(by = analyzed,
+                         missing = "no",
+                         label = list(relevance ~ "Relevance",
+                                      expertise ~ "Expertise",
+                                      learn ~ "Interest in Learning",
+                                      ability_pre ~ "Data Science Ability",
+                                      openscience_pre ~ "Open Science Values")) |> 
+  gtsummary::add_p(pvalue_fun = function(x) gtsummary::style_pvalue(x, digits = 3)) |>
+  gtsummary::modify_table_body(
+    dplyr::mutate,
+    groupname_col = dplyr::case_when(variable %in% c("relevance", "expertise", "learn") ~ "Needs Assessment",
+                                     variable %in% c("ability_pre", "openscience_pre") ~ "Pretest")
+  )
+
+```
+
+
+
+## NALMS activity by attrition
+
+```{r}
+nalms_and_attrition <- nalms_and_attrition <- readRDS(here::here("data", "deidentified", "nalms_summary.rds")) |>
+  dplyr::left_join(waves, by = "record_id") |> 
+  # only w2
+  dplyr::filter(wave == "Wave 2") |> 
+  # join in pathway info (total modules per pathway etc.)
+  dplyr::left_join(readRDS(here::here("data", "deidentified", "nalms_pathway_info.rds")), by = "pathway") |> 
+  # engagement is defined as number of modules marked complete out of total modules assigned as of the last day of the program (12am Eastern 2023-11-27). 
+  dplyr::filter(timestamp < lubridate::ymd("2023-11-27")) |> 
+  dplyr::group_by(record_id) |> 
+  dplyr::slice_max(timestamp) |> 
+  dplyr::mutate(engagement = n_modules_done / pathway_n_modules) |> 
+  dplyr::select(record_id, engagement, last_date = timestamp) |> 
+  # did they log any activity after the first day? the first week? after the second?
+  dplyr::mutate(past_day_1 = ifelse(last_date > lubridate::ymd("2023-08-07"), 1, 0),
+                past_week_1 = ifelse(last_date > lubridate::ymd("2023-08-14"), 1, 0),
+                past_week_2 = ifelse(last_date > lubridate::ymd("2023-08-21"), 1, 0)) |> 
+  #join in attrition data
+  dplyr::left_join(attrition_data, by = "record_id") 
+
+nalms_and_attrition |> 
+  ggplot(aes(x=last_date, fill = as.factor(analyzed))) + 
+  geom_histogram() + 
+  facet_wrap(~analyzed)
+
+nalms_and_attrition |> 
+  ggplot(aes(x=engagement, fill = as.factor(analyzed))) + 
+  geom_histogram() + 
+  facet_wrap(~analyzed)
+  
+# chi squared test of independence on y/n made it past day 1 and y/n was in the analysis dataset
+summary(xtabs(~past_day_1 + analyzed, data = nalms_and_attrition))
+```
+
+```{r, eval=FALSE}
+nalms_and_attrition |> 
+  dplyr::mutate(past_day_1 = factor(past_day_1, levels = c(0,1), labels=c("No", "Yes")),
+                analyzed = factor(analyzed, levels = c(0,1), labels = c("No", "Yes"))) |> 
+  gtsummary::tbl_cross(row = past_day_1, col = analyzed,
+                       label = list(past_day_1 = "Activity after 1 day",
+                                    analyzed = "Included in final analysis"),
+                       percent = "column") 
+
+nalms_and_attrition |> 
+  dplyr::mutate(past_day_1 = factor(past_day_1, levels = c(0,1), labels=c("No", "Yes")),
+                analyzed = factor(analyzed, levels = c(0,1), labels = c("No", "Yes"))) |> 
+  gtsummary::tbl_cross(row = past_day_1, col = analyzed,
+                       label = list(past_day_1 = "Activity after 1 day",
+                                    analyzed = "Included in final analysis"),
+                       percent = "row") 
+```
+
+```{r}
+# non completers have lower engagement
+wilcox.test(engagement ~ analyzed, data = nalms_and_attrition)
+```
+
+
+## Write up
+
+We noted substantial attrition in both waves of the DART program, with roughly half of our participants failing to complete the post-test surveys. 
+This level of attrition is typical of online learning programs (e.g. Hadavand et al. 2018 report 49% attrition between enrollment and completion in a large sample of online data science learners), but it still raises important questions about the generalizability of the results we observe.
+
+Learners who completed the program almost certainly differed from those who didn't in important ways, both measurable and unmeasurable, such as motivation, availability of protected time for study, support from outside of the DART program (e.g. high-quality mentorship), and more.
+This limits the extent to which we can expect these results to generalize. 
+Our findings are specific to the population who *completed* the program; we are unable to extrapolate from these data to predict how effective a program like DART might be in a broader population, including the population who enrolled in but did not finish our program.
+
+Problems of attrition and self-selection bias are endemic in online education research, and improving understanding of factors that lead to attrition is an active line of inquiry (Katy, 2015; Kim et al. 2020). 
+As with many online learning programs, part of our goal was to lower barriers to enrollment -- we made the program free, with no prerequisites, advertised it widely, and created fully asynchronous instruction to allow for maximum flexibility in busy learners' schedules. 
+A likely consequence of this approach is that a high proportion of people signed up without actually having the time or bandwidth to follow through on their learning goals (consider this in contrast to something like a masters program in data science, where requiring a substantial upfront investment from learners results in more selective enrollment, and less attrition). 
+This effect is reflected in the engagement data we were able to capture in Wave 2 after switching platforms; of the 419 enrolled learners, only 243 (58%) logged any activity in their learning pathways after the first day.
+In other words, fully 42% of our Wave 2 learners never engaged at all with their learning pathways, suggesting that they either changed their minds about participating between enrollment and beginning their learning pathways, or that they maintained an intention to participate but never found the time to do so. 
+Interestingly, of the 176 learners who logged no activity in their learning pathways after the first day, 69 (39%) of them did complete the post-test surveys at the end of the program and were included in the final analysis dataset, so their experiences are reflected in our reported analyses, although they are still significantly under-represented in the analysis dataset relative to learners who did log activity on their learning pathways after the first day (X2 (1, N = 419) = 39.4, p < .001). 
+
+
+### Additional half-baked thoughts
+
+An important future direction of this and related work is reducing attrition in online learning programs
+
+One benefit of learning programs with a more demanding structure (e.g. in-person class time) may be that the increase in accountability and the knowledge that they've made a higher investment
+
+An important future direction for this work would be a study designed to assess causality, such as a randomized control trial, with careful attention to attrition. 
+
+It is impossible for us to know if learners who failed to complete the post-test surveys would have reported the same kinds of favorable ratings we saw from learners who did complete the program -- likely not. 
+
+
+Nevertheless, a reasonable guess would be that the participants who did take the time to complete the post-test surveys found the training more useful on average than those who did not, introducing bias. 
+
+Although we cannot estimate the bias directly because the necessary information is by definition in the missing post-test data, we can look for systematic differences at pretest between learners who do and don't go on to complete the post-test. 
+We have only very limited data on the learners at pretest, but the comparisons we are able to run do not reveal significant differences between learners who go on to complete the program vs. not in either pretest scores or responses to the needs assessment survey (see Appendix ##); although there's a suggestion of a trend in the Wave 1 data such that learners who report higher average expertise and higher average interest in learning on the needs assessment survey may be more likely to complete the program, that effect is not at all present in the Wave 2 data. 
+
+
