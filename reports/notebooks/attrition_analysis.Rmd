@@ -300,22 +300,3 @@ A likely consequence of this approach is that a high proportion of people signed
 This effect is reflected in the engagement data we were able to capture in Wave 2 after switching platforms; of the 419 enrolled learners, only 243 (58%) logged any activity in their learning pathways after the first day.
 In other words, fully 42% of our Wave 2 learners never engaged at all with their learning pathways, suggesting that they either changed their minds about participating between enrollment and beginning their learning pathways, or that they maintained an intention to participate but never found the time to do so. 
 Interestingly, of the 176 learners who logged no activity in their learning pathways after the first day, 69 (39%) of them did complete the post-test surveys at the end of the program and were included in the final analysis dataset, so their experiences are reflected in our reported analyses, although they are still significantly under-represented in the analysis dataset relative to learners who did log activity on their learning pathways after the first day (X2 (1, N = 419) = 39.4, p < .001). 
-
-
-### Additional half-baked thoughts
-
-An important future direction of this and related work is reducing attrition in online learning programs
-
-One benefit of learning programs with a more demanding structure (e.g. in-person class time) may be that the increase in accountability and the knowledge that they've made a higher investment
-
-An important future direction for this work would be a study designed to assess causality, such as a randomized control trial, with careful attention to attrition. 
-
-It is impossible for us to know if learners who failed to complete the post-test surveys would have reported the same kinds of favorable ratings we saw from learners who did complete the program -- likely not. 
-
-
-Nevertheless, a reasonable guess would be that the participants who did take the time to complete the post-test surveys found the training more useful on average than those who did not, introducing bias. 
-
-Although we cannot estimate the bias directly because the necessary information is by definition in the missing post-test data, we can look for systematic differences at pretest between learners who do and don't go on to complete the post-test. 
-We have only very limited data on the learners at pretest, but the comparisons we are able to run do not reveal significant differences between learners who go on to complete the program vs. not in either pretest scores or responses to the needs assessment survey (see Appendix ##); although there's a suggestion of a trend in the Wave 1 data such that learners who report higher average expertise and higher average interest in learning on the needs assessment survey may be more likely to complete the program, that effect is not at all present in the Wave 2 data. 
-
-
