@@ -228,7 +228,7 @@ combined_data |>
 ## NALMS activity by attrition
 
 ```{r}
-nalms_and_attrition <- nalms_and_attrition <- readRDS(here::here("data", "deidentified", "nalms_summary.rds")) |>
+nalms_and_attrition <- readRDS(here::here("data", "deidentified", "nalms_summary.rds")) |>
   dplyr::left_join(waves, by = "record_id") |> 
   # only w2
   dplyr::filter(wave == "Wave 2") |> 
