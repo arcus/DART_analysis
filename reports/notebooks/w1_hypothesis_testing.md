@@ -193,11 +193,12 @@ sd(data$ability_change, na.rm = TRUE) # standard deviation
 Random intercepts model:
 
 ``` r
-h1_randomint <- lme4::lmer(ability_change ~ 1 + (1|pathway), data)
+h1_randomint <- lmerTest::lmer(ability_change ~ 1 + (1|pathway), data)
 summary(h1_randomint)
 ```
 
-    ## Linear mixed model fit by REML ['lmerMod']
+    ## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+    ## lmerModLmerTest]
     ## Formula: ability_change ~ 1 + (1 | pathway)
     ##    Data: data
     ## 
@@ -214,8 +215,10 @@ summary(h1_randomint)
     ## Number of obs: 48, groups:  pathway, 8
     ## 
     ## Fixed effects:
-    ##             Estimate Std. Error t value
-    ## (Intercept)  0.83760    0.08643   9.691
+    ##             Estimate Std. Error      df t value Pr(>|t|)    
+    ## (Intercept)  0.83760    0.08643 5.21817   9.691 0.000157 ***
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ### H2: Learners’ self-ratings of their agreement with important tenets of open science will increase over the course of the program
 
@@ -439,112 +442,13 @@ Our hypotheses, from the preregistration:
 
 H1 is supported by the data. A random intercepts model with pathway as
 random effect shows a significant improvement in participants’
-self-rated ability on data science tasks from pretest to post (see table
-below). A paired t-test, ignoring the grouping structure altogether,
-also shows a significant improvement in participants’ self-rated ability
-on data science tasks from pretest to post, t(47) = 10.18, p \< .001
-(mean (SD) change is 0.84 (0.57) on a 4-point scale from 1 “I wouldn’t
-know where to start” to 4 “I am confident in my ability to do it”).
-
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-ability_change
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.838<sup>\*\*\*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.086)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-48
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Log Likelihood
-</td>
-<td>
--42.350
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Akaike Inf. Crit.
-</td>
-<td>
-90.700
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Bayesian Inf. Crit.
-</td>
-<td>
-96.313
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup>*</sup>p\<0.1; <sup>**</sup>p\<0.05; <sup>***</sup>p\<0.01
-</td>
-</tr>
-</table>
+self-rated ability on data science tasks from pretest to post (b = 0.84,
+t(5.22) = 9.69, p \< .001). A paired t-test, ignoring the grouping
+structure altogether, also shows a significant improvement in
+participants’ self-rated ability on data science tasks from pretest to
+post, t(47) = 10.18, p \< .001 (mean (SD) change is 0.84 (0.57) on a
+4-point scale from 1 “I wouldn’t know where to start” to 4 “I am
+confident in my ability to do it”).
 
 H2 is not clearly supported by the data, although there’s some
 suggestion of a trend in the predicted direction. The planned random
@@ -561,261 +465,6 @@ agree”). An examination of the raw scores for open science items reveals
 a probable ceiling effect; the mean open science score at pretest was
 already 6.25 on a scale from 1 to 7, so there was no room to improve for
 many participants.
-
-<table style="text-align:center">
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-openscience_change
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-pathwayblue
-</td>
-<td>
-0.230
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.218)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-pathwaygreen
-</td>
-<td>
-0.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.436)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-pathwayindigo
-</td>
-<td>
-0.200
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.308)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-pathwayorange
-</td>
-<td>
-0.035
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.145)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-pathwayred
-</td>
-<td>
-0.363
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.218)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-pathwayteal
-</td>
-<td>
-0.263<sup>\*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.145)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-pathwayviolet
-</td>
-<td>
-0.235<sup>\*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.131)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-pathwayyellow
-</td>
-<td>
-0.275<sup>\*</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.154)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-48
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.260
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.111
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Residual Std. Error
-</td>
-<td>
-0.436 (df = 40)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-1.753 (df = 8; 40)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<sup>*</sup>p\<0.1; <sup>**</sup>p\<0.05; <sup>***</sup>p\<0.01
-</td>
-</tr>
-</table>
 
 H3 is partially supported in the data. Engagement significantly predicts
 change in self-rated ability (R² = .10, F(1, 46) = 4.86, p = .033) but
@@ -857,7 +506,7 @@ internal consistency among items.
 
 ## Discussion
 
-### plots
+### Plots for hypothesis testing
 
 ``` r
 plot_data <- data |> 
@@ -865,7 +514,79 @@ plot_data <- data |>
   tidyr::separate(name, into=c("measure", "event"), sep="_") |> 
   tidyr::pivot_wider(names_from = measure, values_from = value) |> 
   dplyr::mutate(event = factor(event, levels = c("pre", "post", "change")))
+
+plot_data_means <- plot_data |> 
+  dplyr::filter(event %in% c("pre", "post")) |> 
+  dplyr::group_by(event) |> 
+  dplyr::summarise(ability = mean(ability), 
+                   openscience = mean(openscience))
 ```
+
+``` r
+ability_plot <- plot_data |> 
+  dplyr::filter(event %in% c("pre", "post")) |> 
+  ggplot(aes(y=ability)) + 
+  scale_y_continuous(breaks = 1:4, limits = c(1,4),
+                     labels = c("(1) I wouldn't know where to start",
+                                "(2) I could struggle through,\nbut not confident I could do it",
+                                "(3) I could probably do it\nwith some trial and error",
+                                "(4) I am confident in my ability to do it")) + 
+  labs(x=NULL, y=NULL) + 
+   theme(
+    strip.text = element_text(face = "bold"),
+    strip.background = element_rect(colour = "black", linewidth = 1))
+
+openscience_plot <- plot_data |> 
+  dplyr::filter(event %in% c("pre", "post")) |> 
+  ggplot(aes(y=openscience)) + 
+  scale_y_continuous(breaks = 1:7, limits = c(1,7),
+                     labels = c("(1) Strongly Disagree",
+                                "(2) Disagree",
+                                "(3) Somewhat Disagree",
+                                "(4) Neither Agree nor Disagree",
+                                "(5) Somewhat Agree",
+                                "(6) Agree", 
+                                "(7) Strongly Agree")) + 
+  labs(x=NULL, y=NULL) + 
+   theme(
+    strip.text = element_text(face = "bold"),
+    strip.background = element_rect(colour = "black", linewidth = 1))
+```
+
+``` r
+(ability_plot + 
+  geom_histogram(bins = 30) + 
+  facet_wrap(~event, ncol = 2) 
+ ) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "ability_pre_post_hist_w1.tiff",
+                 width = 6,
+                 height = 3)
+```
+
+    ## Warning: Removed 4 rows containing missing values or values outside the scale range
+    ## (`geom_bar()`).
+
+![](../figures/ability_pre_post_hist_w1.tiff)<!-- -->
+
+``` r
+(openscience_plot + 
+  geom_histogram() + 
+  facet_wrap(~event, ncol = 2)) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "openscience_pre_post_hist_w1.tiff",
+                 width = 6,
+                 height = 3)
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 4 rows containing missing values or values outside the scale range
+    ## (`geom_bar()`).
+
+![](../figures/openscience_pre_post_hist_w1.tiff)<!-- -->
+
+### Additional plots
 
 How about those engagement scores?
 
