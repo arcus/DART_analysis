@@ -26,6 +26,7 @@ chop_green <- "#91a01e"
 chop_brown <- "#786452"
 chop_brown_text <- "#55473c"
 
+
 save_and_print <- function(plot, filename, width = NA, height = NA){
   ggplot2::ggsave(filename = filename, 
          plot = plot, 
@@ -35,4 +36,97 @@ save_and_print <- function(plot, filename, width = NA, height = NA){
          units = "in")
   
   knitr::include_graphics(here::here("reports", "figures", filename))
+}
+
+# used in explore_clusters.rmd report
+plot_by_theme <- function(df, cluster){
+  
+  stopifnot(require(ggplot2))
+  
+  # report number of participants in each cluster
+  counts <- df |> 
+    dplyr::count(record_id, {{cluster}}) |> 
+    dplyr::count(cluster = {{cluster}})
+  
+  # data types
+  p1 <- df |> 
+    dplyr::filter(topic %in% c("ehr", "geospatial", "image", "longitudinal", "nlp", "omics", "use_others_data")) |> 
+    ggplot(aes(x=value)) + 
+    facet_grid(question ~ topic) + 
+    labs(x=NULL, y=NULL, title = "Data types") +
+    geom_density(aes(fill = {{cluster}}, color = {{cluster}}), alpha=.3) +
+    labs(fill = "cluster", color = "cluster") +
+    theme(legend.position="bottom")
+  
+  # techniques
+  p2 <- df |> 
+    dplyr::filter(topic %in% c("automation", "collaboration", "data_mining", "sup_ml", "unsup_ml", "data_viz")) |> 
+    ggplot(aes(x=value))+ 
+    facet_grid(question ~ topic) + 
+    labs(x=NULL, y=NULL, title = "Techniques") +
+    geom_density(aes(fill = {{cluster}}, color = {{cluster}}), alpha=.3) +
+    labs(fill = "cluster", color = "cluster") +
+    theme(legend.position="bottom")
+  
+  # tools
+  p3 <- df |> 
+    dplyr::filter(topic %in% c("python", "r", "sql")) |> 
+    ggplot(aes(x=value)) + 
+    facet_grid(question ~ topic) + 
+    labs(x=NULL, y=NULL, title = "Tools") +
+    geom_density(aes(fill = {{cluster}}, color = {{cluster}}), alpha=.3) +
+    labs(fill = "cluster", color = "cluster") +
+    theme(legend.position="bottom")
+  
+  return(list(counts = counts, data_types = p1, techniques = p2, tools = p3))
+}
+
+# used in explore_clusters.rmd report
+rank_topics <- function(df, cluster, n_clusters, questions = c("expertise", "relevance", "learn"), breaks = 1:5, limits = c(.5,5.5), alpha = .7){
+  
+  stopifnot(require(ggplot2))
+  
+  # create an empty list to store the plots in
+  plots <- vector(mode = "list", length = n_clusters)
+  
+  for(this_cluster in 1:n_clusters){
+    
+    # create an empty slot for each question 
+    plots[[this_cluster]] <- vector(mode = "list", length = 3)
+    names(plots[[this_cluster]]) <- questions
+    
+    # how many participants in this cluster?
+    df_this_cluster <- df |> 
+      dplyr::filter({{cluster}} == this_cluster)
+    n <- length(unique(df_this_cluster$record_id))
+    # create the string to be used for plot titles
+    title <- ifelse(n_clusters == 1, paste0("All (N=", n, ")"),
+                    paste0("Cluster ", this_cluster, " (N=", n, ")"))
+    
+    for(this_question in questions){
+      p <- df_this_cluster |> 
+        # plot just the data for this cluster, and this question (expertise, relevance or learn)
+        dplyr::filter(question == this_question) |> 
+        # reorder the topics by mean, so topics rated higher are at the top of the plot
+        ggplot(aes(x=value, y=forcats::fct_reorder(topic, value, mean))) +
+        # there will only be one facet, but this adds the question name nicely
+        facet_wrap(~question) +
+        labs(title = title, x=NULL, y=NULL) + 
+        scale_x_continuous(breaks = breaks, limits = limits)
+      
+      if( n >= 5) {
+        # as long as there's at least 5 people in cluster, plot a boxplot, but omit the dots for outliers
+        p <- p + geom_boxplot(outlier.shape = NA) + 
+          # overlay all of the data as points
+          geom_jitter(aes(color = topic), width = .2, alpha = .4, show.legend = FALSE)
+      } else {
+        # overlay all of the data as points
+        p <- p + geom_jitter(aes(color = topic), width = .2, alpha = alpha, show.legend = FALSE)
+      }
+      
+      # save plot 
+      plots[[this_cluster]][[this_question]] <- p
+    }
+  }
+  return(plots)
 }
