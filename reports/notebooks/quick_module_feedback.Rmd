@@ -190,10 +190,10 @@ Only non-research participants
                  height = 3)
 ```
 
-# FY 2024 / Date-bound exploration
+# FY 2025 / Date-bound exploration
 
 ```{r}
-quick_module_feedback_fy_2024 <- quick_module_feedback |>
+quick_module_feedback_fy_2025 <- quick_module_feedback |>
   filter(feedback_timestamp > "2024-06-30")
 ```
 

@@ -36,7 +36,13 @@ quick_module_feedback <- readRDS(here::here("data", "deidentified", "quick_modul
                                     labels=c("Too complex / difficult", "Just right", "Too simple / easy")),
                 research_participant_yn = factor(research_participant_yn, 
                                                  levels = c(0,1),
-                                                 labels = c("no", "yes")))
+                                                 labels = c("no", "yes"))) |>
+  dplyr::mutate(across(starts_with("arcus___"), ~ as.logical(.x))) |>
+  dplyr::rename(heard_of_arcus_non_user = arcus___1,
+                used_arcus_self_service = arcus___2,
+                current_or_past_arcus_scientific_project = arcus___3,
+                future_or_potential_arcus_scientific_project = arcus___4,
+                working_with_arcus_staff = arcus___5)
 ```
 
 ``` r
@@ -219,12 +225,9 @@ Only non-research participants
 
 ![](../figures/qmf_chop_affilitation_over_time.png)<!-- -->
 
-# Arcus use
+# FY 2025 / Date-bound exploration
 
-Only non-research participants.
-
-1.  I’ve heard of Arcus but I don’t use it
-2.  I’ve used Arcus self-service tools from the Arcus website
-3.  I have an active or completed Arcus scientific project
-4.  I’m considering or have requested an Arcus scientific project
-5.  I’ve been working with Arcus personnel
+``` r
+quick_module_feedback_fy_2025 <- quick_module_feedback |>
+  filter(feedback_timestamp > "2024-06-30")
+```
