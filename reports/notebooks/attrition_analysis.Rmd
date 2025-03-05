@@ -100,7 +100,7 @@ needs_asssessment_and_attrition <- needs_assessment |>
   geom_boxplot() + 
   facet_grid(wave ~ question))|> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "attrition_needsassessment.tiff",
+  save_and_print(filename = "attrition_needsassessment.png",
                  width = 6,
                  height = 6)
 ```
@@ -374,7 +374,7 @@ combined_data_long <- combined_data |>
   labs(fill = NULL, 
        title = "Needs Assessment Responses") ) |> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "active_past_day_1_needsassessment.tiff",
+  save_and_print(filename = "active_past_day_1_needsassessment.png",
                  width = 6,
                  height = 6)
 
@@ -386,7 +386,7 @@ combined_data_long <- combined_data |>
   labs(fill = NULL, 
        title = "Pretest Responses"))|> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "active_past_day_1_pretest.tiff",
+  save_and_print(filename = "active_past_day_1_pretest.png",
                  width = 6,
                  height = 6)
 
@@ -398,7 +398,7 @@ combined_data_long <- combined_data |>
   labs(fill = NULL, 
        title = "Posttest Responses"))|> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "active_past_day_1_posttest.tiff",
+  save_and_print(filename = "active_past_day_1_posttest.png",
                  width = 6,
                  height = 6)
 
@@ -410,7 +410,7 @@ combined_data_long <- combined_data |>
   labs(fill = NULL, 
        title = "Exit Survey Responses"))|> 
   # the save_and_print function is defined in functions_plotting.R
-  save_and_print(filename = "active_past_day_1_exit.tiff",
+  save_and_print(filename = "active_past_day_1_exit.png",
                  width = 6,
                  height = 6)
 ```

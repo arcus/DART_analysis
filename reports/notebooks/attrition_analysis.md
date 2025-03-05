@@ -31,7 +31,7 @@ Comment from reviewer 2:
 
 ### Needs assessment differences for analyzed vs not?
 
-<img src="../figures/attrition_needsassessment.tiff" width="50%" />
+<img src="../figures/attrition_needsassessment.png" width="50%" />
 
     ##           Df   Pillai approx F num Df den Df Pr(>F)
     ## analyzed   1 0.055747   1.8302      3     93 0.1471
@@ -162,20 +162,20 @@ Comment from reviewer 2:
     ## Warning for variable 'openscience_pre':
     ## simpleWarning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot compute exact p-value with ties
 
-<div id="hmdnbebxss" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hmdnbebxss table {
+<div id="sgllfkqnap" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sgllfkqnap table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#hmdnbebxss thead, #hmdnbebxss tbody, #hmdnbebxss tfoot, #hmdnbebxss tr, #hmdnbebxss td, #hmdnbebxss th {
+&#10;#sgllfkqnap thead, #sgllfkqnap tbody, #sgllfkqnap tfoot, #sgllfkqnap tr, #sgllfkqnap td, #sgllfkqnap th {
   border-style: none;
 }
-&#10;#hmdnbebxss p {
+&#10;#sgllfkqnap p {
   margin: 0;
   padding: 0;
 }
-&#10;#hmdnbebxss .gt_table {
+&#10;#sgllfkqnap .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -200,11 +200,11 @@ Comment from reviewer 2:
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_caption {
+&#10;#sgllfkqnap .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#hmdnbebxss .gt_title {
+&#10;#sgllfkqnap .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -215,7 +215,7 @@ Comment from reviewer 2:
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#hmdnbebxss .gt_subtitle {
+&#10;#sgllfkqnap .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -226,7 +226,7 @@ Comment from reviewer 2:
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#hmdnbebxss .gt_heading {
+&#10;#sgllfkqnap .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -237,12 +237,12 @@ Comment from reviewer 2:
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_bottom_border {
+&#10;#sgllfkqnap .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_col_headings {
+&#10;#sgllfkqnap .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -256,7 +256,7 @@ Comment from reviewer 2:
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_col_heading {
+&#10;#sgllfkqnap .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -275,7 +275,7 @@ Comment from reviewer 2:
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#hmdnbebxss .gt_column_spanner_outer {
+&#10;#sgllfkqnap .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -286,13 +286,13 @@ Comment from reviewer 2:
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#hmdnbebxss .gt_column_spanner_outer:first-child {
+&#10;#sgllfkqnap .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#hmdnbebxss .gt_column_spanner_outer:last-child {
+&#10;#sgllfkqnap .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#hmdnbebxss .gt_column_spanner {
+&#10;#sgllfkqnap .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -303,10 +303,10 @@ Comment from reviewer 2:
   display: inline-block;
   width: 100%;
 }
-&#10;#hmdnbebxss .gt_spanner_row {
+&#10;#sgllfkqnap .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#hmdnbebxss .gt_group_heading {
+&#10;#sgllfkqnap .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -331,7 +331,7 @@ Comment from reviewer 2:
   vertical-align: middle;
   text-align: left;
 }
-&#10;#hmdnbebxss .gt_empty_group_heading {
+&#10;#sgllfkqnap .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -345,13 +345,13 @@ Comment from reviewer 2:
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#hmdnbebxss .gt_from_md > :first-child {
+&#10;#sgllfkqnap .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#hmdnbebxss .gt_from_md > :last-child {
+&#10;#sgllfkqnap .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#hmdnbebxss .gt_row {
+&#10;#sgllfkqnap .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -369,7 +369,7 @@ Comment from reviewer 2:
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#hmdnbebxss .gt_stub {
+&#10;#sgllfkqnap .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -381,7 +381,7 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#hmdnbebxss .gt_stub_row_group {
+&#10;#sgllfkqnap .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -394,13 +394,13 @@ Comment from reviewer 2:
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#hmdnbebxss .gt_row_group_first td {
+&#10;#sgllfkqnap .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#hmdnbebxss .gt_row_group_first th {
+&#10;#sgllfkqnap .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#hmdnbebxss .gt_summary_row {
+&#10;#sgllfkqnap .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -409,14 +409,14 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#hmdnbebxss .gt_first_summary_row {
+&#10;#sgllfkqnap .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_first_summary_row.thick {
+&#10;#sgllfkqnap .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#hmdnbebxss .gt_last_summary_row {
+&#10;#sgllfkqnap .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -425,7 +425,7 @@ Comment from reviewer 2:
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_grand_summary_row {
+&#10;#sgllfkqnap .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -434,7 +434,7 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#hmdnbebxss .gt_first_grand_summary_row {
+&#10;#sgllfkqnap .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -443,7 +443,7 @@ Comment from reviewer 2:
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_last_grand_summary_row_top {
+&#10;#sgllfkqnap .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -452,10 +452,10 @@ Comment from reviewer 2:
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_striped {
+&#10;#sgllfkqnap .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#hmdnbebxss .gt_table_body {
+&#10;#sgllfkqnap .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -463,7 +463,7 @@ Comment from reviewer 2:
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_footnotes {
+&#10;#sgllfkqnap .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -476,7 +476,7 @@ Comment from reviewer 2:
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_footnote {
+&#10;#sgllfkqnap .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -484,7 +484,7 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#hmdnbebxss .gt_sourcenotes {
+&#10;#sgllfkqnap .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -497,57 +497,57 @@ Comment from reviewer 2:
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#hmdnbebxss .gt_sourcenote {
+&#10;#sgllfkqnap .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#hmdnbebxss .gt_left {
+&#10;#sgllfkqnap .gt_left {
   text-align: left;
 }
-&#10;#hmdnbebxss .gt_center {
+&#10;#sgllfkqnap .gt_center {
   text-align: center;
 }
-&#10;#hmdnbebxss .gt_right {
+&#10;#sgllfkqnap .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#hmdnbebxss .gt_font_normal {
+&#10;#sgllfkqnap .gt_font_normal {
   font-weight: normal;
 }
-&#10;#hmdnbebxss .gt_font_bold {
+&#10;#sgllfkqnap .gt_font_bold {
   font-weight: bold;
 }
-&#10;#hmdnbebxss .gt_font_italic {
+&#10;#sgllfkqnap .gt_font_italic {
   font-style: italic;
 }
-&#10;#hmdnbebxss .gt_super {
+&#10;#sgllfkqnap .gt_super {
   font-size: 65%;
 }
-&#10;#hmdnbebxss .gt_footnote_marks {
+&#10;#sgllfkqnap .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#hmdnbebxss .gt_asterisk {
+&#10;#sgllfkqnap .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#hmdnbebxss .gt_indent_1 {
+&#10;#sgllfkqnap .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#hmdnbebxss .gt_indent_2 {
+&#10;#sgllfkqnap .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#hmdnbebxss .gt_indent_3 {
+&#10;#sgllfkqnap .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#hmdnbebxss .gt_indent_4 {
+&#10;#sgllfkqnap .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#hmdnbebxss .gt_indent_5 {
+&#10;#sgllfkqnap .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -598,20 +598,20 @@ Comment from reviewer 2:
   </tfoot>
 </table>
 </div>
-<div id="otaetkzyig" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#otaetkzyig table {
+<div id="bxyfuhxjpr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bxyfuhxjpr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#otaetkzyig thead, #otaetkzyig tbody, #otaetkzyig tfoot, #otaetkzyig tr, #otaetkzyig td, #otaetkzyig th {
+&#10;#bxyfuhxjpr thead, #bxyfuhxjpr tbody, #bxyfuhxjpr tfoot, #bxyfuhxjpr tr, #bxyfuhxjpr td, #bxyfuhxjpr th {
   border-style: none;
 }
-&#10;#otaetkzyig p {
+&#10;#bxyfuhxjpr p {
   margin: 0;
   padding: 0;
 }
-&#10;#otaetkzyig .gt_table {
+&#10;#bxyfuhxjpr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -636,11 +636,11 @@ Comment from reviewer 2:
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_caption {
+&#10;#bxyfuhxjpr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#otaetkzyig .gt_title {
+&#10;#bxyfuhxjpr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -651,7 +651,7 @@ Comment from reviewer 2:
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#otaetkzyig .gt_subtitle {
+&#10;#bxyfuhxjpr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -662,7 +662,7 @@ Comment from reviewer 2:
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#otaetkzyig .gt_heading {
+&#10;#bxyfuhxjpr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -673,12 +673,12 @@ Comment from reviewer 2:
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_bottom_border {
+&#10;#bxyfuhxjpr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_col_headings {
+&#10;#bxyfuhxjpr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -692,7 +692,7 @@ Comment from reviewer 2:
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_col_heading {
+&#10;#bxyfuhxjpr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -711,7 +711,7 @@ Comment from reviewer 2:
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#otaetkzyig .gt_column_spanner_outer {
+&#10;#bxyfuhxjpr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -722,13 +722,13 @@ Comment from reviewer 2:
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#otaetkzyig .gt_column_spanner_outer:first-child {
+&#10;#bxyfuhxjpr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#otaetkzyig .gt_column_spanner_outer:last-child {
+&#10;#bxyfuhxjpr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#otaetkzyig .gt_column_spanner {
+&#10;#bxyfuhxjpr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -739,10 +739,10 @@ Comment from reviewer 2:
   display: inline-block;
   width: 100%;
 }
-&#10;#otaetkzyig .gt_spanner_row {
+&#10;#bxyfuhxjpr .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#otaetkzyig .gt_group_heading {
+&#10;#bxyfuhxjpr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -767,7 +767,7 @@ Comment from reviewer 2:
   vertical-align: middle;
   text-align: left;
 }
-&#10;#otaetkzyig .gt_empty_group_heading {
+&#10;#bxyfuhxjpr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -781,13 +781,13 @@ Comment from reviewer 2:
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#otaetkzyig .gt_from_md > :first-child {
+&#10;#bxyfuhxjpr .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#otaetkzyig .gt_from_md > :last-child {
+&#10;#bxyfuhxjpr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#otaetkzyig .gt_row {
+&#10;#bxyfuhxjpr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -805,7 +805,7 @@ Comment from reviewer 2:
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#otaetkzyig .gt_stub {
+&#10;#bxyfuhxjpr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -817,7 +817,7 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#otaetkzyig .gt_stub_row_group {
+&#10;#bxyfuhxjpr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -830,13 +830,13 @@ Comment from reviewer 2:
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#otaetkzyig .gt_row_group_first td {
+&#10;#bxyfuhxjpr .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#otaetkzyig .gt_row_group_first th {
+&#10;#bxyfuhxjpr .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#otaetkzyig .gt_summary_row {
+&#10;#bxyfuhxjpr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -845,14 +845,14 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#otaetkzyig .gt_first_summary_row {
+&#10;#bxyfuhxjpr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_first_summary_row.thick {
+&#10;#bxyfuhxjpr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#otaetkzyig .gt_last_summary_row {
+&#10;#bxyfuhxjpr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -861,7 +861,7 @@ Comment from reviewer 2:
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_grand_summary_row {
+&#10;#bxyfuhxjpr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -870,7 +870,7 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#otaetkzyig .gt_first_grand_summary_row {
+&#10;#bxyfuhxjpr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -879,7 +879,7 @@ Comment from reviewer 2:
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_last_grand_summary_row_top {
+&#10;#bxyfuhxjpr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -888,10 +888,10 @@ Comment from reviewer 2:
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_striped {
+&#10;#bxyfuhxjpr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#otaetkzyig .gt_table_body {
+&#10;#bxyfuhxjpr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -899,7 +899,7 @@ Comment from reviewer 2:
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_footnotes {
+&#10;#bxyfuhxjpr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -912,7 +912,7 @@ Comment from reviewer 2:
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_footnote {
+&#10;#bxyfuhxjpr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -920,7 +920,7 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#otaetkzyig .gt_sourcenotes {
+&#10;#bxyfuhxjpr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -933,57 +933,57 @@ Comment from reviewer 2:
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#otaetkzyig .gt_sourcenote {
+&#10;#bxyfuhxjpr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#otaetkzyig .gt_left {
+&#10;#bxyfuhxjpr .gt_left {
   text-align: left;
 }
-&#10;#otaetkzyig .gt_center {
+&#10;#bxyfuhxjpr .gt_center {
   text-align: center;
 }
-&#10;#otaetkzyig .gt_right {
+&#10;#bxyfuhxjpr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#otaetkzyig .gt_font_normal {
+&#10;#bxyfuhxjpr .gt_font_normal {
   font-weight: normal;
 }
-&#10;#otaetkzyig .gt_font_bold {
+&#10;#bxyfuhxjpr .gt_font_bold {
   font-weight: bold;
 }
-&#10;#otaetkzyig .gt_font_italic {
+&#10;#bxyfuhxjpr .gt_font_italic {
   font-style: italic;
 }
-&#10;#otaetkzyig .gt_super {
+&#10;#bxyfuhxjpr .gt_super {
   font-size: 65%;
 }
-&#10;#otaetkzyig .gt_footnote_marks {
+&#10;#bxyfuhxjpr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#otaetkzyig .gt_asterisk {
+&#10;#bxyfuhxjpr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#otaetkzyig .gt_indent_1 {
+&#10;#bxyfuhxjpr .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#otaetkzyig .gt_indent_2 {
+&#10;#bxyfuhxjpr .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#otaetkzyig .gt_indent_3 {
+&#10;#bxyfuhxjpr .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#otaetkzyig .gt_indent_4 {
+&#10;#bxyfuhxjpr .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#otaetkzyig .gt_indent_5 {
+&#10;#bxyfuhxjpr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1060,20 +1060,20 @@ Comment from reviewer 2:
 
 ### Do learners with 0 engagement in NALMS differ at post?
 
-<div id="coozeymgxw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#coozeymgxw table {
+<div id="xfohwxsvsm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xfohwxsvsm table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#coozeymgxw thead, #coozeymgxw tbody, #coozeymgxw tfoot, #coozeymgxw tr, #coozeymgxw td, #coozeymgxw th {
+&#10;#xfohwxsvsm thead, #xfohwxsvsm tbody, #xfohwxsvsm tfoot, #xfohwxsvsm tr, #xfohwxsvsm td, #xfohwxsvsm th {
   border-style: none;
 }
-&#10;#coozeymgxw p {
+&#10;#xfohwxsvsm p {
   margin: 0;
   padding: 0;
 }
-&#10;#coozeymgxw .gt_table {
+&#10;#xfohwxsvsm .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1098,11 +1098,11 @@ Comment from reviewer 2:
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_caption {
+&#10;#xfohwxsvsm .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#coozeymgxw .gt_title {
+&#10;#xfohwxsvsm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1113,7 +1113,7 @@ Comment from reviewer 2:
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#coozeymgxw .gt_subtitle {
+&#10;#xfohwxsvsm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1124,7 +1124,7 @@ Comment from reviewer 2:
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#coozeymgxw .gt_heading {
+&#10;#xfohwxsvsm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1135,12 +1135,12 @@ Comment from reviewer 2:
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_bottom_border {
+&#10;#xfohwxsvsm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_col_headings {
+&#10;#xfohwxsvsm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1154,7 +1154,7 @@ Comment from reviewer 2:
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_col_heading {
+&#10;#xfohwxsvsm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1173,7 +1173,7 @@ Comment from reviewer 2:
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#coozeymgxw .gt_column_spanner_outer {
+&#10;#xfohwxsvsm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1184,13 +1184,13 @@ Comment from reviewer 2:
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#coozeymgxw .gt_column_spanner_outer:first-child {
+&#10;#xfohwxsvsm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#coozeymgxw .gt_column_spanner_outer:last-child {
+&#10;#xfohwxsvsm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#coozeymgxw .gt_column_spanner {
+&#10;#xfohwxsvsm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1201,10 +1201,10 @@ Comment from reviewer 2:
   display: inline-block;
   width: 100%;
 }
-&#10;#coozeymgxw .gt_spanner_row {
+&#10;#xfohwxsvsm .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#coozeymgxw .gt_group_heading {
+&#10;#xfohwxsvsm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1229,7 +1229,7 @@ Comment from reviewer 2:
   vertical-align: middle;
   text-align: left;
 }
-&#10;#coozeymgxw .gt_empty_group_heading {
+&#10;#xfohwxsvsm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1243,13 +1243,13 @@ Comment from reviewer 2:
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#coozeymgxw .gt_from_md > :first-child {
+&#10;#xfohwxsvsm .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#coozeymgxw .gt_from_md > :last-child {
+&#10;#xfohwxsvsm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#coozeymgxw .gt_row {
+&#10;#xfohwxsvsm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1267,7 +1267,7 @@ Comment from reviewer 2:
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#coozeymgxw .gt_stub {
+&#10;#xfohwxsvsm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1279,7 +1279,7 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#coozeymgxw .gt_stub_row_group {
+&#10;#xfohwxsvsm .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1292,13 +1292,13 @@ Comment from reviewer 2:
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#coozeymgxw .gt_row_group_first td {
+&#10;#xfohwxsvsm .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#coozeymgxw .gt_row_group_first th {
+&#10;#xfohwxsvsm .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#coozeymgxw .gt_summary_row {
+&#10;#xfohwxsvsm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1307,14 +1307,14 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#coozeymgxw .gt_first_summary_row {
+&#10;#xfohwxsvsm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_first_summary_row.thick {
+&#10;#xfohwxsvsm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#coozeymgxw .gt_last_summary_row {
+&#10;#xfohwxsvsm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1323,7 +1323,7 @@ Comment from reviewer 2:
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_grand_summary_row {
+&#10;#xfohwxsvsm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1332,7 +1332,7 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#coozeymgxw .gt_first_grand_summary_row {
+&#10;#xfohwxsvsm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1341,7 +1341,7 @@ Comment from reviewer 2:
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_last_grand_summary_row_top {
+&#10;#xfohwxsvsm .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1350,10 +1350,10 @@ Comment from reviewer 2:
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_striped {
+&#10;#xfohwxsvsm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#coozeymgxw .gt_table_body {
+&#10;#xfohwxsvsm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1361,7 +1361,7 @@ Comment from reviewer 2:
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_footnotes {
+&#10;#xfohwxsvsm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1374,7 +1374,7 @@ Comment from reviewer 2:
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_footnote {
+&#10;#xfohwxsvsm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1382,7 +1382,7 @@ Comment from reviewer 2:
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#coozeymgxw .gt_sourcenotes {
+&#10;#xfohwxsvsm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1395,57 +1395,57 @@ Comment from reviewer 2:
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#coozeymgxw .gt_sourcenote {
+&#10;#xfohwxsvsm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#coozeymgxw .gt_left {
+&#10;#xfohwxsvsm .gt_left {
   text-align: left;
 }
-&#10;#coozeymgxw .gt_center {
+&#10;#xfohwxsvsm .gt_center {
   text-align: center;
 }
-&#10;#coozeymgxw .gt_right {
+&#10;#xfohwxsvsm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#coozeymgxw .gt_font_normal {
+&#10;#xfohwxsvsm .gt_font_normal {
   font-weight: normal;
 }
-&#10;#coozeymgxw .gt_font_bold {
+&#10;#xfohwxsvsm .gt_font_bold {
   font-weight: bold;
 }
-&#10;#coozeymgxw .gt_font_italic {
+&#10;#xfohwxsvsm .gt_font_italic {
   font-style: italic;
 }
-&#10;#coozeymgxw .gt_super {
+&#10;#xfohwxsvsm .gt_super {
   font-size: 65%;
 }
-&#10;#coozeymgxw .gt_footnote_marks {
+&#10;#xfohwxsvsm .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#coozeymgxw .gt_asterisk {
+&#10;#xfohwxsvsm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#coozeymgxw .gt_indent_1 {
+&#10;#xfohwxsvsm .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#coozeymgxw .gt_indent_2 {
+&#10;#xfohwxsvsm .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#coozeymgxw .gt_indent_3 {
+&#10;#xfohwxsvsm .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#coozeymgxw .gt_indent_4 {
+&#10;#xfohwxsvsm .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#coozeymgxw .gt_indent_5 {
+&#10;#xfohwxsvsm .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1551,12 +1551,12 @@ Comment from reviewer 2:
 </table>
 </div>
 
-<img src="../figures/active_past_day_1_needsassessment.tiff" width="50%" /><img src="../figures/active_past_day_1_pretest.tiff" width="50%" /><img src="../figures/active_past_day_1_posttest.tiff" width="50%" />
+<img src="../figures/active_past_day_1_needsassessment.png" width="50%" /><img src="../figures/active_past_day_1_pretest.png" width="50%" /><img src="../figures/active_past_day_1_posttest.png" width="50%" />
 
     ## Warning: Removed 6 rows containing non-finite outside the scale range
     ## (`stat_boxplot()`).
 
-<img src="../figures/active_past_day_1_exit.tiff" width="50%" />
+<img src="../figures/active_past_day_1_exit.png" width="50%" />
 
 ## Write up
 
