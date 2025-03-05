@@ -95,10 +95,14 @@ needs_asssessment_and_attrition <- needs_assessment |>
   dplyr::left_join(attrition_data, by = "record_id") |> 
   dplyr::mutate(analyzed = as.factor(analyzed))
 
-needs_asssessment_and_attrition |> 
+(needs_asssessment_and_attrition |> 
   ggplot(aes(y=mean, group=analyzed, fill = analyzed)) + 
   geom_boxplot() + 
-  facet_grid(wave ~ question)
+  facet_grid(wave ~ question))|> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "attrition_needsassessment.tiff",
+                 width = 6,
+                 height = 6)
 ```
 
 ```{r manova_needs_assessment}
@@ -178,12 +182,20 @@ nih_pre_summary <- nih_pre |>
                 openscience_pre = mean(dplyr::c_across(data_storage_1:code_efficient), na.rm = TRUE)) |> 
   dplyr::select(record_id, ability_pre, openscience_pre) 
 
+nih_post_summary <- nih_post |> 
+  dplyr::mutate(dplyr::across(tidyselect::where(is.factor), as.numeric)) |> 
+  dplyr::rowwise() |> 
+  dplyr::mutate(ability_post = mean(dplyr::c_across(findable:atomize), na.rm = TRUE),
+                openscience_post = mean(dplyr::c_across(data_storage_1:code_efficient), na.rm = TRUE)) |> 
+  dplyr::select(record_id, ability_post, openscience_post) 
+
 combined_data <- attrition_data |> 
   dplyr::left_join(needs_assessment_summary, by = "record_id") |> 
-  dplyr::left_join(nih_pre_summary, by = "record_id")
+  dplyr::left_join(nih_pre_summary, by = "record_id") |> 
+  dplyr::left_join(nih_post_summary, by = "record_id")
 ```
 
-```{r individual_comparisons_tables}
+```{r individual_comparisons_tables_pre}
 combined_data |> 
   dplyr::filter(needs_assessment==1 & wave == "Wave 1") |> 
   dplyr::select(analyzed:openscience_pre) |> 
@@ -261,6 +273,12 @@ nalms_and_attrition |>
 summary(xtabs(~past_day_1 + analyzed, data = nalms_and_attrition))
 ```
 
+```{r nalms_past_day_1}
+nalms_engagement <- nalms_and_attrition |> 
+  dplyr::select(record_id, engagement, past_day_1) 
+```
+
+
 ```{r, eval=FALSE}
 nalms_and_attrition |> 
   dplyr::mutate(past_day_1 = factor(past_day_1, levels = c(0,1), labels=c("No", "Yes")),
@@ -283,6 +301,120 @@ nalms_and_attrition |>
 # non completers have lower engagement
 wilcox.test(engagement ~ analyzed, data = nalms_and_attrition)
 ```
+
+### Do learners with 0 engagement in NALMS differ at post?
+
+```{r exit_data}
+exit_summary <- exit |> 
+  dplyr::select(record_id, met_expectations:would_recommend) |> 
+  # make factors numeric
+  # these are all on the same strongly disagree (1) to strongly agree (5) scale
+  dplyr::mutate(dplyr::across(tidyselect::where(is.factor), as.numeric))
+```
+
+
+```{r}
+combined_data |> 
+  dplyr::filter(analyzed==1) |> 
+  # we only have NALMS data for Wave 2
+  dplyr::filter(wave == "Wave 2") |> 
+  # add in the NALMS summary fields
+  dplyr::left_join(nalms_engagement, by = "record_id") |> 
+  # add in the exit summary fields
+  dplyr::left_join(exit_summary, by = "record_id") |> 
+  dplyr::select(past_day_1,
+                relevance, learn, expertise, 
+                ability_pre, openscience_pre, 
+                ability_post, openscience_post, 
+                met_expectations:would_recommend) |> 
+  dplyr::mutate(past_day_1 = factor(past_day_1, levels = c(0,1), labels= c("No Activity after Day 1", "Active after Day 1"))) |> 
+  gtsummary::tbl_summary(by = past_day_1,
+                         type = list(where(is.numeric) ~ "continuous"),
+                         missing = "no",
+                         label = list(relevance ~ "Relevance",
+                                      expertise ~ "Expertise",
+                                      learn ~ "Interest in Learning",
+                                      ability_pre ~ "Data Science Ability (pre)",
+                                      openscience_pre ~ "Open Science Values (pre)",
+                                      ability_post ~ "Data Science Ability (post)",
+                                      openscience_post ~ "Open Science Values (post)"
+                                      )) |> 
+  gtsummary::add_p(pvalue_fun = function(x) gtsummary::style_pvalue(x, digits = 3)) |>
+  gtsummary::modify_table_body(
+    dplyr::mutate,
+    groupname_col = dplyr::case_when(variable %in% c("relevance", "expertise", "learn") ~ "Needs Assessment",
+                                     variable %in% c("ability_pre", "openscience_pre") ~ "Pretest",
+                                     variable %in% c("ability_post", "openscience_post") ~ "Posttest",
+                                     variable %in% c("met_expectations", "fit_learn", "fit_relevance", "fit_expertise", "coherent_pathway", "module_expectations", "asynch", "continue_dart", "continue_data_science", "would_recommend") ~ "Exit Survey")
+  )
+```
+
+```{r}
+combined_data_long <- combined_data |> 
+  dplyr::filter(analyzed==1) |> 
+  # we only have NALMS data for Wave 2
+  dplyr::filter(wave == "Wave 2") |> 
+  # add in the NALMS summary fields
+  dplyr::left_join(nalms_engagement, by = "record_id") |> 
+  # add in the exit summary fields
+  dplyr::left_join(exit_summary, by = "record_id") |> 
+  dplyr::select(record_id, past_day_1,
+                relevance, learn, expertise, 
+                ability_pre, openscience_pre, 
+                ability_post, openscience_post, 
+                met_expectations:would_recommend) |> 
+  dplyr::mutate(past_day_1 = factor(past_day_1, levels = c(0,1), labels= c("No Activity after Day 1", "Active after Day 1"))) |> 
+  tidyr::pivot_longer(-c(record_id, past_day_1), names_to = "question")
+
+(combined_data_long |> 
+  dplyr::filter(question %in% c("relevance", "learn", "expertise")) |> 
+  ggplot(aes(y=value, fill = past_day_1)) + 
+  geom_boxplot() + 
+  facet_wrap(~question)+ 
+  labs(fill = NULL, 
+       title = "Needs Assessment Responses") ) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "active_past_day_1_needsassessment.tiff",
+                 width = 6,
+                 height = 6)
+
+(combined_data_long |> 
+  dplyr::filter(question %in% c("ability_pre", "openscience_pre")) |> 
+  ggplot(aes(y=value, fill = past_day_1)) + 
+  geom_boxplot() + 
+  facet_wrap(~question)+ 
+  labs(fill = NULL, 
+       title = "Pretest Responses"))|> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "active_past_day_1_pretest.tiff",
+                 width = 6,
+                 height = 6)
+
+(combined_data_long |> 
+  dplyr::filter(question %in% c("ability_post", "openscience_post")) |> 
+  ggplot(aes(y=value, fill = past_day_1)) + 
+  geom_boxplot() + 
+  facet_wrap(~question) + 
+  labs(fill = NULL, 
+       title = "Posttest Responses"))|> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "active_past_day_1_posttest.tiff",
+                 width = 6,
+                 height = 6)
+
+(combined_data_long |> 
+  dplyr::filter(question %in% c("met_expectations", "fit_learn", "fit_relevance", "fit_expertise", "coherent_pathway", "module_expectations", "asynch", "continue_dart", "continue_data_science", "would_recommend")) |> 
+  ggplot(aes(y=value, fill = past_day_1)) + 
+  geom_boxplot() + 
+  facet_wrap(~question) + 
+  labs(fill = NULL, 
+       title = "Exit Survey Responses"))|> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "active_past_day_1_exit.tiff",
+                 width = 6,
+                 height = 6)
+```
+
 
 
 ## Write up
