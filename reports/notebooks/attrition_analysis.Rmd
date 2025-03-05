@@ -212,7 +212,11 @@ combined_data |>
     dplyr::mutate,
     groupname_col = dplyr::case_when(variable %in% c("relevance", "expertise", "learn") ~ "Needs Assessment",
                                      variable %in% c("ability_pre", "openscience_pre") ~ "Pretest")
-  )
+  ) |> 
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "attrition_pretest_comparison_w1.png",
+    path = here::here("reports", "tables"))
   
 
 combined_data |> 
@@ -231,7 +235,11 @@ combined_data |>
     dplyr::mutate,
     groupname_col = dplyr::case_when(variable %in% c("relevance", "expertise", "learn") ~ "Needs Assessment",
                                      variable %in% c("ability_pre", "openscience_pre") ~ "Pretest")
-  )
+  )|> 
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "attrition_pretest_comparison_w2.png",
+    path = here::here("reports", "tables"))
 
 ```
 
@@ -259,15 +267,25 @@ nalms_and_attrition <- readRDS(here::here("data", "deidentified", "nalms_summary
   #join in attrition data
   dplyr::left_join(attrition_data, by = "record_id") 
 
-nalms_and_attrition |> 
+(nalms_and_attrition |> 
   ggplot(aes(x=last_date, fill = as.factor(analyzed))) + 
   geom_histogram() + 
-  facet_wrap(~analyzed)
+  facet_wrap(~analyzed)) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "attrition_nalms_lastdate.png",
+                 width = 6,
+                 height = 6)
+  
 
-nalms_and_attrition |> 
+(nalms_and_attrition |> 
   ggplot(aes(x=engagement, fill = as.factor(analyzed))) + 
   geom_histogram() + 
-  facet_wrap(~analyzed)
+  facet_wrap(~analyzed)) |> 
+  # the save_and_print function is defined in functions_plotting.R
+  save_and_print(filename = "attrition_nalms_engagement.png",
+                 width = 6,
+                 height = 6)
+  
   
 # chi squared test of independence on y/n made it past day 1 and y/n was in the analysis dataset
 summary(xtabs(~past_day_1 + analyzed, data = nalms_and_attrition))
@@ -286,7 +304,11 @@ nalms_and_attrition |>
   gtsummary::tbl_cross(row = past_day_1, col = analyzed,
                        label = list(past_day_1 = "Activity after 1 day",
                                     analyzed = "Included in final analysis"),
-                       percent = "column") 
+                       percent = "column") |> 
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "attrition_nalms_crosstab1.png",
+    path = here::here("reports", "tables"))
 
 nalms_and_attrition |> 
   dplyr::mutate(past_day_1 = factor(past_day_1, levels = c(0,1), labels=c("No", "Yes")),
@@ -294,7 +316,11 @@ nalms_and_attrition |>
   gtsummary::tbl_cross(row = past_day_1, col = analyzed,
                        label = list(past_day_1 = "Activity after 1 day",
                                     analyzed = "Included in final analysis"),
-                       percent = "row") 
+                       percent = "row")  |> 
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "attrition_nalms_crosstab2.png",
+    path = here::here("reports", "tables"))
 ```
 
 ```{r}
@@ -346,7 +372,11 @@ combined_data |>
                                      variable %in% c("ability_pre", "openscience_pre") ~ "Pretest",
                                      variable %in% c("ability_post", "openscience_post") ~ "Posttest",
                                      variable %in% c("met_expectations", "fit_learn", "fit_relevance", "fit_expertise", "coherent_pathway", "module_expectations", "asynch", "continue_dart", "continue_data_science", "would_recommend") ~ "Exit Survey")
-  )
+  ) |> 
+  gtsummary::as_gt() |> # convert to gt table
+  gt::gtsave( # save table as image
+    filename = "active_past_day_1_nalms_full_comparison.png",
+    path = here::here("reports", "tables"))
 ```
 
 ```{r}
