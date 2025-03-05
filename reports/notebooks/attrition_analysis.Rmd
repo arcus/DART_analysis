@@ -274,7 +274,7 @@ nalms_and_attrition <- readRDS(here::here("data", "deidentified", "nalms_summary
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "attrition_nalms_lastdate.png",
                  width = 6,
-                 height = 6)
+                 height = 3)
   
 
 (nalms_and_attrition |> 
@@ -284,7 +284,7 @@ nalms_and_attrition <- readRDS(here::here("data", "deidentified", "nalms_summary
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "attrition_nalms_engagement.png",
                  width = 6,
-                 height = 6)
+                 height = 3)
   
   
 # chi squared test of independence on y/n made it past day 1 and y/n was in the analysis dataset
@@ -406,7 +406,7 @@ combined_data_long <- combined_data |>
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "active_past_day_1_needsassessment.png",
                  width = 6,
-                 height = 6)
+                 height = 3)
 
 (combined_data_long |> 
   dplyr::filter(question %in% c("ability_pre", "openscience_pre")) |> 
@@ -418,7 +418,7 @@ combined_data_long <- combined_data |>
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "active_past_day_1_pretest.png",
                  width = 6,
-                 height = 6)
+                 height = 3)
 
 (combined_data_long |> 
   dplyr::filter(question %in% c("ability_post", "openscience_post")) |> 
@@ -430,13 +430,14 @@ combined_data_long <- combined_data |>
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "active_past_day_1_posttest.png",
                  width = 6,
-                 height = 6)
+                 height = 3)
 
 (combined_data_long |> 
   dplyr::filter(question %in% c("met_expectations", "fit_learn", "fit_relevance", "fit_expertise", "coherent_pathway", "module_expectations", "asynch", "continue_dart", "continue_data_science", "would_recommend")) |> 
   ggplot(aes(y=value, fill = past_day_1)) + 
   geom_boxplot() + 
-  facet_wrap(~question) + 
+  facet_wrap(~question, ncol = 5) + 
+  theme(legend.position = "bottom") + 
   labs(fill = NULL, 
        title = "Exit Survey Responses"))|> 
   # the save_and_print function is defined in functions_plotting.R
