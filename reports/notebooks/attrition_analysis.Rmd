@@ -82,7 +82,7 @@ attrition_data |>
 knitr::include_graphics(here::here("reports", "tables", "screened_participant_n_by_phase.png"))
 ```
 
-## Look for differences for participants who dropped out
+## Look for differences for participants who were in final analysis set vs. not
 
 ### Needs assessment differences for analyzed vs not?
 
@@ -219,9 +219,8 @@ summary(manova_pre_w2)
 summary.aov(manova_pre_w2)
 ```
 
-### combined data
 
-```{r}
+```{r combined_data}
 needs_assessment_summary <- needs_assessment |> 
   tidyr::pivot_longer(-record_id) |> 
   dplyr::mutate(question = gsub(x=name, 
@@ -299,7 +298,6 @@ combined_data |>
     path = here::here("reports", "tables"))
 
 ```
-
 
 
 ## NALMS activity by attrition

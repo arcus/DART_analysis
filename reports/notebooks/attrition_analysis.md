@@ -34,7 +34,7 @@ or exit survey totals.
 
 <img src="../tables/screened_participant_n_by_phase.png" width="50%" />
 
-## Look for differences for participants who dropped out
+## Look for differences for participants who were in final analysis set vs. not
 
 ### Needs assessment differences for analyzed vs not?
 
@@ -237,8 +237,6 @@ Wave 2:
     ##              Df  Sum Sq Mean Sq F value Pr(>F)
     ## analyzed      1   0.488 0.48820  1.7169 0.1908
     ## Residuals   399 113.454 0.28435
-
-### combined data
 
     ## Warning for variable 'relevance':
     ## simpleWarning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot compute exact p-value with ties
