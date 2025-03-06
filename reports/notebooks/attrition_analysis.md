@@ -253,6 +253,8 @@ Wave 2:
     ## Warning for variable 'openscience_pre':
     ## simpleWarning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot compute exact p-value with ties
 
+<img src="../tables/attrition_pretest_comparison_w1.png" width="50%" /><img src="../tables/attrition_pretest_comparison_w2.png" width="50%" />
+
 ## NALMS activity by attrition
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -277,6 +279,8 @@ Wave 2:
     ## alternative hypothesis: true location shift is not equal to 0
 
 ### Do learners with 0 engagement in NALMS differ at post?
+
+<img src="../tables/active_past_day_1_nalms_full_comparison.png" width="50%" />
 
 <img src="../figures/active_past_day_1_needsassessment.png" width="50%" /><img src="../figures/active_past_day_1_pretest.png" width="50%" /><img src="../figures/active_past_day_1_posttest.png" width="50%" />
 
