@@ -238,6 +238,8 @@ Wave 2:
     ## analyzed      1   0.488 0.48820  1.7169 0.1908
     ## Residuals   399 113.454 0.28435
 
+Wave 1:
+
     ## Warning for variable 'relevance':
     ## simpleWarning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot compute exact p-value with ties
 
@@ -253,9 +255,15 @@ Wave 2:
     ## Warning for variable 'openscience_pre':
     ## simpleWarning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot compute exact p-value with ties
 
-<img src="../tables/attrition_pretest_comparison_w1.png" width="50%" /><img src="../tables/attrition_pretest_comparison_w2.png" width="50%" />
+<img src="../tables/attrition_pretest_comparison_w1.png" width="50%" />
+
+Wave 2:
+
+<img src="../tables/attrition_pretest_comparison_w2.png" width="50%" />
 
 ## NALMS activity by attrition
+
+Note that NALMS activity data was only captured for Wave 2.
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 

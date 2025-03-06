@@ -99,7 +99,7 @@ needs_asssessment_and_attrition <- needs_assessment |>
                    .by = c(record_id, question)) |> 
   # add in attrition info
   dplyr::left_join(attrition_data, by = "record_id") |> 
-  dplyr::mutate(analyzed = as.factor(analyzed))
+  dplyr::mutate(analyzed = factor(analyzed, levels = c(0,1), labels = c("No", "Yes")))
 
 (needs_asssessment_and_attrition |> 
   ggplot(aes(y=mean, group=analyzed, fill = analyzed)) + 
@@ -113,7 +113,7 @@ needs_asssessment_and_attrition <- needs_assessment |>
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "attrition_needsassessment.png",
                  width = 6,
-                 height = 6)
+                 height = 5)
 ```
 
 Logistic regression models with analyzed vs. not as outcome and means of each needs assessment area (learn, relevance, expertise) as predictors. 
@@ -256,7 +256,9 @@ combined_data <- attrition_data |>
   dplyr::left_join(nih_post_summary, by = "record_id")
 ```
 
-```{r individual_comparisons_tables_pre}
+Wave 1:
+
+```{r individual_comparisons_tables_w1}
 combined_data |> 
   dplyr::filter(needs_assessment==1 & wave == "Wave 1") |> 
   dplyr::select(analyzed:openscience_pre) |> 
@@ -280,7 +282,11 @@ combined_data |>
     path = here::here("reports", "tables"))
 
 knitr::include_graphics(here::here("reports", "tables", "attrition_pretest_comparison_w1.png"))  
+```
 
+Wave 2:
+
+```{r individual_comparisons_tables_w2}
 combined_data |> 
   dplyr::filter(needs_assessment==1 & wave == "Wave 2") |> 
   dplyr::select(analyzed:openscience_pre) |> 
@@ -309,6 +315,8 @@ knitr::include_graphics(here::here("reports", "tables", "attrition_pretest_compa
 
 ## NALMS activity by attrition
 
+Note that NALMS activity data was only captured for Wave 2.
+
 ```{r}
 nalms_and_attrition <- readRDS(here::here("data", "deidentified", "nalms_summary.rds")) |>
   dplyr::left_join(waves, by = "record_id") |> 
@@ -327,12 +335,14 @@ nalms_and_attrition <- readRDS(here::here("data", "deidentified", "nalms_summary
                 past_week_1 = ifelse(last_date > lubridate::ymd("2023-08-14"), 1, 0),
                 past_week_2 = ifelse(last_date > lubridate::ymd("2023-08-21"), 1, 0)) |> 
   #join in attrition data
-  dplyr::left_join(attrition_data, by = "record_id") 
+  dplyr::left_join(attrition_data, by = "record_id") |> 
+  dplyr::mutate(analyzed = factor(analyzed, levels = c(0,1), labels = c("Not Analyzed", "Analyzed")))
 
 (nalms_and_attrition |> 
-  ggplot(aes(x=last_date, fill = as.factor(analyzed))) + 
-  geom_histogram() + 
-  facet_wrap(~analyzed)) |> 
+  ggplot(aes(x=last_date, fill = analyzed)) + 
+  geom_histogram(show.legend = FALSE) + 
+  facet_wrap(~analyzed) + 
+  labs(title = "Date of last NALMS activity for learners\nwho were analyzed in final dataset vs. not")) |> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "attrition_nalms_lastdate.png",
                  width = 6,
@@ -340,9 +350,10 @@ nalms_and_attrition <- readRDS(here::here("data", "deidentified", "nalms_summary
   
 
 (nalms_and_attrition |> 
-  ggplot(aes(x=engagement, fill = as.factor(analyzed))) + 
-  geom_histogram() + 
-  facet_wrap(~analyzed)) |> 
+  ggplot(aes(x=engagement, fill = analyzed)) + 
+  geom_histogram(show.legend = FALSE) + 
+  facet_wrap(~analyzed) + 
+  labs(title = "Proportion of modules completed for learners\nwho were analyzed in final dataset vs. not")) |> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "attrition_nalms_engagement.png",
                  width = 6,
@@ -530,8 +541,8 @@ combined_data_long <- combined_data |>
        title = "Exit Survey Responses"))|> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "active_past_day_1_exit.png",
-                 width = 6,
-                 height = 6)
+                 width = 7,
+                 height = 5)
 ```
 
 
