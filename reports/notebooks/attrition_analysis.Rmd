@@ -104,7 +104,12 @@ needs_asssessment_and_attrition <- needs_assessment |>
 (needs_asssessment_and_attrition |> 
   ggplot(aes(y=mean, group=analyzed, fill = analyzed)) + 
   geom_boxplot() + 
-  facet_grid(wave ~ question))|> 
+  facet_grid(wave ~ question) +
+  theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  ) )|> 
   # the save_and_print function is defined in functions_plotting.R
   save_and_print(filename = "attrition_needsassessment.png",
                  width = 6,
@@ -455,7 +460,12 @@ combined_data_long <- combined_data |>
   dplyr::filter(question %in% c("relevance", "learn", "expertise")) |> 
   ggplot(aes(y=value, fill = past_day_1)) + 
   geom_boxplot() + 
-  facet_wrap(~question)+ 
+  facet_wrap(~question) +
+  theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  ) + 
   labs(fill = NULL, 
        title = "Needs Assessment Responses") ) |> 
   # the save_and_print function is defined in functions_plotting.R
@@ -467,7 +477,12 @@ combined_data_long <- combined_data |>
   dplyr::filter(question %in% c("ability_pre", "openscience_pre")) |> 
   ggplot(aes(y=value, fill = past_day_1)) + 
   geom_boxplot() + 
-  facet_wrap(~question)+ 
+  facet_wrap(~question) +
+  theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  ) + 
   labs(fill = NULL, 
        title = "Pretest Responses"))|> 
   # the save_and_print function is defined in functions_plotting.R
@@ -479,7 +494,12 @@ combined_data_long <- combined_data |>
   dplyr::filter(question %in% c("ability_post", "openscience_post")) |> 
   ggplot(aes(y=value, fill = past_day_1)) + 
   geom_boxplot() + 
-  facet_wrap(~question) + 
+  facet_wrap(~question) +
+  theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  ) + 
   labs(fill = NULL, 
        title = "Posttest Responses"))|> 
   # the save_and_print function is defined in functions_plotting.R
@@ -492,7 +512,12 @@ combined_data_long <- combined_data |>
   ggplot(aes(y=value, fill = past_day_1)) + 
   geom_boxplot() + 
   facet_wrap(~question, ncol = 5) + 
-  theme(legend.position = "bottom") + 
+  theme(legend.position = "bottom") +
+  theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  ) + 
   labs(fill = NULL, 
        title = "Exit Survey Responses"))|> 
   # the save_and_print function is defined in functions_plotting.R
