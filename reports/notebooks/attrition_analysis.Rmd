@@ -48,7 +48,7 @@ w1 <- readRDS(here::here("data", "interim", "data_for_hyp_testing_w1.rds"))
 w2 <- readRDS(here::here("data", "interim", "data_for_hyp_testing_w2.rds"))
 
 # NALMS
-nalms <- consented <- readRDS(here::here("data", "deidentified", "nalms_summary.rds")) 
+nalms <- readRDS(here::here("data", "deidentified", "nalms_summary.rds")) 
 ```
 
 ```{r combine_data}
