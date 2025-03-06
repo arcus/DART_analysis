@@ -278,7 +278,8 @@ combined_data |>
   gt::gtsave( # save table as image
     filename = "attrition_pretest_comparison_w1.png",
     path = here::here("reports", "tables"))
-  
+
+knitr::include_graphics(here::here("reports", "tables", "attrition_pretest_comparison_w1.png"))  
 
 combined_data |> 
   dplyr::filter(needs_assessment==1 & wave == "Wave 2") |> 
@@ -302,6 +303,7 @@ combined_data |>
     filename = "attrition_pretest_comparison_w2.png",
     path = here::here("reports", "tables"))
 
+knitr::include_graphics(here::here("reports", "tables", "attrition_pretest_comparison_w2.png")) 
 ```
 
 
@@ -370,6 +372,8 @@ nalms_and_attrition |>
     filename = "attrition_nalms_crosstab1.png",
     path = here::here("reports", "tables"))
 
+knitr::include_graphics(here::here("reports", "tables", "attrition_nalms_crosstab1.png")) 
+
 nalms_and_attrition |> 
   dplyr::mutate(past_day_1 = factor(past_day_1, levels = c(0,1), labels=c("No", "Yes")),
                 analyzed = factor(analyzed, levels = c(0,1), labels = c("No", "Yes"))) |> 
@@ -381,6 +385,8 @@ nalms_and_attrition |>
   gt::gtsave( # save table as image
     filename = "attrition_nalms_crosstab2.png",
     path = here::here("reports", "tables"))
+
+knitr::include_graphics(here::here("reports", "tables", "attrition_nalms_crosstab2.png")) 
 ```
 
 ```{r}
@@ -437,6 +443,8 @@ combined_data |>
   gt::gtsave( # save table as image
     filename = "active_past_day_1_nalms_full_comparison.png",
     path = here::here("reports", "tables"))
+
+knitr::include_graphics(here::here("reports", "tables", "active_past_day_1_nalms_full_comparison.png")) 
 ```
 
 ```{r}
