@@ -25,13 +25,90 @@ Comment from reviewer 2:
 
 ## How many participants completed each assessment phase for each wave?
 
+To be included in analysis, participant must have had data available on
+all key measures (list-wise deletion, a.k.a. complete case analysis). A
+few Wave 2 participants filled out the exit survey but not the post
+test, and a few filled out the post test but not the exit survey,
+resulting in a lower n for the analysis subset than either the post test
+or exit survey totals.
+
 <img src="../tables/screened_participant_n_by_phase.png" width="50%" />
 
 ## Look for differences for participants who dropped out
 
 ### Needs assessment differences for analyzed vs not?
 
+Examining all participants who filled out the needs assessment (w1 n=97,
+w2 n=419), does the group who is eventually included in the final
+analysis (w1 n=48, w2 n=239) differ from those who are not?
+
 <img src="../figures/attrition_needsassessment.png" width="50%" />
+
+Logistic regression models with analyzed vs. not as outcome and means of
+each needs assessment area (learn, relevance, expertise) as predictors.
+
+Wave 1:
+
+    ## 
+    ## Call:
+    ## glm(formula = analyzed ~ relevance * expertise * learn, family = "binomial", 
+    ##     data = dplyr::filter(needs_asssessment_and_attrition_wide, 
+    ##         wave == "Wave 1"))
+    ## 
+    ## Coefficients:
+    ##                           Estimate Std. Error z value Pr(>|z|)   
+    ## (Intercept)                0.03513    0.25862   0.136  0.89195   
+    ## relevance                 -1.13329    0.87614  -1.294  0.19584   
+    ## expertise                  0.39152    1.16163   0.337  0.73608   
+    ## learn                      1.02000    0.80529   1.267  0.20529   
+    ## relevance:expertise       -9.57501    3.57565  -2.678  0.00741 **
+    ## relevance:learn            2.77944    2.04423   1.360  0.17394   
+    ## expertise:learn            5.84472    3.55642   1.643  0.10029   
+    ## relevance:expertise:learn 15.76074    8.15893   1.932  0.05339 . 
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## (Dispersion parameter for binomial family taken to be 1)
+    ## 
+    ##     Null deviance: 134.46  on 96  degrees of freedom
+    ## Residual deviance: 118.65  on 89  degrees of freedom
+    ## AIC: 134.65
+    ## 
+    ## Number of Fisher Scoring iterations: 5
+
+Wave 2:
+
+    ## 
+    ## Call:
+    ## glm(formula = analyzed ~ relevance * expertise * learn, family = "binomial", 
+    ##     data = dplyr::filter(needs_asssessment_and_attrition_wide, 
+    ##         wave == "Wave 2"))
+    ## 
+    ## Coefficients:
+    ##                           Estimate Std. Error z value Pr(>|z|)   
+    ## (Intercept)                 0.3586     0.1101   3.256  0.00113 **
+    ## relevance                  -0.1193     0.2765  -0.431  0.66611   
+    ## expertise                   0.0678     0.2956   0.229  0.81857   
+    ## learn                       0.1820     0.2658   0.685  0.49348   
+    ## relevance:expertise        -0.6492     0.6732  -0.964  0.33488   
+    ## relevance:learn            -0.4004     0.5398  -0.742  0.45825   
+    ## expertise:learn            -0.1157     0.5968  -0.194  0.84624   
+    ## relevance:expertise:learn  -0.4083     1.0932  -0.373  0.70879   
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## (Dispersion parameter for binomial family taken to be 1)
+    ## 
+    ##     Null deviance: 572.52  on 418  degrees of freedom
+    ## Residual deviance: 568.52  on 411  degrees of freedom
+    ## AIC: 584.52
+    ## 
+    ## Number of Fisher Scoring iterations: 4
+
+MANOVA models with means of each needs assessment area (learn,
+relevance, expertise) as outcomes and analyzed vs. not as group.
+
+Wave 1:
 
     ##           Df   Pillai approx F num Df den Df Pr(>F)
     ## analyzed   1 0.055747   1.8302      3     93 0.1471
@@ -54,6 +131,8 @@ Comment from reviewer 2:
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
+Wave 2:
+
     ##            Df    Pillai approx F num Df den Df Pr(>F)
     ## analyzed    1 0.0021252  0.29462      3    415 0.8293
     ## Residuals 417
@@ -75,18 +154,22 @@ Comment from reviewer 2:
 
 ### Pretest differences for analyzed vs not?
 
+Logistic regression models with analyzed vs. not as outcome and mean
+pretest scores for ability and open science as predictors.
+
+Wave 1:
+
     ## 
     ## Call:
     ## glm(formula = analyzed ~ ability_pre * openscience_pre, family = "binomial", 
-    ##     data = dplyr::filter(nih_pre_and_attrition, nih_pre == 1 & 
-    ##         wave == "Wave 1"))
+    ##     data = dplyr::filter(nih_pre_and_attrition, wave == "Wave 1"))
     ## 
     ## Coefficients:
     ##                             Estimate Std. Error z value Pr(>|z|)
-    ## (Intercept)                  -8.2725    11.0485  -0.749    0.454
-    ## ability_pre                   4.0311     5.1690   0.780    0.435
-    ## openscience_pre               1.2000     1.7484   0.686    0.493
-    ## ability_pre:openscience_pre  -0.5753     0.8144  -0.706    0.480
+    ## (Intercept)                  0.10052    0.21146   0.475    0.635
+    ## ability_pre                  0.43964    0.38327   1.147    0.251
+    ## openscience_pre              0.04536    0.42525   0.107    0.915
+    ## ability_pre:openscience_pre -0.57532    0.81440  -0.706    0.480
     ## 
     ## (Dispersion parameter for binomial family taken to be 1)
     ## 
@@ -96,18 +179,21 @@ Comment from reviewer 2:
     ## 
     ## Number of Fisher Scoring iterations: 4
 
+Wave 2:
+
     ## 
     ## Call:
     ## glm(formula = analyzed ~ ability_pre * openscience_pre, family = "binomial", 
-    ##     data = dplyr::filter(nih_pre_and_attrition, nih_pre == 1 & 
-    ##         wave == "Wave 2"))
+    ##     data = dplyr::filter(nih_pre_and_attrition, wave == "Wave 2"))
     ## 
     ## Coefficients:
-    ##                             Estimate Std. Error z value Pr(>|z|)
-    ## (Intercept)                  -4.1944     4.1737  -1.005    0.315
-    ## ability_pre                   2.8013     1.8353   1.526    0.127
-    ## openscience_pre               0.7211     0.6614   1.090    0.276
-    ## ability_pre:openscience_pre  -0.4415     0.2879  -1.534    0.125
+    ##                             Estimate Std. Error z value Pr(>|z|)    
+    ## (Intercept)                  0.42017    0.10441   4.024 5.72e-05 ***
+    ## ability_pre                  0.05672    0.16556   0.343    0.732    
+    ## openscience_pre             -0.30811    0.20062  -1.536    0.125    
+    ## ability_pre:openscience_pre -0.44155    0.28792  -1.534    0.125    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## (Dispersion parameter for binomial family taken to be 1)
     ## 
@@ -116,6 +202,11 @@ Comment from reviewer 2:
     ## AIC: 544.93
     ## 
     ## Number of Fisher Scoring iterations: 4
+
+MANOVA models with mean pretest scores for ability and open science as
+outcomes.
+
+Wave 1:
 
     ##           Df   Pillai approx F num Df den Df Pr(>F)
     ## analyzed   1 0.012227  0.55084      2     89 0.5784
@@ -130,6 +221,8 @@ Comment from reviewer 2:
     ##             Df  Sum Sq  Mean Sq F value Pr(>F)
     ## analyzed     1  0.0013 0.001264  0.0049 0.9445
     ## Residuals   90 23.3486 0.259428
+
+Wave 2:
 
     ##            Df    Pillai approx F num Df den Df Pr(>F)
     ## analyzed    1 0.0042848  0.85634      2    398 0.4255

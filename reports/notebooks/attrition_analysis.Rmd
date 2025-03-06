@@ -66,6 +66,9 @@ attrition_data <- waves |>
 
 ## How many participants completed each assessment phase for each wave?
 
+To be included in analysis, participant must have had data available on all key measures (list-wise deletion, a.k.a. complete case analysis). 
+A few Wave 2 participants filled out the exit survey but not the post test, and a few filled out the post test but not the exit survey, resulting in a lower n for the analysis subset than either the post test or exit survey totals.
+
 ```{r counts_by_phase}
 attrition_data |> 
   dplyr::select(wave, consented, needs_assessment, nih_pre, nih_post, exit, analyzed) |> 
@@ -82,6 +85,8 @@ knitr::include_graphics(here::here("reports", "tables", "screened_participant_n_
 ## Look for differences for participants who dropped out
 
 ### Needs assessment differences for analyzed vs not?
+
+Examining all participants who filled out the needs assessment (w1 n=97, w2 n=419), does the group who is eventually included in the final analysis (w1 n=48, w2 n=239) differ from those who are not?
 
 ```{r}
 needs_asssessment_and_attrition <- needs_assessment |> 
@@ -106,17 +111,49 @@ needs_asssessment_and_attrition <- needs_assessment |>
                  height = 6)
 ```
 
-```{r manova_needs_assessment}
-needs_asssessment_and_attrition_wide <- needs_asssessment_and_attrition |> 
-  tidyr::pivot_wider(names_from = question, values_from = mean)
+Logistic regression models with analyzed vs. not as outcome and means of each needs assessment area (learn, relevance, expertise) as predictors. 
 
+Wave 1:
+
+```{r glm_na_pre_w1}
+needs_asssessment_and_attrition_wide <- needs_asssessment_and_attrition |> 
+  tidyr::pivot_wider(names_from = question, values_from = mean) |> 
+  # center continuous predictors
+  dplyr::filter(needs_assessment == 1) |> 
+  dplyr::group_by(wave) |> 
+  dplyr::mutate(relevance = relevance - mean(relevance, na.rm = TRUE),
+                expertise = expertise - mean(expertise, na.rm = TRUE),
+                learn = learn - mean(learn, na.rm = TRUE))
+
+glm(analyzed ~ relevance * expertise * learn,
+    family= "binomial",
+    data = dplyr::filter(needs_asssessment_and_attrition_wide, wave == "Wave 1")) |> summary()
+```
+
+Wave 2:
+
+```{r glm_na_pre_w2}
+glm(analyzed ~ relevance * expertise * learn,
+    family= "binomial",
+    data = dplyr::filter(needs_asssessment_and_attrition_wide, wave == "Wave 2")) |> summary()
+```
+
+MANOVA models with means of each needs assessment area (learn, relevance, expertise) as outcomes and analyzed vs. not as group.
+
+Wave 1:
+
+```{r manova_needs_assessment_w1}
 manova_na_w1 <- manova(cbind(relevance, expertise, learn) ~ analyzed, data = dplyr::filter(needs_asssessment_and_attrition_wide,
                                                                                         needs_assessment == 1 & 
                                                                                           wave == "Wave 1"))
 
 summary(manova_na_w1)
 summary.aov(manova_na_w1)
+```
 
+Wave 2:
+
+```{r}
 manova_na_w2 <- manova(cbind(relevance, expertise, learn) ~ analyzed, data = dplyr::filter(needs_asssessment_and_attrition_wide,
                                                                                         needs_assessment == 1 & 
                                                                                           wave == "Wave 2"))
@@ -134,30 +171,49 @@ nih_pre_and_attrition <- nih_pre |>
                 openscience_pre = mean(dplyr::c_across(data_storage_1:code_efficient), na.rm = TRUE)) |> 
   dplyr::select(record_id, ability_pre, openscience_pre) |> 
   # join in the attrition data
-  dplyr::left_join(attrition_data, by = "record_id")
+  dplyr::left_join(attrition_data, by = "record_id") |> 
+  # only cases who completed prettest
+  dplyr::filter(nih_pre == 1) |> 
+  # center continuous predictors
+  dplyr::group_by(wave) |> 
+  dplyr::mutate(ability_pre = ability_pre - mean(ability_pre, na.rm = TRUE),
+                openscience_pre = openscience_pre - mean(openscience_pre, na.rm = TRUE))
 ```
 
-```{r glm_nih_pre}
-glm(analyzed ~ ability_pre * openscience_pre,
-    family= "binomial",
-    data = dplyr::filter(nih_pre_and_attrition, nih_pre == 1 & wave == "Wave 1")) |> summary()
+Logistic regression models with analyzed vs. not as outcome and mean pretest scores for ability and open science as predictors. 
 
+Wave 1:
+
+```{r glm_nih_pre_w1}
 glm(analyzed ~ ability_pre * openscience_pre,
     family= "binomial",
-    data = dplyr::filter(nih_pre_and_attrition, nih_pre == 1 & wave == "Wave 2")) |> summary()
+    data = dplyr::filter(nih_pre_and_attrition, wave == "Wave 1")) |> summary()
 ```
 
+Wave 2:
 
-```{r manova_nih_pre}
+```{r glm_nih_pre_w2}
+glm(analyzed ~ ability_pre * openscience_pre,
+    family= "binomial",
+    data = dplyr::filter(nih_pre_and_attrition, wave == "Wave 2")) |> summary()
+```
+
+MANOVA models with mean pretest scores for ability and open science as outcomes.
+
+Wave 1:
+
+```{r manova_nih_pre_w1}
 manova_pre_w1 <- manova(cbind(ability_pre, openscience_pre) ~ analyzed, data = dplyr::filter(nih_pre_and_attrition,
-                                                                                         nih_pre == 1 & 
                                                                                           wave == "Wave 1"))
 
 summary(manova_pre_w1)
 summary.aov(manova_pre_w1)
+```
 
+Wave 2:
+
+```{r manova_nih_pre_w2}
 manova_pre_w2 <- manova(cbind(ability_pre, openscience_pre) ~ analyzed, data = dplyr::filter(nih_pre_and_attrition,
-                                                                                        nih_pre == 1 & 
                                                                                           wave == "Wave 2"))
 summary(manova_pre_w2)
 summary.aov(manova_pre_w2)
