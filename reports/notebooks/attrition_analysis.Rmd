@@ -69,6 +69,7 @@ attrition_data <- waves |>
 ```{r counts_by_phase}
 attrition_data |> 
   dplyr::select(wave, consented, needs_assessment, nih_pre, nih_post, exit, analyzed) |> 
+  dplyr::filter(consented == 1) |> 
   gtsummary::tbl_summary(by=wave) |>   
   gtsummary::as_gt() |> # convert to gt table
   gt::gtsave( # save table as image
