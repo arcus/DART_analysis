@@ -196,24 +196,70 @@ n <- nrow(data)
 
 ## Needs assessment
 
+Respondents were asked to provide three ratings 
+
+- expertise ("Your level of expertise")
+- relevance ("Relevance to your work")
+- learn ("Your desire to learn") 
+
+for each of the data science topics, on a scale of 1 = "Very Low" to 5 = "Very High".
+
+```{r needs_assessment_metadata}
+readRDS(here::here("data", "deidentified", "pipeline_metadata.rds")) |> 
+  dplyr::filter(form_name == "needs_assessment") |> 
+  dplyr::select(Topic = matrix_group_name, `Question Text` = section_header) |> 
+  unique() |> 
+  knitr::kable()
+```
+
+Here are their responses collapsed across all topics (i.e. overall expertise, relevance and desire to learn).
+
 ```{r, warning=FALSE}
-data |> 
+(data |> 
   dplyr::select(record_id, data_viz_relevance:longitudinal_learn) |> 
   dplyr::rowwise() |> 
   dplyr::mutate(expertise = mean(dplyr::c_across(tidyselect::ends_with("_expertise")), na.rm = TRUE),
                 relevance = mean(dplyr::c_across(tidyselect::ends_with("_relevance")), na.rm = TRUE),
                 learn = mean(dplyr::c_across(tidyselect::ends_with("_learn"))), na.rm = TRUE) |> 
   tidyr::pivot_longer(c(expertise, relevance, learn)) |> 
+  dplyr::mutate(name = factor(name, levels = c("expertise", "relevance", "learn"))) |>  
   ggplot(aes(x=value)) + 
   geom_histogram(bins = 10) + 
   facet_wrap(~name) + 
   scale_x_continuous(limits = c(.5,5.5), breaks = 1:5) + 
-  labs(title = paste0("N=", n))
-ggsave(paste0("NeedsAssessmentHist-", filters, ".png"),
-       path = here::here("reports", "figures"),
-       width = 8, height = 5, units = "in")
+  labs(title = paste0("N=", n))) |> 
+  # the function save_and_print() is defined in functions_plotting.R
+  save_and_print(paste0("NeedsAssessmentHist-", filters, ".png"),
+                 width = 8, 
+                 height = 5)
 ```
 
+Here are their responses by topic:
+
+```{r, warning=FALSE}
+data_by_topic <- data |> 
+  dplyr::select(record_id, career_stage, data_viz_relevance:longitudinal_learn) |> 
+  tidyr::pivot_longer(data_viz_relevance:longitudinal_learn) |> 
+  tidyr::separate_wider_regex(name, patterns=c(topic=".*", "_", question="[[:alpha:]]+")) |> 
+  # set factor levels (reorder topics by value)
+  dplyr::mutate(topic = forcats::fct_reorder(topic, value),
+                question = factor(question, levels = c("expertise", "relevance", "learn")))
+
+(ggplot(data_by_topic, aes(x=value, y = topic)) + 
+  geom_point(aes(color=topic), alpha = .3, 
+             position = "jitter",
+             show.legend = FALSE) + 
+  geom_boxplot(outliers = FALSE) + 
+  facet_wrap(~question) + 
+  scale_x_continuous(limits = c(.5,5.5), breaks = 1:5) + 
+  labs(title = paste0("N=", n),
+       y = NULL,
+       x = NULL) ) |> 
+  # the function save_and_print() is defined in functions_plotting.R
+  save_and_print(paste0("NeedsAssessmentbyTopic-", filters, ".png"),
+                 width = 5, 
+                 height = 10)
+```
 
 ## Pretest data science ability and open science values
 
@@ -231,51 +277,56 @@ prepost_data <- data |>
 ```
 
 ```{r}
-prepost_data |> 
+(prepost_data |> 
   dplyr::filter(event == "pre") |> 
   ggplot(aes(x=ability)) + 
   geom_histogram(bins = 10) + 
   scale_x_continuous(limits = c(.5,4.5), breaks = 1:4) + 
   labs(subtitle = paste0("N=", n),
-       title = "Pretest")
-ggsave(paste0("NIHPreAbilityHist-", filters, ".png"),
-       path = here::here("reports", "figures"),
-       width = 5, height = 5, units = "in")
+       title = "Pretest") ) |> 
+  # the function save_and_print() is defined in functions_plotting.R
+  save_and_print(paste0("NIHPreAbilityHist-", filters, ".png"),
+                 width = 5, 
+                 height = 5)
+  
 
-prepost_data |> 
+(prepost_data |> 
   dplyr::filter(event == "pre") |> 
   ggplot(aes(x=openscience)) + 
   geom_histogram(bins = 10) + 
   scale_x_continuous(limits = c(.5,7.5), breaks = 1:7) + 
   labs(subtitle = paste0("N=", n),
-       title = "Pretest")
-ggsave(paste0("NIHPreOpenscienceHist-", filters, ".png"),
-       path = here::here("reports", "figures"),
-       width = 5, height = 5, units = "in")
+       title = "Pretest") ) |> 
+  # the function save_and_print() is defined in functions_plotting.R
+  save_and_print(paste0("NIHPreOpenscienceHist-", filters, ".png"),
+                 width = 5, 
+                 height = 5)
 ```
 
 ## Posttest data science ability and open science values
 
 ```{r}
-prepost_data |> 
+(prepost_data |> 
   dplyr::filter(event == "post") |> 
   ggplot(aes(x=ability)) + 
   geom_histogram(bins = 10) + 
   scale_x_continuous(limits = c(.5,4.5), breaks = 1:4) + 
   labs(subtitle = paste0("N=", n),
-       title = "Posttest")
-ggsave(paste0("NIHPostAbilityHist-", filters, ".png"),
-       path = here::here("reports", "figures"),
-       width = 5, height = 5, units = "in")
+       title = "Posttest") ) |> 
+  # the function save_and_print() is defined in functions_plotting.R
+  save_and_print(paste0("NIHPostAbilityHist-", filters, ".png"),
+                 width = 5, 
+                 height = 5)
 
-prepost_data |> 
+(prepost_data |> 
   dplyr::filter(event == "post") |> 
   ggplot(aes(x=openscience)) + 
   geom_histogram(bins = 10) + 
   scale_x_continuous(limits = c(.5,7.5), breaks = 1:7) + 
   labs(subtitle = paste0("N=", n),
-       title = "Posttest")
-ggsave(paste0("NIHPostOpenscienceHist-", filters, ".png"),
-       path = here::here("reports", "figures"),
-       width = 5, height = 5, units = "in")
+       title = "Posttest") ) |> 
+  # the function save_and_print() is defined in functions_plotting.R
+  save_and_print(paste0("NIHPostOpenscienceHist-", filters, ".png"),
+                 width = 5, 
+                 height = 5)
 ```
